@@ -45,25 +45,6 @@ def fetch_difficulties(representation=False, internal=False):
         return list(difficulty_values)
 
 
-def fetch_length(left_symbol, right_symbol, start, stop):
-    """
-    Computes the length of an interval between two numbers
-    based on whether the interval is: open, closed or half-open
-    """
-
-    assert left_symbol in ('[', '('), 'invalid mathematic notation for an interval'
-    assert right_symbol in (']', ')'), 'invalid mathematic notation for an interval'
-    assert all(isinstance(number, int) for number in (start, stop)), 'limits must be integers'
-    assert start <= stop, 'start value greater than end value'
-
-    if left_symbol == '[' and right_symbol == ']':
-        return len(range(start, stop + 1))
-    elif left_symbol == '(' and right_symbol == ')':
-        return len(range(start, stop - 1))
-    else:
-        return len(range(start, stop))
-
-
 def calculate_statistics(correct, wrong):
     """Computes the statistics based on the amount of items in categories correct and wrong"""
 
@@ -104,7 +85,12 @@ def generate_results(start_value, stop_value):
     except ValueError:
             print('{0} is not a number. Please enter a number'.format(user_raw_input))
     else:
-        cpu_result = fetch_length(left_symbol, right_symbol, start, stop)
+        if left_symbol == '[' and right_symbol == ']':
+            cpu_result = len(range(start, stop + 1))
+        elif left_symbol == '(' and right_symbol == ')':
+            cpu_result = len(range(start, stop - 1))
+        else:
+            cpu_result = len(range(start, stop))
 
     return user_result, cpu_result
 
