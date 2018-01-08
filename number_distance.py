@@ -109,7 +109,7 @@ def change_difficulty(avg_correct, avg_wrong, level, total_levels):
     avg_correct: int, number of correct answers
     avg_wrong: int, number of wrong answers
     level: tuple, current difficulty level from a range of difficulty levels
-    total_levels: tuple, a tuple of tuples representing different difficulty levels
+    total_levels: int, a number representing the total number of difficulties
     """
 
     cheerful_messages = (
