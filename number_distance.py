@@ -16,11 +16,17 @@ def fetch_difficulties(representation=False, internal=False):
 
     dict_data = (
         ('a. very easy', (0, 10**2 - 1)),
-        ('b. easy', (0, 10**3 - 1)),
-        ('c. normal', (0, 10**4 - 1)),
-        ('d. hard', (0, 10**5 - 1)),
-        ('e. very hard', (0, 10**6 - 1)),
-        ('f. impossible', (0, 10**9 - 1)),
+        ('b. very easy+ (including negative numbers)', (-10**2 - 1, 10**2 - 1)),
+        ('c. easy', (0, 10**3 - 1)),
+        ('d. easy+ (including negative numbers)', (-10**3 - 1, 10**3 - 1)),
+        ('e. normal', (0, 10**4 - 1)),
+        ('f. normal+ (including negative numbers)', (-10**4 - 1, 10**4 - 1)),
+        ('g. hard', (0, 10**5 - 1)),
+        ('h. hard+ (including negative numbers)', (-10**5 - 1, 10**5 - 1)),
+        ('i. very hard', (0, 10**6 - 1)),
+        ('j. very hard+ (including negative numbers)', (-10**6 - 1, 10**6 - 1)),
+        ('k. impossible', (0, 10**9 - 1)),
+        ('l. impossible+ (including negative numbers)', (-10**9 - 1, 10**9 - 1)),
     )
 
     difficulty_levels = OrderedDict(dict_data)
