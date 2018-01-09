@@ -2,6 +2,7 @@ import sys
 
 from collections import OrderedDict
 from random import choice, randint
+from time import perf_counter
 
 
 def fetch_difficulties(representation=False, internal=False):
@@ -178,6 +179,8 @@ def start_game(game_mode, game_difficulty, game_difficulties):
 
     total_correct, total_wrong = 0, 0
     avg_correct, avg_wrong, mean = 0, 0, 0
+    total_time, slowest_answer, fastest_answer = 0, 0, 0
+
     difficulty_levels = len(game_difficulties)
     difficulty_level = game_difficulties.index(game_difficulty)
 
@@ -186,7 +189,19 @@ def start_game(game_mode, game_difficulty, game_difficulties):
 
     while True:
         try:
+            timer_start = perf_counter()
             user_result, cpu_result = generate_results(start_value, stop_value)
+            time_spent = round(perf_counter() - timer_start, 2)
+
+            if time_spent > slowest_answer:
+                if not fastest_answer:
+                    slowest_answer = fastest_answer = time_spent
+                else:
+                    slowest_answer = time_spent
+            elif time_spent < fastest_answer:
+                fastest_answer = time_spent
+
+            total_time += time_spent
 
             if user_result is None or cpu_result is None:
                 continue
@@ -223,11 +238,23 @@ def start_game(game_mode, game_difficulty, game_difficulties):
                       ', or Ctrl-D on Unix\n')
 
         except KeyboardInterrupt:
-            print('\nGracefully exiting. Have a good day, thank you for your time :)')
-            total, correct, wrong = calculate_statistics(total_correct, total_wrong)
-            print('Your summary for today: {0} correct ({1}%), '
-                  '{2} wrong ({3}%) out of a total of {4}'.format(total_correct, correct,
-                                                                  total_wrong, wrong, total))
+            print('\n\nGracefully exiting. Hope you enjoyed :)'
+                  '\nHere\'s your summary for today:')
+            total, correct_percent, wrong_percent = calculate_statistics(total_correct, total_wrong)
+            print('\t* Correct answers: {0} representing ({1}%)\n'
+                  '\t* Incorrect answers: {2} representing ({3}%)\n'
+                  '\t* Total questions: {4}\n'
+                  '\t* Total time spent: {5} seconds (about {avg_time:0.2f} seconds per question)\n'
+                  '\t* Fastest answer: {6:0.2f} seconds\n'
+                  '\t* Slowest answer: {7:0.2f} seconds\n'.format(total_correct,
+                                                                  correct_percent,
+                                                                  total_wrong,
+                                                                  wrong_percent,
+                                                                  total,
+                                                                  total_time,
+                                                                  fastest_answer,
+                                                                  slowest_answer,
+                                                                  avg_time=total_time / total))
             sys.exit(0)
 
 
