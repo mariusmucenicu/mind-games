@@ -242,10 +242,11 @@ def start_game(game_mode, game_difficulty, game_difficulties):
             print('\n\nGracefully exiting. Hope you enjoyed :)'
                   '\nHere\'s your summary for today:')
             total, correct_percent, wrong_percent = calculate_statistics(total_correct, total_wrong)
+            avg_time = total_time / total
             print('\t* Correct answers: {0} representing ({1}%)\n'
                   '\t* Incorrect answers: {2} representing ({3}%)\n'
                   '\t* Total questions: {4}\n'
-                  '\t* Total time spent: {5} seconds (about {avg_time:0.2f} seconds per question)\n'
+                  '\t* Total time spent: {5:0.2f} seconds ({avg_time:0.3f} seconds per question)\n'
                   '\t* Fastest answer: {6:0.2f} seconds\n'
                   '\t* Slowest answer: {7:0.2f} seconds\n'.format(total_correct,
                                                                   correct_percent,
@@ -255,7 +256,7 @@ def start_game(game_mode, game_difficulty, game_difficulties):
                                                                   total_time,
                                                                   fastest_answer,
                                                                   slowest_answer,
-                                                                  avg_time=total_time / total))
+                                                                  avg_time=avg_time))
             sys.exit(0)
 
 
