@@ -102,16 +102,21 @@ def generate_results(start_value, stop_value):
     return user_result, cpu_result
 
 
-def change_difficulty(avg_correct, avg_wrong, level, total_levels):
+def change_difficulty(avg_correct, avg_wrong, game_difficulty, game_difficulties):
     """
     Increases or decreases the game difficulty from a range of difficulties based on
     the success rate computed from avg_correct and avg_wrong
 
     avg_correct: int, number of correct answers
     avg_wrong: int, number of wrong answers
-    level: tuple, current difficulty level from a range of difficulty levels
-    total_levels: int, a number representing the total number of difficulties
+    game_difficulty: tuple, current difficulty level from a range of game difficulties
+    game_difficulties: tuple, a range of difficulty levels
     """
+
+    assert game_difficulty in game_difficulties, 'invalid input data'
+
+    difficulty_levels = len(game_difficulties)
+    difficulty_level = game_difficulties.index(game_difficulty)
 
     cheerful_messages = (
         'Congratulations on your success! You have made us all proud. Keep up the good work!',
@@ -132,11 +137,12 @@ def change_difficulty(avg_correct, avg_wrong, level, total_levels):
         'I thought I had seen the pinnacle of stupid… Then I met you.',
         'If had a dollar for every smart thing you say. I’ll be poor.',
     )
+
     avg_statistics = calculate_statistics(avg_correct, avg_wrong)[1]
 
     if avg_statistics >= 50:
-        if level + 1 < total_levels:
-            level += 1
+        if difficulty_level + 1 < difficulty_levels:
+            difficulty_level += 1
             cheerful_quote = choice(cheerful_messages)
             print('{0}\nYou have an average of {1}% correct answers. '
                   'Auto increasing difficulty\n'.format(cheerful_quote, avg_statistics))
@@ -144,8 +150,8 @@ def change_difficulty(avg_correct, avg_wrong, level, total_levels):
             print('You are playing at the maximum level and going strong.\n'
                   'Please consider e-mailing marius_mucenicu@yahoo.com for extra levels\n')
     else:
-        if level:
-            level -= 1
+        if difficulty_level:
+            difficulty_level -= 1
             criticism_quote = choice(criticism_messages)
             print('{0}\nYou have an average of {1}% correct answers. '
                   'Auto decreasing difficulty\n'.format(criticism_quote, avg_statistics))
@@ -153,7 +159,7 @@ def change_difficulty(avg_correct, avg_wrong, level, total_levels):
             print('You are playing at the lowest level and still doing dreadfully.\n'
                   'You are a bad abacist, please consider stepping up your game!\n')
 
-    return level
+    return game_difficulties[difficulty_level]
 
 
 def start_game(game_mode, game_difficulty, game_difficulties):
@@ -172,17 +178,11 @@ def start_game(game_mode, game_difficulty, game_difficulties):
     """
 
     assert game_mode in ('auto', 'manual'), 'invalid game mode'
-    assert len(game_difficulty) == 2, 'invalid difficulty format'
-    assert all(isinstance(val, int) for val in game_difficulty), 'invalid game difficulty'
-    assert game_difficulty[0] <= game_difficulty[1], 'invalid game difficulty values'
     assert game_difficulty in game_difficulties, 'invalid input data'
 
     total_correct, total_wrong = 0, 0
     avg_correct, avg_wrong, mean = 0, 0, 0
     total_time, slowest_answer, fastest_answer = 0, 0, 0
-
-    difficulty_levels = len(game_difficulties)
-    difficulty_level = game_difficulties.index(game_difficulty)
 
     start_value = game_difficulty[0]
     stop_value = game_difficulty[1]
@@ -218,12 +218,13 @@ def start_game(game_mode, game_difficulty, game_difficulties):
                                                                                   cpu_result))
 
                 mean += 1
-
                 if mean == 5:
-                    difficulty_level = change_difficulty(avg_correct, avg_wrong,
-                                                         difficulty_level, difficulty_levels)
-                    start_value = game_difficulties[difficulty_level][0]
-                    stop_value = game_difficulties[difficulty_level][1]
+                    game_difficulty = change_difficulty(avg_correct,
+                                                        avg_wrong,
+                                                        game_difficulty,
+                                                        game_difficulties)
+                    start_value = game_difficulty[0]
+                    stop_value = game_difficulty[1]
                     avg_correct, avg_wrong, mean = 0, 0, 0
             elif user_result == cpu_result:
                 total_correct += 1

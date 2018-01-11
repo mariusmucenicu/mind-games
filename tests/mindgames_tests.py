@@ -34,10 +34,19 @@ def test_calculate_statistics():
 
 
 def test_change_difficulty():
-    assert_equals(nd.change_difficulty(3, 20, 0, 5), 0)
-    assert_equals(nd.change_difficulty(3, 20, 1, 5), 0)
-    assert_equals(nd.change_difficulty(3, 20, 4, 5), 3)
-    assert_equals(nd.change_difficulty(10, 10, 0, 5), 1)
-    assert_equals(nd.change_difficulty(10, 10, 1, 5), 2)
-    assert_equals(nd.change_difficulty(10, 10, 3, 5), 4)
-    assert_equals(nd.change_difficulty(10, 10, 4, 5), 4)
+    sample_difficulties = [
+        [1, 2],
+        [3, 4],
+        [5, 6],
+        [7, 8],
+        [9, 10]
+    ]
+
+    assert_equals(nd.change_difficulty(3, 20, [1, 2], sample_difficulties), [1, 2])
+    assert_equals(nd.change_difficulty(3, 20, [3, 4], sample_difficulties), [1, 2])
+    assert_equals(nd.change_difficulty(3, 20, [9, 10], sample_difficulties), [7, 8])
+    assert_equals(nd.change_difficulty(10, 10, [9, 10], sample_difficulties), [9, 10])
+    assert_equals(nd.change_difficulty(10, 10, [7, 8], sample_difficulties), [9, 10])
+    assert_equals(nd.change_difficulty(10, 10, [1, 2], sample_difficulties), [3, 4])
+    assert_raises(AssertionError, nd.change_difficulty, 10, 10, ['100', '100'], sample_difficulties)
+    assert_raises(AssertionError, nd.change_difficulty, 10, 10, [100, 100], sample_difficulties)
