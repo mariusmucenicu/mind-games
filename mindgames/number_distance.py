@@ -55,7 +55,7 @@ def fetch_difficulties(representation=False, internal=False):
 def calculate_statistics(correct, wrong):
     """Computes the statistics based on the amount of items in categories correct and wrong"""
 
-    assert all(type(obj) in (int, float) for obj in (correct, wrong)), 'ints or floats expected'
+    assert all(type(obj) == int for obj in (correct, wrong)), 'integers expected'
 
     total = correct + wrong
     correct_percentage = round(correct / total * 100, 2)
