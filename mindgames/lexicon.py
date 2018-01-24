@@ -76,7 +76,7 @@ class Lexicon:
         return words
 
     def scan_text(self, raw_string):
-        """Scans a user input and matches words against a lexicon to identify each word's class"""
+        """Scans a text and matches words against a lexicon to identify each word's class"""
         assert raw_string, 'invalid call with no data'
         assert check_ascii(raw_string), 'invalid characters'
 
