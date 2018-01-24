@@ -3,13 +3,7 @@ import unittest
 from mindgames.lexicon import check_ascii, Lexicon
 
 
-class LexiconTest(unittest.TestCase):
-    def setUp(self):
-        self.my_lexicon = Lexicon({
-            'subject': {'guido', 'dropbox'},
-            'predicate': {'create', 'forge'},
-        })
-
+class AsciiTest(unittest.TestCase):
     def test_check_ascii(self):
         self.assertEqual(any(check_ascii(chr(x)) for x in range(125, 255)), True)
         self.assertEqual(all(check_ascii(chr(x)) for x in range(0, 127)), True)
@@ -20,6 +14,14 @@ class LexiconTest(unittest.TestCase):
         self.assertRaises(AssertionError, check_ascii, ['abc'])
         self.assertRaises(AssertionError, check_ascii, 1234)
         self.assertRaises(AssertionError, check_ascii, {'a': 'test'})
+
+
+class LexiconTest(unittest.TestCase):
+    def setUp(self):
+        self.my_lexicon = Lexicon({
+            'subject': {'guido', 'dropbox'},
+            'predicate': {'create', 'forge'},
+        })
 
     def test_split_alnum(self):
         self.assertRaises(AssertionError, self.my_lexicon.split_alnum, ' We the best music!!1one  ')
