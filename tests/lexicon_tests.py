@@ -72,7 +72,7 @@ class LexiconTest(unittest.TestCase):
             'subject': {'i', 'player', 'julia', 'zuck'},
             'verb': {'run', 'go', 'start', 'swipe', 'push', 'acquiescence'},
             'object': {'bear', 'python', 'game', 'door'},
-            'constituents': {'at', 'or', 'in', 'through', 'over', 'this', 'the', 'that'}
+            'constituent': {'at', 'or', 'in', 'through', 'over', 'this', 'the', 'that'}
         }
         self.assertEqual(self.my_lexicon.check_lexicon(valid_lexicon), True)
 
@@ -80,7 +80,7 @@ class LexiconTest(unittest.TestCase):
             'subject': {*(rev[::-1] for rev in {'i', 'player', 'julia', 'zuck'})},
             'verb': {*(rev[::-1] for rev in {'run', 'go', 'start', 'push', 'acquiescence'})},
             'object': {*(rev[::-1] for rev in {'bear', 'python', 'game', 'door'})},
-            'constituents': {*(rev[::-1] for rev in {'at', 'or', 'in', 'through', 'over', 'this'})}
+            'constituent': {*(rev[::-1] for rev in {'at', 'or', 'in', 'through', 'over', 'this'})}
         }
         self.assertEqual(self.my_lexicon.check_lexicon(valid_lexicon_bogus_values), True)
 
@@ -88,7 +88,7 @@ class LexiconTest(unittest.TestCase):
             'tcejbus': {*(rev[::-1] for rev in {'i', 'player', 'julia', 'zuck'})},
             'breb': {*(rev[::-1] for rev in {'run', 'go', 'start', 'push', 'acquiescence'})},
             'tcejbo': {*(rev[::-1] for rev in {'bear', 'python', 'game', 'door'})},
-            'stneutitsnoc': {*(rev[::-1] for rev in {'at', 'or', 'in', 'through', 'over', 'this'})}
+            'tneutitsnoc': {*(rev[::-1] for rev in {'at', 'or', 'in', 'through', 'over', 'this'})}
         }
         self.assertEqual(self.my_lexicon.check_lexicon(valid_lexicon_bogus_data), True)
 
@@ -96,7 +96,7 @@ class LexiconTest(unittest.TestCase):
             'subject': {'i', 1, 'julia', 2},
             'verb': {'run', 20, 'start', 30, 'push', 'acquiescence'},
             'object': {'bear', 'python', 'game', 'door'},
-            'constituents': {'at', 'or', 'in', 'through', 'over', 'this', 'the', 'that'}
+            'constituent': {'at', 'or', 'in', 'through', 'over', 'this', 'the', 'that'}
         }
         self.assertRaises(AssertionError, self.my_lexicon.check_lexicon, invalid_lexicon_int)
 
@@ -104,7 +104,7 @@ class LexiconTest(unittest.TestCase):
             'subject': {'i', 'player', ('julia', 'moore'), ('zuck', 'mark')},
             'verb': {'run', ('go', 'sprint'), 'start', ('forge', 'craft'), 'push', 'acquiescence'},
             'object': {'bear', 'python', 'game', 'door'},
-            'constituents': {'at', 'or', 'in', 'through', 'over', 'this', 'the', 'that'}
+            'constituent': {'at', 'or', 'in', 'through', 'over', 'this', 'the', 'that'}
         }
         self.assertRaises(AssertionError, self.my_lexicon.check_lexicon, invalid_lexicon_tuple)
 
@@ -112,7 +112,7 @@ class LexiconTest(unittest.TestCase):
             'subject': {'i', 'player', 'julia', 'zuck', 'z00m', 'm00re'},
             'verb': {'run', 'go', 'start', 'sw1p3', 'push', 'acqu135c3nc3'},
             'object': {'bear', 'python', 'g4m3', 'd00r'},
-            'constituents': {'at', 'or', 'in', 'through', 'over', 'this', 'the', 'that'}
+            'constituent': {'at', 'or', 'in', 'through', 'over', 'this', 'the', 'that'}
         }
         self.assertRaises(AssertionError, self.my_lexicon.check_lexicon, invalid_lexicon_alnum)
 
@@ -120,7 +120,7 @@ class LexiconTest(unittest.TestCase):
             'subject': {'i', 'player#', 'julia', 'zuck'},
             'verb': {'run', 'go', '$tart', 'swipe', 'push', 'acquiescence'},
             'object': {'bear', 'pyt&on', 'game', 'door'},
-            'constituents': {'at', 'or', 'in', 'through', 'over', 'this', 'the', 'that'}
+            'constituent': {'at', 'or', 'in', 'through', 'over', 'this', 'the', 'that'}
         }
         self.assertRaises(AssertionError, self.my_lexicon.check_lexicon, invalid_lexicon_symbols)
 
@@ -128,7 +128,7 @@ class LexiconTest(unittest.TestCase):
             'subject': {'i', 'player one', 'julia roberts', 'zuck mark'},
             'verb': {'run', 'go', 'start', 'swipe left', 'push hard', 'acquiescence'},
             'object': {'be ar', 'py th on', 'ga me', 'd o o r'},
-            'constituents': {'at', 'or', 'in', 'through', 'over', 'this', 'the', 'that'}
+            'constituent': {'at', 'or', 'in', 'through', 'over', 'this', 'the', 'that'}
         }
         self.assertRaises(AssertionError, self.my_lexicon.check_lexicon, invalid_lexicon_spaces)
 
@@ -146,7 +146,7 @@ class LexiconTest(unittest.TestCase):
             'subject': {'I', 'PLAYER', 'JULIA', 'ZUCK'},
             'verb': {'RUN', 'GO', 'START', 'SWIPE', 'PUSH', 'ACQUIESENCE'},
             'object': {'BEAR', 'PYTHON', 'GAME', 'DOOR'},
-            'constituents': {'AT', 'OR', 'IN', 'THROUGH', 'OVER', 'THIS', 'THE', 'THAT'}
+            'constituent': {'AT', 'OR', 'IN', 'THROUGH', 'OVER', 'THIS', 'THE', 'THAT'}
         }
         self.assertRaises(AssertionError, self.my_lexicon.check_lexicon, invalid_lexicon_uppercase)
 
@@ -154,7 +154,7 @@ class LexiconTest(unittest.TestCase):
             'subject': {'I', 'PlAyEr', 'JuLiA', 'ZuCk'},
             'verb': {'RuN', 'Go', 'StArT', 'SwIpE', 'PuSh', 'AcQuIeSeNcE'},
             'object': {'BeAr', 'PyThOn', 'GaMe', 'DoOr'},
-            'constituents': {'aT', 'oR', 'iN', 'THROugh', 'ovER', 'tHIs', 'tHE', 'thAT'}
+            'constituent': {'aT', 'oR', 'iN', 'THROugh', 'ovER', 'tHIs', 'tHE', 'thAT'}
         }
         self.assertRaises(AssertionError, self.my_lexicon.check_lexicon, invalid_lexicon_mixcase)
 
@@ -162,7 +162,7 @@ class LexiconTest(unittest.TestCase):
             'subject': {'i', 'player', 'julia', 'zuck'},
             'verb': {'run', 'go', 'start', 'swipe', 'push', 'acquiescence'},
             'object': {'bear', 'python', 'game', 'door', 'zuck', 'julia'},  # duplicate entries
-            'constituents': {'at', 'or', 'in', 'through', 'over', 'this', 'the', 'that', 'go'}
+            'constituent': {'at', 'or', 'in', 'through', 'over', 'this', 'the', 'that', 'go'}
         }
         self.assertRaises(AssertionError, self.my_lexicon.check_lexicon, invalid_lexicon_dupes)
 
@@ -170,7 +170,7 @@ class LexiconTest(unittest.TestCase):
             'subject': {'i', 'player', 'julia', 'zuck'},
             'verb': {'run', 'go', 'start', 'swipe', 'push', 'acquiescence'},
             'object': {'bear', 'python', 'game', 'door', 'acquiescence'},
-            'constituents': {'at', 'or', 'in', 'through', 'over', 'this', 'the', 'that', 'go'}
+            'constituent': {'at', 'or', 'in', 'through', 'over', 'this', 'the', 'that', 'go'}
         }
         self.assertRaises(AssertionError, self.my_lexicon.check_lexicon, invalid_lexicon_dupes2)
 
@@ -178,7 +178,7 @@ class LexiconTest(unittest.TestCase):
             'subject': {'i', 'player', 'julia', 'zuck'},
             'verb': {'run', 'go', 'start', 'swipe', 'push', 'acquiescence'},
             'object': {'bear', 'python', 'game', 'door'},
-            'constituents': {'at', 'or', 'in', 'through', 'game', 'that', 'go', 'zuck'}
+            'constituent': {'at', 'or', 'in', 'through', 'game', 'that', 'go', 'zuck'}
         }
         self.assertRaises(AssertionError, self.my_lexicon.check_lexicon, invalid_lexicon_dupes3)
 
@@ -186,7 +186,7 @@ class LexiconTest(unittest.TestCase):
             'sub ject': {'i', 'player', 'julia', 'zuck'},
             'verb': {'run', 'go', 'start', 'swipe', 'push', 'acquiescence'},
             'object': {'bear', 'python', 'game', 'door'},
-            'constituents': {'at', 'or', 'in', 'through', 'over', 'this', 'the', 'that'}
+            'constituent': {'at', 'or', 'in', 'through', 'over', 'this', 'the', 'that'}
         }
         self.assertRaises(AssertionError, self.my_lexicon.check_lexicon, invalid_lexicon_keys)
 
@@ -194,7 +194,7 @@ class LexiconTest(unittest.TestCase):
             'subject': {'i', 'player', 'julia', 'zuck'},
             'verb1': {'run', 'go', 'start', 'swipe', 'push', 'acquiescence'},
             'object': {'bear', 'python', 'game', 'door'},
-            'constituents': {'at', 'or', 'in', 'through', 'over', 'this', 'the', 'that'}
+            'constituent': {'at', 'or', 'in', 'through', 'over', 'this', 'the', 'that'}
         }
         self.assertRaises(AssertionError, self.my_lexicon.check_lexicon, invalid_lexicon_keys2)
 
@@ -202,7 +202,7 @@ class LexiconTest(unittest.TestCase):
             'subject': {'i', 'player', 'julia', 'zuck'},
             'verb': {'run', 'go', 'start', 'swipe', 'push', 'acquiescence'},
             'OBJECT': {'bear', 'python', 'game', 'door'},
-            'constituents': {'at', 'or', 'in', 'through', 'over', 'this', 'the', 'that'}
+            'constituent': {'at', 'or', 'in', 'through', 'over', 'this', 'the', 'that'}
         }
         self.assertRaises(AssertionError, self.my_lexicon.check_lexicon, invalid_lexicon_keys3)
 
@@ -210,7 +210,7 @@ class LexiconTest(unittest.TestCase):
             'subject': {'i', 'player', 'julia', 'zuck'},
             'verb': {'run', 'go', 'start', 'swipe', 'push', 'acquiescence'},
             'object': {'bear', 'python', 'game', 'door'},
-            'CoNsTiTuEnTs': {'at', 'or', 'in', 'through', 'over', 'this', 'the', 'that'}
+            'CoNsTiTuEnT': {'at', 'or', 'in', 'through', 'over', 'this', 'the', 'that'}
         }
         self.assertRaises(AssertionError, self.my_lexicon.check_lexicon, invalid_lexicon_keys4)
 
@@ -218,7 +218,7 @@ class LexiconTest(unittest.TestCase):
             'subject': {'i', 'player', 'julia', 'zuck'},
             'verb': {'run', 'go', 'start', 'swipe', 'push', 'acquiescence'},
             'object': {'bear', 'python', 'game', 'door'},
-            'con$tituent$': {'at', 'or', 'in', 'through', 'over', 'this', 'the', 'that'}
+            'con$tituent': {'at', 'or', 'in', 'through', 'over', 'this', 'the', 'that'}
         }
         self.assertRaises(AssertionError, self.my_lexicon.check_lexicon, invalid_lexicon_keys5)
 
@@ -226,7 +226,7 @@ class LexiconTest(unittest.TestCase):
             'subject' + 'çèêëìíîïðñ': {'i', 'player', 'julia', 'zuck'},
             'verb': {'run', 'go', 'start', 'swipe', 'push', 'acquiescence'},
             'object': {'bear', 'python', 'game', 'door'},
-            'constituents': {'at', 'or', 'in', 'through', 'over', 'this', 'the', 'that'}
+            'constituent': {'at', 'or', 'in', 'through', 'over', 'this', 'the', 'that'}
         }
         self.assertRaises(AssertionError, self.my_lexicon.check_lexicon, invalid_nonascii_keys)
 
@@ -234,6 +234,6 @@ class LexiconTest(unittest.TestCase):
             'subject': {'i', 'playèêër', 'juliìíîïa', 'zuçk'},
             'verb': {'run', 'gð', 'start', 'swipe', 'push', 'acquiesceñce'},
             'object': {'bear', 'python', 'game', 'door'},
-            'constituents': {'at', 'or', 'in', 'through', 'over', 'this', 'the', 'that'}
+            'constituent': {'at', 'or', 'in', 'through', 'over', 'this', 'the', 'that'}
         }
         self.assertRaises(AssertionError, self.my_lexicon.check_lexicon, invalid_nonascii_values)

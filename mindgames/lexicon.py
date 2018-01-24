@@ -17,7 +17,7 @@ class Lexicon:
         {'subject': {'player', 'showman', 'etc'},
          'verb': {'go', 'run', 'etc'},
          'object': {'door', 'vault', 'etc'},
-         'constituents': {'in', 'at', 'etc'}}
+         'constituent': {'in', 'at', 'etc'}}
         """
 
         # class invariants
