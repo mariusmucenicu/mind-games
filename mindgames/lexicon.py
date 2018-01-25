@@ -2,7 +2,6 @@ def check_ascii(raw_string):
     """Checks whether all the characters in an input string are ASCII compatible"""
     assert raw_string, 'invalid call with no data'
     assert type(raw_string) == str, 'invalid data type, str expected'
-
     return all(ord(letter) < 127 for letter in raw_string)
 
 
@@ -44,7 +43,6 @@ class Lexicon:
                 assert False, 'duplicate entries for words {0}'.format(word_set & checked_words)
             else:
                 checked_words.update(word_set)
-
         return True
 
     def split_alnum(self, raw_string):
@@ -72,7 +70,6 @@ class Lexicon:
 
         words = raw_string.lower().split()
         assert all(word.isalpha() or word.isdigit() for word in words), 'alphanumeric words found'
-
         return words
 
     def scan_text(self, raw_string):
