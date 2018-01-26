@@ -36,6 +36,7 @@ class Lexicon:
 
         checked_words = set()
         for word_set in wordbook.values():
+            assert word_set, 'empty data set not allowed'
             assert all(type(word) == str and word.isalpha() and word.islower() and check_ascii(word)
                        for word in word_set), 'invalid word found in {0}'.format(word_set)
 
