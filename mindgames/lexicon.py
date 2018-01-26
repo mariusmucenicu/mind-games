@@ -22,11 +22,11 @@ class Lexicon:
         # class invariants
         assert wordbook, 'cannot operate on empty dictionary'
         assert isinstance(wordbook, dict), 'expected a dict type but got {0}'.format(type(wordbook))
-        assert self.check_lexicon(wordbook), 'invalid lexicon'
+        assert self.validate(wordbook), 'invalid lexicon'
 
         self.wordbook = wordbook
 
-    def check_lexicon(self, wordbook):
+    def validate(self, wordbook):
         """Ensures the wordbook contains: unique lowercase words with just alphabetic characters"""
         # TODO(Marius): also check the parts of speech against the acknowledged classification
         assert all(type(term) == str and term.isalpha() and term.islower() and check_ascii(term)
