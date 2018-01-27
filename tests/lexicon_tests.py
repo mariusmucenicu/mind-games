@@ -1,6 +1,6 @@
 import unittest
 
-from mindgames.lexicon import check_ascii, Lexicon
+from mindgames.lexicon import check_ascii, Lexicon, ParserError, Sentence
 
 
 class AsciiTest(unittest.TestCase):
@@ -404,3 +404,199 @@ class LexiconTest(unittest.TestCase):
         self.assertRaises(AssertionError, self.my_lexicon.scan_text, '0n#3, t$w$0, thr**33')
         self.assertRaises(AssertionError, self.my_lexicon.scan_text, '“Come on duck, let’s walk..”')
         self.assertRaises(AssertionError, self.my_lexicon.scan_text, chr(255) + chr(254))
+
+
+class SentenceTest(unittest.TestCase):
+    def setUp(self):
+        self.sentence = Sentence(word_order='SVO')
+        self.game_lexicon = Lexicon({
+            'subject': {'player'},
+            'verb': {'smack', 'punch', 'go', 'open'},
+            'object': {'bear', 'door', 'face', 'nose'},
+            'constituent': {'in', 'the', 'their', 'that', 'at', 'upon', 'where', 'on', 'through'}
+        })
+
+    def test_invalid_vaid_word_orders(self):
+        self.assertRaises(AssertionError, Sentence, 'vos')
+        self.assertRaises(AssertionError, Sentence, 'ovs')
+        self.assertRaises(AssertionError, Sentence, 'osv')
+        self.assertRaises(AssertionError, Sentence, 'bogus')
+        self.assertRaises(AssertionError, Sentence, 'b0gus')
+        self.assertRaises(AssertionError, Sentence, 'b0gu$')
+        self.assertRaises(AssertionError, Sentence, 'bogus bogus bogus')
+        self.assertRaises(AssertionError, Sentence, {'svo'})
+        self.assertRaises(AssertionError, Sentence, '1234')
+        self.assertRaises(AssertionError, Sentence, 1234)
+        self.assertRaises(AssertionError, Sentence, ['svo'])
+        self.assertRaises(AssertionError, Sentence, ('sov',))
+        self.assertRaises(AssertionError, Sentence, 'svo,')
+        self.assertRaises(AssertionError, Sentence, {'svo': ''})
+        self.assertRaises(AssertionError, Sentence, '')
+
+    def test_invalid_data_structure(self):
+        """Attempt to build a sentence with an unexpected data structure should raise an error"""
+        self.assertRaises(AssertionError, self.sentence.build, [['verb', 'eat'], ('subject', 'I')])
+        self.assertRaises(AssertionError, self.sentence.build, [('verb', 'eat'), {'subject', 'I'}])
+        self.assertRaises(AssertionError, self.sentence.build, [{'verb': 'eat'}, ('subject', 'I')])
+        self.assertRaises(AssertionError, self.sentence.build, [('verb', 'eat', 'sleep', 'rave')])
+        self.assertRaises(AssertionError, self.sentence.build, ['verb', 'eat', 'sleep', 'rave'])
+        self.assertRaises(AssertionError, self.sentence.build, {'verb', 'eat', 'sleep', 'rave'})
+        self.assertRaises(AssertionError, self.sentence.build, {'verb': 'eat', 'sleep': 'rave'})
+
+    def test_invalid_item_types(self):
+        """Attempt to build a sentence with unexpected types within pairs should raise an error"""
+        self.assertRaises(AssertionError, self.sentence.build, [(1, 'eat'), ('subject', 'I')])
+        self.assertRaises(AssertionError, self.sentence.build, [(1, 2), ('subject', 'I')])
+        self.assertRaises(AssertionError, self.sentence.build, [(1, 2), (3, 4)])
+        self.assertRaises(AssertionError, self.sentence.build, [('verb', 'eat'), ('subject', 3.14)])
+        self.assertRaises(AssertionError, self.sentence.build, [('verb', []), ('subject', 'I')])
+        self.assertRaises(AssertionError, self.sentence.build, [('verb', ['eat'])])
+        self.assertRaises(AssertionError, self.sentence.build, [('verb', {}), ('subject', 'I')])
+        self.assertRaises(AssertionError, self.sentence.build, [('verb', set()), ('subject', 'I')])
+        self.assertRaises(AssertionError, self.sentence.build, [('verb', {'eat'})])
+
+    def test_build_valid_svo_sentences(self):
+        """Build a Subject Verb Object simple sentence (independent clause) out of some of words"""
+        # subject is missing so we assume the subject is 'player'
+        valid_svo0 = self.game_lexicon.scan_text('Player punch bear')
+        valid_svo1 = self.game_lexicon.scan_text('Player punch the bear')
+        valid_svo2 = self.game_lexicon.scan_text('Player punch the bear in the face')
+        valid_svo3 = self.game_lexicon.scan_text('Player smack bear')
+        valid_svo4 = self.game_lexicon.scan_text('Player smack the bear')
+        valid_svo5 = self.game_lexicon.scan_text('Player smack the bear in the nose')
+        valid_svo6 = self.game_lexicon.scan_text('Player open door')
+        valid_svo7 = self.game_lexicon.scan_text('Player open the door')
+        valid_svo8 = self.game_lexicon.scan_text('Player punch through the door')
+        valid_svo9 = self.game_lexicon.scan_text('Player go through the door')
+        valid_svo10 = self.game_lexicon.scan_text('Player go through the door and do some stuff!!')
+        valid_svo11 = self.game_lexicon.scan_text('Player go in through the door and do some stuff')
+
+        self.assertEqual(self.sentence.build(valid_svo0), 'player punch bear')
+        self.assertEqual(self.sentence.build(valid_svo1), 'player punch bear')
+        self.assertEqual(self.sentence.build(valid_svo2), 'player punch bear')
+        self.assertEqual(self.sentence.build(valid_svo3), 'player smack bear')
+        self.assertEqual(self.sentence.build(valid_svo4), 'player smack bear')
+        self.assertEqual(self.sentence.build(valid_svo5), 'player smack bear')
+        self.assertEqual(self.sentence.build(valid_svo6), 'player open door')
+        self.assertEqual(self.sentence.build(valid_svo7), 'player open door')
+        self.assertEqual(self.sentence.build(valid_svo8), 'player punch door')
+        self.assertEqual(self.sentence.build(valid_svo9), 'player go door')
+        self.assertEqual(self.sentence.build(valid_svo10), 'player go door')
+        self.assertEqual(self.sentence.build(valid_svo11), 'player go door')
+
+    def test_build_invalid_svo_sentences(self):
+        invalid_svo0 = self.game_lexicon.scan_text('punch bear')
+        invalid_svo1 = self.game_lexicon.scan_text('punch the bear')
+        invalid_svo2 = self.game_lexicon.scan_text('punch the bear in the face')
+        invalid_svo3 = self.game_lexicon.scan_text('smack bear')
+        invalid_svo4 = self.game_lexicon.scan_text('smack the bear')
+        invalid_svo5 = self.game_lexicon.scan_text('smack the bear in the nose')
+        invalid_svo6 = self.game_lexicon.scan_text('open door')
+        invalid_svo7 = self.game_lexicon.scan_text('open the door')
+        invalid_svo8 = self.game_lexicon.scan_text('punch through the door')
+        invalid_svo9 = self.game_lexicon.scan_text('go through the door')
+        invalid_svo10 = self.game_lexicon.scan_text('Player go through the wooden, cheap door')
+
+        self.assertRaises(ParserError, self.sentence.build, invalid_svo0)
+        self.assertRaises(ParserError, self.sentence.build, invalid_svo1)
+        self.assertRaises(ParserError, self.sentence.build, invalid_svo2)
+        self.assertRaises(ParserError, self.sentence.build, invalid_svo3)
+        self.assertRaises(ParserError, self.sentence.build, invalid_svo4)
+        self.assertRaises(ParserError, self.sentence.build, invalid_svo5)
+        self.assertRaises(ParserError, self.sentence.build, invalid_svo6)
+        self.assertRaises(ParserError, self.sentence.build, invalid_svo7)
+        self.assertRaises(ParserError, self.sentence.build, invalid_svo8)
+        self.assertRaises(ParserError, self.sentence.build, invalid_svo9)
+        self.assertRaises(ParserError, self.sentence.build, invalid_svo10)
+
+    def test_build_valid_sov_sentences(self):
+        self.sentence = Sentence(word_order='sov')
+
+        valid_sov0 = self.game_lexicon.scan_text('Player bear punch')
+        valid_sov1 = self.game_lexicon.scan_text('Player the bear punch')
+        valid_sov2 = self.game_lexicon.scan_text('Player bear smack')
+        valid_sov3 = self.game_lexicon.scan_text('Player the bear smack')
+        valid_sov4 = self.game_lexicon.scan_text('Player door open')
+        valid_sov5 = self.game_lexicon.scan_text('Player the door open')
+        valid_sov6 = self.game_lexicon.scan_text('Player through the door punch')
+        valid_sov7 = self.game_lexicon.scan_text('Player through the door go')
+        valid_sov8 = self.game_lexicon.scan_text('Player in through the door go')
+
+        self.assertEqual(self.sentence.build(valid_sov0), 'player bear punch')
+        self.assertEqual(self.sentence.build(valid_sov1), 'player bear punch')
+        self.assertEqual(self.sentence.build(valid_sov2), 'player bear smack')
+        self.assertEqual(self.sentence.build(valid_sov3), 'player bear smack')
+        self.assertEqual(self.sentence.build(valid_sov4), 'player door open')
+        self.assertEqual(self.sentence.build(valid_sov5), 'player door open')
+        self.assertEqual(self.sentence.build(valid_sov6), 'player door punch')
+        self.assertEqual(self.sentence.build(valid_sov7), 'player door go')
+        self.assertEqual(self.sentence.build(valid_sov8), 'player door go')
+
+    def test_build_invalid_sov_sentences(self):
+        self.sentence = Sentence(word_order='sov')
+
+        invalid_sov0 = self.game_lexicon.scan_text('bear punch')
+        invalid_sov1 = self.game_lexicon.scan_text('the bear punch')
+        invalid_sov2 = self.game_lexicon.scan_text('bear smack')
+        invalid_sov3 = self.game_lexicon.scan_text('the bear smack')
+        invalid_sov4 = self.game_lexicon.scan_text('door open')
+        invalid_sov5 = self.game_lexicon.scan_text('the door open')
+        invalid_sov6 = self.game_lexicon.scan_text('through the door punch')
+        invalid_sov7 = self.game_lexicon.scan_text('through the door go')
+        invalid_sov8 = self.game_lexicon.scan_text('Player the bear in the face punch')
+        invalid_sov9 = self.game_lexicon.scan_text('Player the bear in the nose smack')
+
+        self.assertRaises(ParserError, self.sentence.build, invalid_sov0)
+        self.assertRaises(ParserError, self.sentence.build, invalid_sov1)
+        self.assertRaises(ParserError, self.sentence.build, invalid_sov2)
+        self.assertRaises(ParserError, self.sentence.build, invalid_sov3)
+        self.assertRaises(ParserError, self.sentence.build, invalid_sov4)
+        self.assertRaises(ParserError, self.sentence.build, invalid_sov5)
+        self.assertRaises(ParserError, self.sentence.build, invalid_sov6)
+        self.assertRaises(ParserError, self.sentence.build, invalid_sov7)
+        self.assertRaises(ParserError, self.sentence.build, invalid_sov8)
+        self.assertRaises(ParserError, self.sentence.build, invalid_sov9)
+
+    def test_build_valid_vso_sentences(self):
+        self.sentence = Sentence(word_order='vso')
+
+        valid_vso0 = self.game_lexicon.scan_text('punch Player bear')
+        valid_vso1 = self.game_lexicon.scan_text('punch Player the bear')
+        valid_vso2 = self.game_lexicon.scan_text('smack Player bear')
+        valid_vso3 = self.game_lexicon.scan_text('smack Player the bear')
+        valid_vso4 = self.game_lexicon.scan_text('open Player door')
+        valid_vso5 = self.game_lexicon.scan_text('open Player the door')
+        valid_vso6 = self.game_lexicon.scan_text('punch Player through the door')
+        valid_vso7 = self.game_lexicon.scan_text('go Player through the door')
+        valid_vso8 = self.game_lexicon.scan_text('go in Player through the door')
+
+        self.assertEqual(self.sentence.build(valid_vso0), 'punch player bear')
+        self.assertEqual(self.sentence.build(valid_vso1), 'punch player bear')
+        self.assertEqual(self.sentence.build(valid_vso2), 'smack player bear')
+        self.assertEqual(self.sentence.build(valid_vso3), 'smack player bear')
+        self.assertEqual(self.sentence.build(valid_vso4), 'open player door')
+        self.assertEqual(self.sentence.build(valid_vso5), 'open player door')
+        self.assertEqual(self.sentence.build(valid_vso6), 'punch player door')
+        self.assertEqual(self.sentence.build(valid_vso7), 'go player door')
+        self.assertEqual(self.sentence.build(valid_vso8), 'go player door')
+
+    def test_build_invalid_vso_sentences(self):
+        self.sentence = Sentence(word_order='vso')
+
+        invalid_vso0 = self.game_lexicon.scan_text('punch bear Player')
+        invalid_vso1 = self.game_lexicon.scan_text('punch the bear Player')
+        invalid_vso2 = self.game_lexicon.scan_text('smack bear Player')
+        invalid_vso3 = self.game_lexicon.scan_text('smack the bear Player')
+        invalid_vso4 = self.game_lexicon.scan_text('open door Player')
+        invalid_vso5 = self.game_lexicon.scan_text('open the door Player')
+        invalid_vso6 = self.game_lexicon.scan_text('punch through the door Player')
+        invalid_vso7 = self.game_lexicon.scan_text('go through the door Player')
+
+        self.assertRaises(ParserError, self.sentence.build, invalid_vso0)
+        self.assertRaises(ParserError, self.sentence.build, invalid_vso1)
+        self.assertRaises(ParserError, self.sentence.build, invalid_vso2)
+        self.assertRaises(ParserError, self.sentence.build, invalid_vso3)
+        self.assertRaises(ParserError, self.sentence.build, invalid_vso4)
+        self.assertRaises(ParserError, self.sentence.build, invalid_vso5)
+        self.assertRaises(ParserError, self.sentence.build, invalid_vso6)
+        self.assertRaises(ParserError, self.sentence.build, invalid_vso7)

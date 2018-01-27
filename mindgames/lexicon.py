@@ -5,6 +5,11 @@ def check_ascii(raw_string):
     return all(ord(letter) < 127 for letter in raw_string)
 
 
+class ParserError(Exception):
+    """Custom exception for dealing with invalid Sentence types"""
+    pass
+
+
 class Lexicon:
     def __init__(self, wordbook):
         """
@@ -91,3 +96,57 @@ class Lexicon:
             if not processed:
                 processed_words.append(('error', word))
         return processed_words
+
+
+class Sentence:
+    def __init__(self, word_order):
+        """
+        word_order: string, represents the rule upon which sentences will built
+
+        The most popular, acknowledged word orders are:
+            * Subject Verb Object (SVO),
+            * Subject Object Verb (SOV),
+            * Verb Subject Object (VSO),
+        All together they account for more than 85% of the world's languages
+        """
+
+        # class invariants
+        assert type(word_order) == str, 'invalid input type, str expected'
+        word_order = word_order.strip().lower()
+        assert word_order in ('svo', 'sov', 'vso'), 'invalid word order'
+
+        word_pattern = {
+            'svo': ('subject', 'verb', 'object'),
+            'sov': ('subject', 'object', 'verb'),
+            'vso': ('verb', 'subject', 'object'),
+        }
+        self.expected_order = word_pattern[word_order]
+
+    def build(self, words):
+        """Builds a simple sentence (one independent clause) based on the word order
+
+        words: list, contains 2 item tuples of the form ('token', 'word'), i.e ('verb', 'build')
+        """
+
+        assert words, 'invalid call with no data'
+        assert all(len(pair) == 2 and type(pair) == tuple
+                   for pair in words), 'invalid (token, word) data structure or items within != str'
+        assert all(type(item) == str
+                   for pair in words
+                   for item in pair), 'invalid element type in token-word pair'
+
+        position = 0
+        sentence = []
+
+        for token, word in words:
+            if token == 'constituent':
+                continue
+            elif token == self.expected_order[position]:
+                sentence.append(word)
+                if position + 1 >= len(self.expected_order):
+                    return ' '.join(sentence)
+                else:
+                    position += 1
+            else:
+                raise ParserError('Expected {0} but got {1}'.format(self.expected_order[position],
+                                                                    token))
