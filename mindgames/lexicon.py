@@ -29,6 +29,7 @@ class Lexicon:
     def validate(self, wordbook):
         """Ensures the wordbook contains: unique lowercase words with just alphabetic characters"""
         # TODO(Marius): also check the parts of speech against the acknowledged classification
+        assert len(wordbook) <= 64, 'too many parts of speech (word categories) in the lexicon'
         assert all(type(term) == str and term.isalpha() and term.islower() and check_ascii(term)
                    for term in wordbook.keys()), 'invalid word type or format within keys'
         assert all(type(word_set) == set

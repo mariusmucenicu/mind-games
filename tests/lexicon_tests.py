@@ -240,6 +240,26 @@ class LexiconTest(unittest.TestCase):
         }
         self.assertRaises(AssertionError, self.my_lexicon.validate, invalid_nonascii_values)
 
+        words = [chr(x) for x in range(97, 123)]
+
+        def make_word(words, number):
+            word = ''
+            for digit in str(number):
+                word += words[int(digit)]
+            return word
+
+        valid_number_keys32 = {
+            make_word(words, number): {make_word(words, number)}
+            for number in range(32)
+        }
+        self.assertEqual(self.my_lexicon.validate(valid_number_keys32), True)
+
+        invalid_number_keys65 = {
+            make_word(words, number): {make_word(words, number)}
+            for number in range(65)
+        }
+        self.assertRaises(AssertionError, self.my_lexicon.validate, invalid_number_keys65)
+
     def test_scan_text(self):
         self.my_lexicon.wordbook = {
             'subject': {'i'},
