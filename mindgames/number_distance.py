@@ -36,7 +36,6 @@ def fetch_difficulties(representation=False, internal=False):
     for min_value, max_value in difficulty_values:
         assert type(min_value) == int and type(max_value) == int, 'values must be integers'
         assert min_value <= max_value, 'invalid values for game difficulty'
-
     assert len(set(difficulty_values)) == len(difficulty_values), 'duplicates found'
 
     difficulty_keys = difficulty_levels.keys()
@@ -60,7 +59,6 @@ def calculate_statistics(correct, wrong):
     total = correct + wrong
     correct_percentage = round(correct / total * 100, 2)
     wrong_percentage = round(100 - correct_percentage, 2)
-
     return total, correct_percentage, wrong_percentage
 
 
@@ -216,7 +214,6 @@ def start_game(game_mode, game_difficulty, game_difficulties):
                     avg_wrong += 1
                     print('False\nYour result: {0}\nCorrect result: {1}\n'.format(user_result,
                                                                                   cpu_result))
-
                 mean += 1
                 if mean == 5:
                     game_difficulty = change_difficulty(avg_correct,
@@ -237,12 +234,13 @@ def start_game(game_mode, game_difficulty, game_difficulties):
             if randint(1, 10) == 9:
                 print('Remember this runs forever, you can always exit by hitting Ctrl-C on Windows'
                       ', or Ctrl-D on Unix\n')
-
         except KeyboardInterrupt:
             print('\n\nGracefully exiting. Hope you enjoyed :)'
                   '\nHere\'s your summary for today:')
+
             total, correct_percent, wrong_percent = calculate_statistics(total_correct, total_wrong)
             avg_time = total_time / total
+
             print('\t* Correct answers: {0} representing ({1}%)\n'
                   '\t* Incorrect answers: {2} representing ({3}%)\n'
                   '\t* Total questions: {4}\n'
@@ -283,16 +281,13 @@ def process_input(user_input):
         manual_choice = input('\nChoose one of the following difficulty modes '
                               '(using the desired mode\'s letter):{0}\n'
                               'Please enter your option here -> '.format(manual_options)).lower()
-
         assert manual_choice in user_choices, 'invalid choice'
-
         difficulty_level = user_choices.index(manual_choice)
         return 'manual', difficulties[difficulty_level], difficulties
 
 
 def explain_game():
     """Procedure which does a brief description of the game and its rules"""
-
     game_description = (
         '\nHello and welcome to the fascinating world of arithmetic\n'
         'This game aims to mimic the behavior of an abacus (without the beads that is)\n'
@@ -323,12 +318,9 @@ def play():
         '\n\tA. Auto increase the difficulty based on your skill.'
         '\n\tB. Manually choose the difficulty.\nPlease enter your option here -> '
     )
-
     user_input = input(input_message).lower()
     game_mode, game_difficulty, game_difficulties = process_input(user_input)
-
     assert game_mode and game_difficulty and game_difficulties, 'cannot start game without all data'
-
     start_game(game_mode, game_difficulty, game_difficulties)
 
 
