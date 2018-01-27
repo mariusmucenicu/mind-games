@@ -196,7 +196,7 @@ def start_game(game_mode, game_difficulty, game_difficulties):
 
             total_time += time_spent
 
-            if user_result is None or cpu_result is None:
+            if user_result is None:
                 continue
 
             if game_mode == 'auto':
