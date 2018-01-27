@@ -64,11 +64,10 @@ def calculate_statistics(correct, wrong):
 
 def generate_results(start_value, stop_value):
     """
-    Generates two results based on a question formed from start_value and stop_value
-    One is human based via standard input, and the other is CPU based via a computation.
-
     start_value: int, the number to marks the beginning of the interval
     stop_value: int, the number that marks the end of the interval
+
+    returns: a tuple consisting of two integers for success, two None values for failure
     """
 
     assert type(start_value) == int and type(stop_value) == int, 'invalid types for interval limits'
@@ -162,16 +161,12 @@ def change_difficulty(avg_correct, avg_wrong, game_difficulty, game_difficulties
 
 def start_game(game_mode, game_difficulty, game_difficulties):
     """
-    Main game engine, creates an environment based on the game mode and difficulty and interacts
-    with the user via standard input. The results from the user (via the standard input) are then
-    compared with the results of a machine and output is displayed.
-
-    It also generates statistics based on the amount of correct/incorrect answers and
-    changes game difficulties automatically if the game_mode is (you guessed it): 'auto'.
+    Interacts with the user via standard input. The results from the user are then compared against
+    the results of a machine and output is displayed.
+    It also generates statistics and changes game difficulties automatically if is mode is 'auto'.
 
     game_mode: str, game mode selected by the user, possible values: 'auto' or 'manual'
-    game_difficulty: tuple, game difficulty selected by the user,
-    in the form of (min_value, max_value) where the values represent the interval limits
+    game_difficulty: tuple, game difficulty selected by the user
     game_difficulties: tuple of tuples, all levels available as game difficulties
     """
 
