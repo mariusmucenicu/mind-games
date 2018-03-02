@@ -1,0 +1,33 @@
+$def with (level, question, answer, result)
+$var title: Failure
+
+
+<div class="row text-center">
+  <div class="col-md-12">
+    <h1><span class="result-incorrect text-uppercase">Incorrect!</span></h1>
+    <div class="results">
+      Interval: <strong>$question</strong><br></li>
+      Your answer: <strong class="result-incorrect">$answer</strong><br></li>
+      Correct answer: <strong class="result-correct">$result</strong></li>
+    </div>
+    <hr>
+  </div>
+</div>
+<div class="row" align="center">
+  <div class="col-md-12">
+    <img src="https://media.giphy.com/media/DHqth0hVQoIzS/giphy.gif" class="img-fluid"
+         title="Hangover" alt="oops">
+  </div>
+</div>
+<div class="row top-buffer" align="center">
+  <div class="col-md-6" align="right">
+    <form action="/play" method="POST">
+      <button class="btn btn-danger" type="submit" name="level" value="$level">
+        Next question
+      </button>
+    </form>
+  </div>
+  <div class="col-md-6" align="left">
+    <a href="https://www.google.com/" class="btn btn-danger">I'm done for today</a>
+  </div>
+</div>

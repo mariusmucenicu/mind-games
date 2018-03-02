@@ -67,3 +67,11 @@ venv.bak/
 
 # mkdocs documentation
 /site
+
+# front-end files (allow only minified)
+*.css
+!*.min.css
+
+*.js
+!*.min.js
+

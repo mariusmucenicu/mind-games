@@ -1,8 +1,6 @@
-import sys
-
+from ast import literal_eval
 from collections import OrderedDict
 from random import choice, randint
-from time import perf_counter
 
 
 def fetch_difficulties(representation=False, internal=False):
@@ -40,13 +38,11 @@ def fetch_difficulties(representation=False, internal=False):
 
     difficulty_keys = difficulty_levels.keys()
     user_choices = [choice.split('.')[0].strip().lower() for choice in difficulty_keys]
-    user_choices_values = [choice.split('.')[1].strip().lower() for choice in difficulty_keys]
 
     assert len(set(user_choices)) == len(user_choices), 'duplicates found'
-    assert len(set(user_choices_values)) == len(user_choices_values), 'duplicates found'
 
     if representation:
-        return user_choices, user_choices_values
+        return user_choices
     else:
         return list(difficulty_values)
 
@@ -62,44 +58,7 @@ def calculate_statistics(correct, wrong):
     return total, correct_percentage, wrong_percentage
 
 
-def generate_results(start_value, stop_value):
-    """
-    start_value: int, the number to marks the beginning of the interval
-    stop_value: int, the number that marks the end of the interval
-
-    returns: a tuple consisting of two integers for success, two None values for failure
-    """
-
-    assert type(start_value) == int and type(stop_value) == int, 'invalid types for interval limits'
-    assert start_value < stop_value, 'invalid interval limits'
-
-    left_symbols, right_symbols = ('[', '('), (']', ')')
-    start = randint(start_value, stop_value)
-    stop = randint(start, stop_value)
-    left_symbol = choice(left_symbols)
-    right_symbol = choice(right_symbols)
-
-    user_raw_input = input('How many natural numbers are between: '
-                           '{0}{start}, {stop}{1} ? '.format(left_symbol, right_symbol,
-                                                             start=start, stop=stop))
-    user_result, cpu_result = None, None
-
-    try:
-        user_result = int(user_raw_input)
-    except ValueError:
-            print('{0} is not a number. Please enter a number'.format(user_raw_input))
-    else:
-        if left_symbol == '[' and right_symbol == ']':
-            cpu_result = len(range(start, stop + 1))
-        elif left_symbol == '(' and right_symbol == ')':
-            cpu_result = len(range(start, stop - 1))
-        else:
-            cpu_result = len(range(start, stop))
-
-    return user_result, cpu_result
-
-
-def change_difficulty(avg_correct, avg_wrong, game_difficulty, game_difficulties):
+def change_difficulty(avg_correct, avg_wrong, game_difficulty, all_difficulties):
     """
     Increases or decreases the game difficulty from a range of difficulties based on
     the success rate computed from avg_correct and avg_wrong
@@ -107,13 +66,13 @@ def change_difficulty(avg_correct, avg_wrong, game_difficulty, game_difficulties
     avg_correct: int, number of correct answers
     avg_wrong: int, number of wrong answers
     game_difficulty: tuple, current difficulty level from a range of game difficulties
-    game_difficulties: tuple, a range of difficulty levels
+    all_difficulties: tuple, a range of difficulty levels
     """
 
-    assert game_difficulty in game_difficulties, 'invalid input data'
+    assert game_difficulty in all_difficulties, 'invalid input data'
 
-    difficulty_levels = len(game_difficulties)
-    difficulty_level = game_difficulties.index(game_difficulty)
+    difficulty_levels = len(all_difficulties)
+    difficulty_level = all_difficulties.index(game_difficulty)
 
     cheerful_messages = (
         'Congratulations on your success! You have made us all proud. Keep up the good work!',
@@ -156,168 +115,81 @@ def change_difficulty(avg_correct, avg_wrong, game_difficulty, game_difficulties
             print('You are playing at the lowest level and still doing dreadfully.\n'
                   'You are a bad abacist, please consider stepping up your game!\n')
 
-    return game_difficulties[difficulty_level]
+    return all_difficulties[difficulty_level]
 
 
-def start_game(game_mode, game_difficulty, game_difficulties):
-    """
-    Interacts with the user via standard input. The results from the user are then compared against
-    the results of a machine and output is displayed.
-    It also generates statistics and changes game difficulties automatically if is mode is 'auto'.
-
-    game_mode: str, game mode selected by the user, possible values: 'auto' or 'manual'
-    game_difficulty: tuple, game difficulty selected by the user
-    game_difficulties: tuple of tuples, all levels available as game difficulties
-    """
-
-    assert game_mode in ('auto', 'manual'), 'invalid game mode'
-    assert game_difficulty in game_difficulties, 'invalid input data'
-
-    total_correct, total_wrong = 0, 0
-    avg_correct, avg_wrong, mean = 0, 0, 0
-    total_time, slowest_answer, fastest_answer = 0, 0, 0
+def generate_interval(game_difficulty):
+    """Function description"""
 
     start_value = game_difficulty[0]
     stop_value = game_difficulty[1]
 
-    while True:
-        try:
-            timer_start = perf_counter()
-            user_result, cpu_result = generate_results(start_value, stop_value)
-            time_spent = round(perf_counter() - timer_start, 2)
+    left_glyphs, right_glyphs = ('[', '('), (']', ')')
+    start = randint(start_value, stop_value)
+    stop = randint(start, stop_value)
+    left_glyph = choice(left_glyphs)
+    right_glyph = choice(right_glyphs)
 
-            if time_spent > slowest_answer:
-                if not fastest_answer:
-                    slowest_answer = fastest_answer = time_spent
-                else:
-                    slowest_answer = time_spent
-            elif time_spent < fastest_answer:
-                fastest_answer = time_spent
+    data = {
+        'raw_data': {
+            'left_glyph': left_glyph,
+            'right_glyph': right_glyph,
+            'left_bound': start_value,
+            'right_bound': stop_value,
+            'start': start,
+            'stop': stop,
+            },
+        'interval': '{0}{start}, {stop}{1}'.format(left_glyph, right_glyph, start=start, stop=stop)
+    }
 
-            total_time += time_spent
+    return data
 
-            if user_result is None:
-                continue
 
-            if game_mode == 'auto':
-                if user_result == cpu_result:
-                    total_correct += 1
-                    avg_correct += 1
-                    print('Correct!\n')
-                else:
-                    total_wrong += 1
-                    avg_wrong += 1
-                    print('False\nYour result: {0}\nCorrect result: {1}\n'.format(user_result,
-                                                                                  cpu_result))
-                mean += 1
-                if mean == 5:
-                    game_difficulty = change_difficulty(avg_correct,
-                                                        avg_wrong,
-                                                        game_difficulty,
-                                                        game_difficulties)
-                    start_value = game_difficulty[0]
-                    stop_value = game_difficulty[1]
-                    avg_correct, avg_wrong, mean = 0, 0, 0
-            elif user_result == cpu_result:
-                total_correct += 1
-                print('Correct!\n')
-            else:
-                total_wrong += 1
-                print('False\nYour result: {0}\nCorrect result: {1}\n'.format(user_result,
-                                                                              cpu_result))
+def generate_results(data, value):
+    """Function description"""
+    assert type(data) == dict, 'invalid data type, got {0}, expected dict'.format(type(data))
+    assert value, 'invalid value'
 
-            if randint(1, 10) == 9:
-                print('Remember this runs forever, you can always exit by hitting Ctrl-C on Windows'
-                      ', or Ctrl-D on Unix\n')
-        except KeyboardInterrupt:
-            print('\n\nGracefully exiting. Hope you enjoyed :)'
-                  '\nHere\'s your summary for today:')
+    try:
+        int(value)
+    except ValueError:
+        raise AssertionError('Invalid data received for value')
 
-            total, correct_percent, wrong_percent = calculate_statistics(total_correct, total_wrong)
-            avg_time = total_time / total
+    left_glyph = data.get('left_glyph')
+    right_glyph = data.get('right_glyph')
+    start = data.get('start')
+    stop = data.get('stop')
+    cpu_result = None
 
-            print('\t* Correct answers: {0} representing ({1}%)\n'
-                  '\t* Incorrect answers: {2} representing ({3}%)\n'
-                  '\t* Total questions: {4}\n'
-                  '\t* Total time spent: {5:0.2f} seconds ({avg_time:0.3f} seconds per question)\n'
-                  '\t* Fastest answer: {6:0.2f} seconds\n'
-                  '\t* Slowest answer: {7:0.2f} seconds\n'.format(total_correct,
-                                                                  correct_percent,
-                                                                  total_wrong,
-                                                                  wrong_percent,
-                                                                  total,
-                                                                  total_time,
-                                                                  fastest_answer,
-                                                                  slowest_answer,
-                                                                  avg_time=avg_time))
-            sys.exit(0)
+    if left_glyph == '[' and right_glyph == ']':
+        cpu_result = len(range(start, stop + 1))
+    elif left_glyph == '(' and right_glyph == ')':
+        cpu_result = len(range(start, stop - 1))
+    else:
+        cpu_result = len(range(start, stop))
+
+    assert cpu_result is not None, 'correct data type and format received, invalid values'
+    return cpu_result, cpu_result == int(value)
 
 
 def process_input(user_input):
-    """
-    Processes a raw input from the keyboard, validates it and returns a game mode and difficulty
-    based on the selected option
-    """
+    """Function description"""
+    all_difficulties = fetch_difficulties(internal=True)
+    available_choices = fetch_difficulties(representation=True)
+    user_input = user_input.strip().lower()
 
-    assert user_input in ('a', 'b'), 'invalid choice'
-
-    difficulties = fetch_difficulties(internal=True)
-    user_choices, user_choices_values = fetch_difficulties(representation=True)
-    difficulties_representation = [
-        '{0}. {1}'.format(user_choices[num].upper(), user_choices_values[num].capitalize())
-        for num in range(len(user_choices))
-    ]
-
-    if user_input == 'a':
-        return 'auto', difficulties[0], difficulties  # for 'auto' we fetch the easiest difficulty
+    if len(user_input) > 1:
+        user_input = literal_eval(user_input)
+        assert user_input in all_difficulties, 'invalid level'
+        return user_input
     else:
-        manual_options = ''.join('\n\t{option}'.format(option=option)
-                                 for option in difficulties_representation)
-        manual_choice = input('\nChoose one of the following difficulty modes '
-                              '(using the desired mode\'s letter):{0}\n'
-                              'Please enter your option here -> '.format(manual_options)).lower()
-        assert manual_choice in user_choices, 'invalid choice'
-        difficulty_level = user_choices.index(manual_choice)
-        return 'manual', difficulties[difficulty_level], difficulties
+        assert user_input in available_choices, 'invalid choice'
+        difficulty_level = available_choices.index(user_input)
+        return all_difficulties[difficulty_level]
 
 
-def explain_game():
-    """Procedure which does a brief description of the game and its rules"""
-    game_description = (
-        '\nHello and welcome to the fascinating world of arithmetic\n'
-        'This game aims to mimic the behavior of an abacus (without the beads that is)\n'
-    )
-    game_rules = (
-        'The rules are pretty simple:\n'
-        'You will be given a series of numeric intervals\n'
-        'For each interval you have to type in how many numbers are in that interval\n'
-        'The intervals are of many different types but that\'s a whole nother story.\n'
-        '\nIn this version of the game you will be using the following types of intervals:'
-        '\n\t* the open interval: For example, (0,9) has 8 numbers.'
-        '\n\t* the closed interval: For example, [0,9] has 10 numbers.'
-        '\n\t* the half-open interval: For example (0,9] has 9 numbers.\n'
-    )
-    print(game_description)
-    print(game_rules)
-
-
-def play():
-    """The start procedure for the interactive counting game.
-
-    Calls different procedures using procedural composition, based on different choices and results
-    """
-
-    explain_game()
-    input_message = (
-        'Please choose one of the following game modes (using the desired option\'s letter): '
-        '\n\tA. Auto increase the difficulty based on your skill.'
-        '\n\tB. Manually choose the difficulty.\nPlease enter your option here -> '
-    )
-    user_input = input(input_message).lower()
-    game_mode, game_difficulty, game_difficulties = process_input(user_input)
-    assert game_mode and game_difficulty and game_difficulties, 'cannot start game without all data'
-    start_game(game_mode, game_difficulty, game_difficulties)
-
-
-if __name__ == "__main__":
-    play()
+def play(user_input):
+    """Function description"""
+    game_difficulty = process_input(user_input)
+    assert game_difficulty, 'cannot start game wihtout data'
+    return generate_interval(game_difficulty)
