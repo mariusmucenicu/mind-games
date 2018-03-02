@@ -12,14 +12,13 @@ def test_fetch_difficulties():
     assert_raises(AssertionError, nd.fetch_difficulties, False, 'falsy')
     assert_raises(AssertionError, nd.fetch_difficulties, True, '')
 
-    user_choices, user_choices_values = nd.fetch_difficulties(representation=True)
+    available_choices = nd.fetch_difficulties(representation=True)
     internal_difficulties = set(nd.fetch_difficulties(internal=True))
     additive_inverses = set(pair for pair in internal_difficulties if pair[0] < 0)
     progressive_intervals = internal_difficulties - additive_inverses
 
     # representation values
-    assert_equals(len(set(user_choices)), len(user_choices))
-    assert_equals(len(set(user_choices_values)), len(user_choices_values))
+    assert_equals(len(set(available_choices)), len(available_choices))
     # internal values
     assert_equals(all(negative + positive == 0 for negative, positive in additive_inverses), True)
     assert_equals(all(lower_bound[0] == 0 for lower_bound in progressive_intervals), True)

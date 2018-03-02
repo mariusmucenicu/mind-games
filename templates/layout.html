@@ -1,0 +1,20 @@
+$def with (content)
+
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>$content.title</title>
+     <!-- note that modern browsers figure out the encoding by themselves -->
+    <meta charset="UTF-8">
+    <meta name="author" content="Marius Mucenicu">
+    <meta name="description" content="A simple arithmetic game to help with boring times">
+    <link rel="stylesheet" href="../static/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../static/style.css">
+  </head>
+  <body>
+    <div class="container extra-buffer">
+      $:content
+    </div>
+  </body>
+</html>
