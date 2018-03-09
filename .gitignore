@@ -68,10 +68,9 @@ venv.bak/
 # mkdocs documentation
 /site
 
-# front-end files (allow only minified)
-*.css
-!*.min.css
-
-*.js
-!*.min.js
+# front-end files (allow only minified for frameworks)
+/static/bootstrap/**/*.css
+/static/bootstrap/**/!*.min.css
+/static/bootstrap/**/*.js
+/static/bootstrap/**/!*.min.js
 
