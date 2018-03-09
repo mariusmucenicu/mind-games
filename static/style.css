@@ -1,0 +1,97 @@
+body {
+    background-color: #eee!important;
+}
+
+.container {
+    background-color: rgb(255,255,255);
+}
+
+.extra-buffer {
+    margin-top: 10vh;
+}
+
+.interval {
+    color: #28a745;
+}
+
+.label {
+    padding: 1px 3px 2px;
+    font-size: 9.75px;
+    font-weight: bold;
+    color: #ffffff;
+    text-transform: uppercase;
+    white-space: nowrap;
+    border-radius: 3px;
+    text-decoration: none;
+    float:right;
+}
+
+.label.success {
+    background-color: #46a546;
+}
+
+.play-form-btn {
+    color: #757575;
+    background-color: #f8f8f8;
+    border: 1px solid #c6c6c6;
+    width: 23%;
+    white-space: normal;
+    overflow: hidden;
+}
+
+.play-form-text {
+    text-align: center;
+    width: 25%;
+    box-shadow: 0 3px 8px 0 rgba(0,0,0,0.2),0 0 0 1px rgba(0,0,0,0.08);
+    border-radius: 2px;
+    border-style: none;
+}
+
+.results {
+    font-size: larger;
+}
+
+.result-incorrect {
+    color: #dc3545;
+}
+
+.result-correct {
+    color: #28a745;
+}
+
+.secret-message {
+    width: 30px;
+}
+
+.secret-message:hover p.new-label span {
+  display: none;
+}
+
+.secret-message:hover p.new-label:after {
+  content: 'Marius Mucenicu had something to do with this website.';
+}
+
+.secret-message .label {
+    margin-bottom: 0;
+    margin-top: 1rem;
+}
+
+.top-buffer {
+    margin-top: 20px;
+}
+
+#play-btn-col-left {
+    padding-right: 4px;
+}
+
+#play-btn-col-right {
+    padding-left: 4px;
+}
+
+
+@media only screen and (max-width: 768px) {
+    .col-md-6 {
+        flex: 0 0 50%;
+        max-width: 100%;
+    }
+
