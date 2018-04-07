@@ -40,7 +40,7 @@ class Result:
         data = literal_eval(web.input().get('raw_data'))
         answer = web.input().get('answer')
         result = nd.generate_results(data, answer)
-        level = (data.get('left_bound'), data.get('right_bound'))
+        level = data.get('left_bound'), data.get('right_bound')
         question = '{0}{start}, {stop}{1}'.format(data.get('left_glyph'), data.get('right_glyph'),
                                                   start=data.get('start'), stop=data.get('stop'))
 
