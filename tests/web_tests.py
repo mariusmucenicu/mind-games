@@ -28,7 +28,7 @@ class TestCode(unittest.TestCase):
             'the half-open interval',
             'btn-begin',
             'btn-quit',
-            )
+        )
         response.mustcontain(*match_items)
 
     def test_grade(self):
@@ -41,7 +41,7 @@ class TestCode(unittest.TestCase):
             'Hard',
             'Use selected',
             'Just pick one for me',
-            )
+        )
         response.mustcontain(*match_items)
 
     def test_play(self):
@@ -57,22 +57,24 @@ class TestCode(unittest.TestCase):
             'footer',
             'play-form-text',
             'play-form-btn',
-            )
+        )
         response.mustcontain(*match_items)
 
     def test_result_correct(self):
         assert_raises(AppError, self.testApp.get, '/result')  # this is a 405 raise
         post_params = {
-            'raw_data': str({
-                'left_glyph': '[',
-                'right_glyph': ')',
-                'left_bound': 0,
-                'right_bound': 99,
-                'start': 59,
-                'stop': 78,
-                }),
+            'raw_data': str(
+                {
+                    'left_glyph': '[',
+                    'right_glyph': ')',
+                    'left_bound': 0,
+                    'right_bound': 99,
+                    'start': 59,
+                    'stop': 78,
+                }
+            ),
             'answer': 19,
-            }
+        }
         response = self.testApp.post('/result', params=post_params)
         assert_equals(response.status, 200)
         match_items = (
@@ -81,22 +83,24 @@ class TestCode(unittest.TestCase):
             'I\'m done for today',
             'btn-success',
             'btn',
-            )
+        )
         response.mustcontain(*match_items)
 
     def test_result_incorrect(self):
         assert_raises(AppError, self.testApp.get, '/result')  # this is a 405 raise
         post_params = {
-            'raw_data': str({
-                'left_glyph': '[',
-                'right_glyph': ')',
-                'left_bound': 0,
-                'right_bound': 99,
-                'start': 59,
-                'stop': 78,
-                }),
+            'raw_data': str(
+                {
+                    'left_glyph': '[',
+                    'right_glyph': ')',
+                    'left_bound': 0,
+                    'right_bound': 99,
+                    'start': 59,
+                    'stop': 78,
+                }
+            ),
             'answer': 24,
-            }
+        }
         response = self.testApp.post('/result', params=post_params)
         assert_equals(response.status, 200)
         match_items = (
@@ -105,5 +109,5 @@ class TestCode(unittest.TestCase):
             'I\'m done for today',
             'btn-danger',
             'btn'
-            )
+        )
         response.mustcontain(*match_items)

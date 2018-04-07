@@ -9,7 +9,7 @@ urls = (
     '/', 'Index',
     '/grade', 'Grade',
     '/play', 'Play',
-    '/result', 'Result'
+    '/result', 'Result',
 )
 
 templates_dir = os.path.dirname(os.path.dirname(os.path.realpath(__file__)))
@@ -41,10 +41,8 @@ class Result:
         answer = web.input().get('answer')
         result = nd.generate_results(data, answer)
         level = (data.get('left_bound'), data.get('right_bound'))
-        question = '{0}{start}, {stop}{1}'.format(data.get('left_glyph'),
-                                                  data.get('right_glyph'),
-                                                  start=data.get('start'),
-                                                  stop=data.get('stop'))
+        question = '{0}{start}, {stop}{1}'.format(data.get('left_glyph'), data.get('right_glyph'),
+                                                  start=data.get('start'), stop=data.get('stop'))
 
         if result[1]:
             return render.result_success(level)

@@ -33,13 +33,7 @@ def test_calculate_statistics():
 
 
 def test_change_difficulty():
-    sample_difficulties = [
-        [1, 2],
-        [3, 4],
-        [5, 6],
-        [7, 8],
-        [9, 10]
-    ]
+    sample_difficulties = [[1, 2], [3, 4], [5, 6], [7, 8], [9, 10]]
 
     assert_equals(nd.change_difficulty(3, 20, [1, 2], sample_difficulties), [1, 2])
     assert_equals(nd.change_difficulty(3, 20, [3, 4], sample_difficulties), [1, 2])

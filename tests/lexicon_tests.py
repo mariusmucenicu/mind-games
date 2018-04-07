@@ -18,10 +18,12 @@ class AsciiTest(unittest.TestCase):
 
 class LexiconTest(unittest.TestCase):
     def setUp(self):
-        self.my_lexicon = Lexicon({
-            'subject': {'guido', 'dropbox'},
-            'predicate': {'create', 'forge'},
-        })
+        self.my_lexicon = Lexicon(
+            {
+                'subject': {'guido', 'dropbox'},
+                'predicate': {'create', 'forge'},
+            }
+        )
 
     def test_split_alnum(self):
         self.assertRaises(AssertionError, self.my_lexicon.split_alnum, ' We the best music!!1one  ')
@@ -268,82 +270,103 @@ class LexiconTest(unittest.TestCase):
             'constituent': {'to', 'at', 'this', 'but', 'no', 'it', 'a', 'where', 'up', 'then'},
         }
 
-        robot_bar_fight = ('I remember I used to serve drinks at this local joint\n'
-                           'Cause I was broke but my focal point was\n'
-                           'This wasnt no regular bar\n'
-                           'It was a spot where robots were ready to spar\n')
+        robot_bar_fight = (
+            'I remember I used to serve drinks at this local joint\n'
+            'Cause I was broke but my focal point was\n'
+            'This wasnt no regular bar\n'
+            'It was a spot where robots were ready to spar\n'
+        )
         self.assertEqual(
             self.my_lexicon.scan_text(robot_bar_fight),
-            [('subject', 'i'), ('verb', 'remember'), ('subject', 'i'), ('verb', 'used'),
-             ('constituent', 'to'), ('verb', 'serve'), ('object', 'drinks'), ('constituent', 'at'),
-             ('constituent', 'this'), ('error', 'local'), ('object', 'joint'), ('error', 'cause'),
-             ('subject', 'i'), ('verb', 'was'), ('error', 'broke'), ('constituent', 'but'),
-             ('error', 'my'), ('error', 'focal'), ('error', 'point'), ('verb', 'was'),
-             ('constituent', 'this'), ('error', 'wasnt'), ('constituent', 'no'),
-             ('error', 'regular'), ('object', 'bar'), ('constituent', 'it'), ('verb', 'was'),
-             ('constituent', 'a'), ('object', 'spot'), ('constituent', 'where'),
-             ('object', 'robots'), ('verb', 'were'), ('error', 'ready'), ('constituent', 'to'),
-             ('verb', 'spar')]
+            [
+                ('subject', 'i'), ('verb', 'remember'), ('subject', 'i'), ('verb', 'used'),
+                ('constituent', 'to'), ('verb', 'serve'), ('object', 'drinks'),
+                ('constituent', 'at'), ('constituent', 'this'), ('error', 'local'),
+                ('object', 'joint'), ('error', 'cause'), ('subject', 'i'), ('verb', 'was'),
+                ('error', 'broke'), ('constituent', 'but'), ('error', 'my'), ('error', 'focal'),
+                ('error', 'point'), ('verb', 'was'), ('constituent', 'this'), ('error', 'wasnt'),
+                ('constituent', 'no'), ('error', 'regular'), ('object', 'bar'),
+                ('constituent', 'it'), ('verb', 'was'), ('constituent', 'a'), ('object', 'spot'),
+                ('constituent', 'where'), ('object', 'robots'), ('verb', 'were'),
+                ('error', 'ready'), ('constituent', 'to'), ('verb', 'spar')
+            ]
         )
 
         duck_upper_case = 'A DUCK WALKED UP TO A LEMONADE STAND'
         self.assertEqual(
             self.my_lexicon.scan_text(duck_upper_case),
-            [('constituent', 'a'), ('object', 'duck'), ('verb', 'walked'), ('constituent', 'up'),
-             ('constituent', 'to'), ('constituent', 'a'), ('object', 'lemonade'),
-             ('object', 'stand')]
+            [
+                ('constituent', 'a'), ('object', 'duck'), ('verb', 'walked'), ('constituent', 'up'),
+                ('constituent', 'to'), ('constituent', 'a'), ('object', 'lemonade'),
+                ('object', 'stand')
+            ]
         )
 
-        duck_mixed_case = ('ThEn hE WaDDlEd aWaY. '
-                           '(Waddle) (WAddLe) \'Til THE vErY NeXt day.'
-                           '(Bum bum BUM bum ba-bada-DUM)')
+        duck_mixed_case = (
+            'ThEn hE WaDDlEd aWaY. '
+            '(Waddle) (WAddLe) \'Til THE vErY NeXt day.'
+            '(Bum bum BUM bum ba-bada-DUM)'
+        )
         self.assertEqual(
             self.my_lexicon.scan_text(duck_mixed_case),
-            [('constituent', 'then'), ('error', 'he'), ('error', 'waddled'), ('error', 'away'),
-             ('verb', 'waddle'), ('verb', 'waddle'), ('error', 'til'), ('error', 'the'),
-             ('error', 'very'), ('error', 'next'), ('error', 'day'), ('error', 'bum'),
-             ('error', 'bum'), ('error', 'bum'), ('error', 'bum'), ('error', 'ba'),
-             ('error', 'bada'), ('error', 'dum')]
+            [
+                ('constituent', 'then'), ('error', 'he'), ('error', 'waddled'), ('error', 'away'),
+                ('verb', 'waddle'), ('verb', 'waddle'), ('error', 'til'), ('error', 'the'),
+                ('error', 'very'), ('error', 'next'), ('error', 'day'), ('error', 'bum'),
+                ('error', 'bum'), ('error', 'bum'), ('error', 'bum'), ('error', 'ba'),
+                ('error', 'bada'), ('error', 'dum')
+            ]
         )
 
         duck_symbol_characters = ('H@e#y$! (b%u^m b&u*m b=u|m) G{o}t >a>n<y g`r~ap+es?')
         self.assertEqual(
             self.my_lexicon.scan_text(duck_symbol_characters),
-            [('error', 'hey'), ('error', 'bum'), ('error', 'bum'), ('error', 'bum'),
-             ('error', 'got'), ('error', 'any'), ('error', 'grapes')]
+            [
+                ('error', 'hey'), ('error', 'bum'), ('error', 'bum'), ('error', 'bum'),
+                ('error', 'got'), ('error', 'any'), ('error', 'grapes')]
         )
 
         duck_symbol_characters2 = ('$Hey$!!! (#$bum$# **bum** #bum#) {{Got}} any ``grapes``?')
         self.assertEqual(
             self.my_lexicon.scan_text(duck_symbol_characters2),
-            [('error', 'hey'), ('error', 'bum'), ('error', 'bum'), ('error', 'bum'),
-             ('error', 'got'), ('error', 'any'), ('error', 'grapes')]
+            [
+                ('error', 'hey'), ('error', 'bum'), ('error', 'bum'), ('error', 'bum'),
+                ('error', 'got'), ('error', 'any'), ('error', 'grapes')
+            ]
         )
 
-        duck_punctuation_characters = ('Come.on.duck,lets,walk!to!the.store.'
-                                       'Ill...buy-you-some-grapes.'
-                                       'So;you;wont;have:to:ask::anymore.')
+        duck_punctuation_characters = (
+            'Come.on.duck,lets,walk!to!the.store.'
+            'Ill...buy-you-some-grapes.'
+            'So;you;wont;have:to:ask::anymore.'
+        )
         self.assertEqual(
             self.my_lexicon.scan_text(duck_punctuation_characters),
-            [('error', 'come'), ('error', 'on'), ('object', 'duck'), ('error', 'lets'),
-             ('error', 'walk'), ('constituent', 'to'), ('error', 'the'), ('error', 'store'),
-             ('error', 'ill'), ('error', 'buy'), ('error', 'you'), ('error', 'some'),
-             ('error', 'grapes'), ('error', 'so'), ('error', 'you'), ('error', 'wont'),
-             ('error', 'have'), ('constituent', 'to'), ('error', 'ask'), ('error', 'anymore')]
+            [
+                ('error', 'come'), ('error', 'on'), ('object', 'duck'), ('error', 'lets'),
+                ('error', 'walk'), ('constituent', 'to'), ('error', 'the'), ('error', 'store'),
+                ('error', 'ill'), ('error', 'buy'), ('error', 'you'), ('error', 'some'),
+                ('error', 'grapes'), ('error', 'so'), ('error', 'you'), ('error', 'wont'),
+                ('error', 'have'), ('constituent', 'to'), ('error', 'ask'), ('error', 'anymore')
+            ]
         )
 
-        duck_all_together = ('And::the,man,bought.SOME#,grapes##.'
-                             'He::gave,one,to.the##-duck-and-the-duck said:'
-                             'Hmmm..No thanks!!!!!$But$ you$ know$ what$ sounds$ ??good?')
+        duck_all_together = (
+            'And::the,man,bought.SOME#,grapes##.'
+            'He::gave,one,to.the##-duck-and-the-duck said:'
+            'Hmmm..No thanks!!!!!$But$ you$ know$ what$ sounds$ ??good?'
+        )
         self.assertEqual(
             self.my_lexicon.scan_text(duck_all_together),
-            [('error', 'and'), ('error', 'the'), ('error', 'man'), ('error', 'bought'),
-             ('error', 'some'), ('error', 'grapes'), ('error', 'he'), ('error', 'gave'),
-             ('error', 'one'), ('constituent', 'to'), ('error', 'the'), ('object', 'duck'),
-             ('error', 'and'), ('error', 'the'), ('object', 'duck'), ('error', 'said'),
-             ('error', 'hmmm'), ('constituent', 'no'), ('error', 'thanks'), ('constituent', 'but'),
-             ('error', 'you'), ('error', 'know'), ('error', 'what'), ('error', 'sounds'),
-             ('error', 'good')]
+            [
+                ('error', 'and'), ('error', 'the'), ('error', 'man'), ('error', 'bought'),
+                ('error', 'some'), ('error', 'grapes'), ('error', 'he'), ('error', 'gave'),
+                ('error', 'one'), ('constituent', 'to'), ('error', 'the'), ('object', 'duck'),
+                ('error', 'and'), ('error', 'the'), ('object', 'duck'), ('error', 'said'),
+                ('error', 'hmmm'), ('constituent', 'no'), ('error', 'thanks'),
+                ('constituent', 'but'), ('error', 'you'), ('error', 'know'), ('error', 'what'),
+                ('error', 'sounds'), ('error', 'good')
+            ]
         )
 
         self.my_lexicon.wordbook = {
@@ -361,8 +384,10 @@ class LexiconTest(unittest.TestCase):
         independent_clause2 = 'Punch the bear in the face'
         self.assertEqual(
             self.my_lexicon.scan_text(independent_clause2),
-            [('verb', 'punch'), ('constituent', 'the'), ('object', 'bear'), ('constituent', 'in'),
-             ('constituent', 'the'), ('error', 'face')]
+            [
+                ('verb', 'punch'), ('constituent', 'the'), ('object', 'bear'),
+                ('constituent', 'in'), ('constituent', 'the'), ('error', 'face')
+            ]
         )
 
         independent_clause3 = 'Open the door'
@@ -380,24 +405,30 @@ class LexiconTest(unittest.TestCase):
         compound_sentence = 'Open the door and smack the bear in the nose and then...wrestle it!'
         self.assertEqual(
             self.my_lexicon.scan_text(compound_sentence),
-            [('verb', 'open'), ('constituent', 'the'), ('object', 'door'), ('error', 'and'),
-             ('verb', 'smack'), ('constituent', 'the'), ('object', 'bear'), ('constituent', 'in'),
-             ('constituent', 'the'), ('error', 'nose'), ('error', 'and'), ('error', 'then'),
-             ('verb', 'wrestle'), ('error', 'it')]
+            [
+                ('verb', 'open'), ('constituent', 'the'), ('object', 'door'), ('error', 'and'),
+                ('verb', 'smack'), ('constituent', 'the'), ('object', 'bear'),
+                ('constituent', 'in'), ('constituent', 'the'), ('error', 'nose'), ('error', 'and'),
+                ('error', 'then'), ('verb', 'wrestle'), ('error', 'it')
+            ]
         )
 
         self.assertEqual(
             self.my_lexicon.scan_text('Should-1990#-not.be.an::error!'),
-            [('error', 'should'), ('error', '1990'), ('error', 'not'), ('error', 'be'),
-             ('error', 'an'), ('error', 'error')]
+            [
+                ('error', 'should'), ('error', '1990'), ('error', 'not'), ('error', 'be'),
+                ('error', 'an'), ('error', 'error')
+            ]
         )
 
         self.assertEqual(
             self.my_lexicon.scan_text('NUMBERS ARE ALLOWED, THE 6 OUT OF 49 ARE 24 3 21 12 8 4'),
-            [('error', 'numbers'), ('error', 'are'), ('error', 'allowed'), ('constituent', 'the'),
-             ('error', '6'), ('error', 'out'), ('error', 'of'), ('error', '49'), ('error', 'are'),
-             ('error', '24'), ('error', '3'), ('error', '21'), ('error', '12'), ('error', '8'),
-             ('error', '4')]
+            [
+                ('error', 'numbers'), ('error', 'are'), ('error', 'allowed'),
+                ('constituent', 'the'), ('error', '6'), ('error', 'out'), ('error', 'of'),
+                ('error', '49'), ('error', 'are'), ('error', '24'), ('error', '3'), ('error', '21'),
+                ('error', '12'), ('error', '8'), ('error', '4')
+            ]
         )
 
         self.assertRaises(AssertionError, self.my_lexicon.scan_text, '0n3, tw0, thr33')
@@ -409,12 +440,16 @@ class LexiconTest(unittest.TestCase):
 class SentenceTest(unittest.TestCase):
     def setUp(self):
         self.sentence = Sentence(word_order='SVO')
-        self.game_lexicon = Lexicon({
-            'subject': {'player'},
-            'verb': {'smack', 'punch', 'go', 'open'},
-            'object': {'bear', 'door', 'face', 'nose'},
-            'constituent': {'in', 'the', 'their', 'that', 'at', 'upon', 'where', 'on', 'through'}
-        })
+        self.game_lexicon = Lexicon(
+            {
+                'subject': {'player'},
+                'verb': {'smack', 'punch', 'go', 'open'},
+                'object': {'bear', 'door', 'face', 'nose'},
+                'constituent': {
+                    'in', 'the', 'their', 'that', 'at', 'upon', 'where', 'on', 'through'
+                }
+            }
+        )
 
     def test_invalid_vaid_word_orders(self):
         self.assertRaises(AssertionError, Sentence, 'vos')

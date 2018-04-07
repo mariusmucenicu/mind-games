@@ -35,16 +35,22 @@ class Lexicon:
         """Ensures the wordbook contains: unique lowercase words with just alphabetic characters"""
         # TODO(Marius): also check the parts of speech against the acknowledged classification
         assert len(wordbook) <= 64, 'too many parts of speech (word categories) in the lexicon'
-        assert all(type(term) == str and term.isalpha() and term.islower() and check_ascii(term)
-                   for term in wordbook.keys()), 'invalid word type or format within keys'
-        assert all(type(word_set) == set
-                   for word_set in wordbook.values()), 'invalid data structure within values'
+        assert all(
+            type(term) == str and term.isalpha() and term.islower() and check_ascii(term)
+            for term in wordbook.keys()
+        ), 'invalid word type or format within keys'
+        assert all(
+            type(word_set) == set
+            for word_set in wordbook.values()
+        ), 'invalid data structure within values'
 
         checked_words = set()
         for word_set in wordbook.values():
             assert word_set, 'empty data set not allowed'
-            assert all(type(word) == str and word.isalpha() and word.islower() and check_ascii(word)
-                       for word in word_set), 'invalid word found in {0}'.format(word_set)
+            assert all(
+                type(word) == str and word.isalpha() and word.islower() and check_ascii(word)
+                for word in word_set
+            ), 'invalid word found in {0}'.format(word_set)
 
             if word_set & checked_words:
                 assert False, 'duplicate entries for words {0}'.format(word_set & checked_words)
@@ -64,9 +70,11 @@ class Lexicon:
         assert type(raw_string) == str, 'invalid data type, str expected'
         assert len(raw_string) <= 512, 'maximum input length of 512 characters exceeded'
 
-        special_characters = {letter
-                              for letter in raw_string
-                              if not (letter.isalnum() or letter.isspace())}
+        special_characters = {
+            letter
+            for letter in raw_string
+            if not (letter.isalnum() or letter.isspace())
+        }
         punctuation_marks = {'.', ',', '?', '!', '\'', '"', ':', ';', '-'}
 
         for character in special_characters:
@@ -129,11 +137,15 @@ class Sentence:
         """
 
         assert words, 'invalid call with no data'
-        assert all(len(pair) == 2 and type(pair) == tuple
-                   for pair in words), 'invalid (token, word) data structure or items within != str'
-        assert all(type(item) == str
-                   for pair in words
-                   for item in pair), 'invalid element type in token-word pair'
+        assert all(
+            len(pair) == 2 and type(pair) == tuple
+            for pair in words
+        ), 'invalid (token, word) data structure or items within != str'
+        assert all(
+            type(item) == str
+            for pair in words
+            for item in pair
+        ), 'invalid element type in token-word pair'
 
         position = 0
         sentence = []
@@ -148,5 +160,6 @@ class Sentence:
                 else:
                     position += 1
             else:
-                raise ParserError('Expected {0} but got {1}'.format(self.expected_order[position],
-                                                                    token))
+                raise ParserError(
+                    'Expected {0} but got {1}'.format(self.expected_order[position], token)
+                )
