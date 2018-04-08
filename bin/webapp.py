@@ -1,9 +1,13 @@
 import os
+import sys
 import web
 
 from ast import literal_eval
-from mindgames import number_distance as nd
 
+root_path = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+sys.path.append(root_path)
+
+from mindgames import number_distance  # noqa
 
 urls = (
     '/', 'Index',
@@ -31,7 +35,7 @@ class Grade:
 class Play:
     def POST(self):
         level = web.input().get('level')
-        data = nd.play(level)
+        data = number_distance.play(level)
         return render.play(data)
 
 
@@ -39,7 +43,7 @@ class Result:
     def POST(self):
         data = literal_eval(web.input().get('raw_data'))
         answer = web.input().get('answer')
-        result = nd.generate_results(data, answer)
+        result = number_distance.generate_results(data, answer)
         level = data.get('left_bound'), data.get('right_bound')
         question = '{0}{start}, {stop}{1}'.format(data.get('left_glyph'), data.get('right_glyph'),
                                                   start=data.get('start'), stop=data.get('stop'))
