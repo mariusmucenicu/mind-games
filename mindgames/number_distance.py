@@ -38,7 +38,6 @@ def fetch_difficulties(representation=False, internal=False):
 
     difficulty_keys = difficulty_levels.keys()
     user_choices = [choice.split('.')[0].strip().lower() for choice in difficulty_keys]
-
     assert len(set(user_choices)) == len(user_choices), 'duplicates found'
 
     if representation:
@@ -114,7 +113,6 @@ def change_difficulty(avg_correct, avg_wrong, game_difficulty, all_difficulties)
         else:
             print('You are playing at the lowest level and still doing dreadfully.\n'
                   'You are a bad abacist, please consider stepping up your game!\n')
-
     return all_difficulties[difficulty_level]
 
 
@@ -123,7 +121,6 @@ def generate_interval(game_difficulty):
 
     start_value = game_difficulty[0]
     stop_value = game_difficulty[1]
-
     left_glyphs, right_glyphs = ('[', '('), (']', ')')
     start = randint(start_value, stop_value)
     stop = randint(start, stop_value)
@@ -141,7 +138,6 @@ def generate_interval(game_difficulty):
             },
         'interval': '{0}{start}, {stop}{1}'.format(left_glyph, right_glyph, start=start, stop=stop)
     }
-
     return data
 
 
