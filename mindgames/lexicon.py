@@ -23,7 +23,6 @@ class Lexicon:
          'object': {'door', 'vault', 'etc'},
          'constituent': {'in', 'at', 'etc'}}
         """
-
         # class invariants
         assert wordbook, 'cannot operate on empty dictionary'
         assert isinstance(wordbook, dict), 'expected a dict type but got {0}'.format(type(wordbook))
@@ -66,7 +65,6 @@ class Lexicon:
 
         returns: a list of formatted words (lowercase, special characters removed) and/or numbers
         """
-
         assert type(raw_string) == str, 'invalid data type, str expected'
         assert len(raw_string) <= 512, 'maximum input length of 512 characters exceeded'
 
@@ -117,7 +115,6 @@ class Sentence:
             * Verb Subject Object (VSO),
         All together they account for more than 85% of the world's languages
         """
-
         # class invariants
         assert type(word_order) == str, 'invalid input type, str expected'
         word_order = word_order.strip().lower()
@@ -135,7 +132,6 @@ class Sentence:
 
         words: list, contains 2 item tuples of the form ('token', 'word'), i.e ('verb', 'build')
         """
-
         assert words, 'invalid call with no data'
         assert all(
             len(pair) == 2 and type(pair) == tuple

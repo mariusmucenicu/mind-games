@@ -8,7 +8,6 @@ def fetch_difficulties(representation=False, internal=False):
     Returns either a tuple of two lists containing strings which are the available game difficulties
     or a list of tuples representing the game difficulties as internal values for the script
     """
-
     assert all(isinstance(obj, bool) for obj in (representation, internal)), 'invalid input types'
     assert representation or internal, 'at least one input should be true'
     assert not (representation and internal), 'only one input should be true, not both'
@@ -48,7 +47,6 @@ def fetch_difficulties(representation=False, internal=False):
 
 def calculate_statistics(correct, wrong):
     """Computes the statistics based on the amount of items in categories correct and wrong"""
-
     assert all(type(obj) == int for obj in (correct, wrong)), 'integers expected'
 
     total = correct + wrong
@@ -67,7 +65,6 @@ def change_difficulty(avg_correct, avg_wrong, game_difficulty, all_difficulties)
     game_difficulty: tuple, current difficulty level from a range of game difficulties
     all_difficulties: tuple, a range of difficulty levels
     """
-
     assert game_difficulty in all_difficulties, 'invalid input data'
 
     difficulty_levels = len(all_difficulties)
@@ -118,7 +115,6 @@ def change_difficulty(avg_correct, avg_wrong, game_difficulty, all_difficulties)
 
 def generate_interval(game_difficulty):
     """Function description"""
-
     start_value = game_difficulty[0]
     stop_value = game_difficulty[1]
     left_glyphs, right_glyphs = ('[', '('), (']', ')')
