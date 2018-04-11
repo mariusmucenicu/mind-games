@@ -1,5 +1,6 @@
-from mindgames import number_distance as nd
 from nose.tools import assert_equals, assert_raises
+
+from mindgames import number_distance as nd
 
 
 def test_fetch_difficulties():

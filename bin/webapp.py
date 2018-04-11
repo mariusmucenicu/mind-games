@@ -1,8 +1,8 @@
+from ast import literal_eval
 import os
 import sys
-import web
 
-from ast import literal_eval
+import web
 
 root_path = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.append(root_path)

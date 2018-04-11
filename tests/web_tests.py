@@ -1,8 +1,9 @@
 import os
 import unittest
 
-from paste.fixture import AppError, TestApp
 from nose.tools import assert_equals, assert_raises
+from paste.fixture import AppError, TestApp
+
 from bin import webapp
 
 # this is needed to avoid kicking off the development server during tests
