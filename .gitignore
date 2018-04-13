@@ -74,3 +74,5 @@ venv.bak/
 /static/bootstrap/**/*.js
 /static/bootstrap/**/!*.min.js
 
+# project specific configuration
+.idea
