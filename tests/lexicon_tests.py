@@ -92,7 +92,7 @@ class LexiconTest(unittest.TestCase):
 
         valid_lexicon_bogus_data = {
             'tcejbus': {*(rev[::-1] for rev in {'i', 'player', 'julia', 'zuck'})},
-            'breb': {*(rev[::-1] for rev in {'run', 'go', 'start', 'push', 'acquiescence'})},
+            'brev': {*(rev[::-1] for rev in {'run', 'go', 'start', 'push', 'acquiescence'})},
             'tcejbo': {*(rev[::-1] for rev in {'bear', 'python', 'game', 'door'})},
             'tneutitsnoc': {*(rev[::-1] for rev in {'at', 'or', 'in', 'through', 'over', 'this'})}
         }
