@@ -1,3 +1,6 @@
+__author__ = 'Marius Mucenicu <marius_mucenicu@yahoo.com>'
+
+
 def check_ascii(raw_string):
     """Checks whether all the characters in an input string are ASCII compatible"""
     assert raw_string, 'invalid call with no data'

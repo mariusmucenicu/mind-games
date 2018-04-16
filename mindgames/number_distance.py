@@ -1,3 +1,5 @@
+__author__ = 'Marius Mucenicu <marius_mucenicu@yahoo>'
+
 # Standard library
 import ast
 import collections
