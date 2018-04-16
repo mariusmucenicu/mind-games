@@ -76,3 +76,6 @@ venv.bak/
 
 # project specific configuration
 .idea
+
+# os specific
+.DS_Store
