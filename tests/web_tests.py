@@ -54,7 +54,7 @@ class TestCode(unittest.TestCase):
         tools.assert_equals(response.status, 200)
         match_items = (
             'Hit it',
-            'I\'m feeling lucky',
+            "I'm feeling lucky",
             'How many integers are within this interval ?',
             'user-answer',
             'hidden',
@@ -84,7 +84,7 @@ class TestCode(unittest.TestCase):
         match_items = (
             'Correct!',
             'Next question',
-            'I\'m done for today',
+            "I'm done for today",
             'btn-success',
             'btn',
         )
@@ -110,7 +110,7 @@ class TestCode(unittest.TestCase):
         match_items = (
             'Incorrect!',
             'Next question',
-            'I\'m done for today',
+            "I'm done for today",
             'btn-danger',
             'btn'
         )

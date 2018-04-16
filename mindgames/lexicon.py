@@ -76,7 +76,7 @@ class Lexicon:
             for letter in raw_string
             if not (letter.isalnum() or letter.isspace())
         }
-        punctuation_marks = {'.', ',', '?', '!', '\'', '"', ':', ';', '-'}
+        punctuation_marks = {'.', ',', '?', '!', "'", '"', ':', ';', '-'}
 
         for character in special_characters:
             if character not in punctuation_marks:

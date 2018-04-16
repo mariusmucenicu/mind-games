@@ -75,22 +75,22 @@ def change_difficulty(avg_correct, avg_wrong, game_difficulty, all_difficulties)
 
     cheerful_messages = (
         'Congratulations on your success! You have made us all proud. Keep up the good work!',
-        'Keep being awesome, and I’ll keep saying congratulations.',
+        "Keep being awesome, and I'll keep saying congratulations.",
         'I love to see good things come to good people. This is one of those times.',
         'I have so much pride in my heart right now. It might even be a sin.',
         'You are our shining star. Well done.',
         'Congratulations for scaling new heights and setting new standards.',
-        'If Oscars were given for a job well done, I’d nominate you! '
+        "If Oscars were given for a job well done, I'd nominate you!"
         'Congratulations for your fantastic achievement!',
     )
     criticism_messages = (
         'Tell me… Is being stupid a profession or are you just gifted?',
-        'Zombies eat brains. You’re safe.',
-        'I’d agree with you but then we’d both be wrong.',
-        'I’ll try being nicer, if you try being smarter.',
-        'Well at least your mom thinks you’re pretty…',
+        "Zombies eat brains. You're safe.",
+        "I'd agree with you but then we'd both be wrong.",
+        "I'll try being nicer, if you try being smarter.",
+        "Well at least your mom thinks you're pretty…",
         'I thought I had seen the pinnacle of stupid… Then I met you.',
-        'If had a dollar for every smart thing you say. I’ll be poor.',
+        "If had a dollar for every smart thing you say. I'll be poor.",
     )
 
     avg_statistics = calculate_statistics(avg_correct, avg_wrong)[1]

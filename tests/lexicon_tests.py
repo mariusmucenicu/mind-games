@@ -306,7 +306,7 @@ class LexiconTest(unittest.TestCase):
 
         duck_mixed_case = (
             'ThEn hE WaDDlEd aWaY. '
-            '(Waddle) (WAddLe) \'Til THE vErY NeXt day.'
+            "(Waddle) (WAddLe) 'Til THE vErY NeXt day."
             '(Bum bum BUM bum ba-bada-DUM)'
         )
         self.assertEqual(
