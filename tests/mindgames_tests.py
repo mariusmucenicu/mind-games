@@ -24,9 +24,13 @@ def test_fetch_difficulties():
     tools.assert_equals(len(set(available_choices)), len(available_choices))
     # internal values
     tools.assert_equals(
-        all(negative + positive == 0 for negative, positive in additive_inverses), True
+        all(negative + positive == 0 for negative, positive in additive_inverses),
+        True
     )
-    tools.assert_equals(all(lower_bound[0] == 0 for lower_bound in progressive_intervals), True)
+    tools.assert_equals(
+        all(lower_bound[0] == 0 for lower_bound in progressive_intervals),
+        True
+    )
 
 
 def test_calculate_statistics():
@@ -41,27 +45,34 @@ def test_change_difficulty():
     sample_difficulties = [[1, 2], [3, 4], [5, 6], [7, 8], [9, 10]]
 
     tools.assert_equals(
-        number_distance.change_difficulty(3, 20, [1, 2], sample_difficulties), [1, 2]
+        number_distance.change_difficulty(3, 20, [1, 2], sample_difficulties),
+        [1, 2]
     )
     tools.assert_equals(
-        number_distance.change_difficulty(3, 20, [3, 4], sample_difficulties), [1, 2]
+        number_distance.change_difficulty(3, 20, [3, 4], sample_difficulties),
+        [1, 2]
     )
     tools.assert_equals(
-        number_distance.change_difficulty(3, 20, [9, 10], sample_difficulties), [7, 8]
+        number_distance.change_difficulty(3, 20, [9, 10], sample_difficulties),
+        [7, 8]
     )
     tools.assert_equals(
-        number_distance.change_difficulty(10, 10, [9, 10], sample_difficulties), [9, 10]
+        number_distance.change_difficulty(10, 10, [9, 10], sample_difficulties),
+        [9, 10]
     )
     tools.assert_equals(
-        number_distance.change_difficulty(10, 10, [7, 8], sample_difficulties), [9, 10]
+        number_distance.change_difficulty(10, 10, [7, 8], sample_difficulties),
+        [9, 10]
     )
     tools.assert_equals(
-        number_distance.change_difficulty(10, 10, [1, 2], sample_difficulties), [3, 4]
+        number_distance.change_difficulty(10, 10, [1, 2], sample_difficulties),
+        [3, 4]
     )
     tools.assert_raises(
         AssertionError,
         number_distance.change_difficulty, 10, 10, ['100', '100'], sample_difficulties
     )
     tools.assert_raises(
-        AssertionError, number_distance.change_difficulty, 10, 10, [100, 100], sample_difficulties
+        AssertionError,
+        number_distance.change_difficulty, 10, 10, [100, 100], sample_difficulties
     )

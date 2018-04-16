@@ -320,7 +320,7 @@ class LexiconTest(unittest.TestCase):
             ]
         )
 
-        duck_symbol_characters = ('H@e#y$! (b%u^m b&u*m b=u|m) G{o}t >a>n<y g`r~ap+es?')
+        duck_symbol_characters = 'H@e#y$! (b%u^m b&u*m b=u|m) G{o}t >a>n<y g`r~ap+es?'
         self.assertEqual(
             self.my_lexicon.scan_text(duck_symbol_characters),
             [
@@ -328,7 +328,7 @@ class LexiconTest(unittest.TestCase):
                 ('error', 'got'), ('error', 'any'), ('error', 'grapes')]
         )
 
-        duck_symbol_characters2 = ('$Hey$!!! (#$bum$# **bum** #bum#) {{Got}} any ``grapes``?')
+        duck_symbol_characters2 = '$Hey$!!! (#$bum$# **bum** #bum#) {{Got}} any ``grapes``?'
         self.assertEqual(
             self.my_lexicon.scan_text(duck_symbol_characters2),
             [
