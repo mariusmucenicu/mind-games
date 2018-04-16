@@ -1,9 +1,12 @@
+# Standard library
 import os
 import unittest
 
-from nose.tools import assert_equals, assert_raises
-from paste.fixture import AppError, TestApp
+# Third-party
+from nose import tools
+from paste import fixture
 
+# Project specific
 from bin import webapp
 
 # this is needed to avoid kicking off the development server during tests
@@ -13,14 +16,14 @@ os.environ['WEBPY_ENV'] = 'test'
 class TestCode(unittest.TestCase):
     def setUp(self):
         middleware = []
-        self.testApp = TestApp(webapp.app.wsgifunc(*middleware))
+        self.testApp = fixture.TestApp(webapp.app.wsgifunc(*middleware))
         templates_dir = os.path.dirname(os.path.dirname(os.path.realpath(__file__)))
         templates_path = '{0}/templates'.format(templates_dir)
         webapp.render = webapp.web.template.render(templates_path, base='layout')
 
     def test_index(self):
         response = self.testApp.get('/')
-        assert_equals(response.status, 200)
+        tools.assert_equals(response.status, 200)
         match_items = (
             'Welcome to the fascinating world of arithmetic',
             'This game aims to mimic the behavior of an abacus',
@@ -34,7 +37,7 @@ class TestCode(unittest.TestCase):
 
     def test_grade(self):
         response = self.testApp.get('/grade')
-        assert_equals(response.status, 200)
+        tools.assert_equals(response.status, 200)
         match_items = (
             'Please choose one of the following difficulties',
             'Easy',
@@ -46,9 +49,9 @@ class TestCode(unittest.TestCase):
         response.mustcontain(*match_items)
 
     def test_play(self):
-        assert_raises(AppError, self.testApp.get, '/play')  # this is a 405 raise
+        tools.assert_raises(fixture.AppError, self.testApp.get, '/play')  # this is a 405 raise
         response = self.testApp.post('/play', params={'level': 'a'})
-        assert_equals(response.status, 200)
+        tools.assert_equals(response.status, 200)
         match_items = (
             'Hit it',
             'I\'m feeling lucky',
@@ -62,7 +65,7 @@ class TestCode(unittest.TestCase):
         response.mustcontain(*match_items)
 
     def test_result_correct(self):
-        assert_raises(AppError, self.testApp.get, '/result')  # this is a 405 raise
+        tools.assert_raises(fixture.AppError, self.testApp.get, '/result')  # this is a 405 raise
         post_params = {
             'raw_data': str(
                 {
@@ -77,7 +80,7 @@ class TestCode(unittest.TestCase):
             'answer': 19,
         }
         response = self.testApp.post('/result', params=post_params)
-        assert_equals(response.status, 200)
+        tools.assert_equals(response.status, 200)
         match_items = (
             'Correct!',
             'Next question',
@@ -88,7 +91,7 @@ class TestCode(unittest.TestCase):
         response.mustcontain(*match_items)
 
     def test_result_incorrect(self):
-        assert_raises(AppError, self.testApp.get, '/result')  # this is a 405 raise
+        tools.assert_raises(fixture.AppError, self.testApp.get, '/result')  # this is a 405 raise
         post_params = {
             'raw_data': str(
                 {
@@ -103,7 +106,7 @@ class TestCode(unittest.TestCase):
             'answer': 24,
         }
         response = self.testApp.post('/result', params=post_params)
-        assert_equals(response.status, 200)
+        tools.assert_equals(response.status, 200)
         match_items = (
             'Incorrect!',
             'Next question',

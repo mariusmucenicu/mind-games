@@ -1,24 +1,26 @@
+# Standard library
 import unittest
 
-from mindgames.lexicon import check_ascii, Lexicon, ParserError, Sentence
+# Project specific
+from mindgames import lexicon
 
 
 class AsciiTest(unittest.TestCase):
     def test_check_ascii(self):
-        self.assertEqual(any(check_ascii(chr(x)) for x in range(125, 255)), True)
-        self.assertEqual(all(check_ascii(chr(x)) for x in range(0, 127)), True)
-        self.assertEqual(any(check_ascii(chr(x)) for x in range(127, 255)), False)
-        self.assertRaises(AssertionError, check_ascii, '')
-        self.assertRaises(AssertionError, check_ascii, [])
-        self.assertRaises(AssertionError, check_ascii, [1, 2])
-        self.assertRaises(AssertionError, check_ascii, ['abc'])
-        self.assertRaises(AssertionError, check_ascii, 1234)
-        self.assertRaises(AssertionError, check_ascii, {'a': 'test'})
+        self.assertEqual(any(lexicon.check_ascii(chr(x)) for x in range(125, 255)), True)
+        self.assertEqual(all(lexicon.check_ascii(chr(x)) for x in range(0, 127)), True)
+        self.assertEqual(any(lexicon.check_ascii(chr(x)) for x in range(127, 255)), False)
+        self.assertRaises(AssertionError, lexicon.check_ascii, '')
+        self.assertRaises(AssertionError, lexicon.check_ascii, [])
+        self.assertRaises(AssertionError, lexicon.check_ascii, [1, 2])
+        self.assertRaises(AssertionError, lexicon.check_ascii, ['abc'])
+        self.assertRaises(AssertionError, lexicon.check_ascii, 1234)
+        self.assertRaises(AssertionError, lexicon.check_ascii, {'a': 'test'})
 
 
 class LexiconTest(unittest.TestCase):
     def setUp(self):
-        self.my_lexicon = Lexicon(
+        self.my_lexicon = lexicon.Lexicon(
             {
                 'subject': {'guido', 'dropbox'},
                 'predicate': {'create', 'forge'},
@@ -439,8 +441,8 @@ class LexiconTest(unittest.TestCase):
 
 class SentenceTest(unittest.TestCase):
     def setUp(self):
-        self.sentence = Sentence(word_order='SVO')
-        self.game_lexicon = Lexicon(
+        self.sentence = lexicon.Sentence(word_order='SVO')
+        self.game_lexicon = lexicon.Lexicon(
             {
                 'subject': {'player'},
                 'verb': {'smack', 'punch', 'go', 'open'},
@@ -452,21 +454,21 @@ class SentenceTest(unittest.TestCase):
         )
 
     def test_invalid_vaid_word_orders(self):
-        self.assertRaises(AssertionError, Sentence, 'vos')
-        self.assertRaises(AssertionError, Sentence, 'ovs')
-        self.assertRaises(AssertionError, Sentence, 'osv')
-        self.assertRaises(AssertionError, Sentence, 'bogus')
-        self.assertRaises(AssertionError, Sentence, 'b0gus')
-        self.assertRaises(AssertionError, Sentence, 'b0gu$')
-        self.assertRaises(AssertionError, Sentence, 'bogus bogus bogus')
-        self.assertRaises(AssertionError, Sentence, {'svo'})
-        self.assertRaises(AssertionError, Sentence, '1234')
-        self.assertRaises(AssertionError, Sentence, 1234)
-        self.assertRaises(AssertionError, Sentence, ['svo'])
-        self.assertRaises(AssertionError, Sentence, ('sov',))
-        self.assertRaises(AssertionError, Sentence, 'svo,')
-        self.assertRaises(AssertionError, Sentence, {'svo': ''})
-        self.assertRaises(AssertionError, Sentence, '')
+        self.assertRaises(AssertionError, lexicon.Sentence, 'vos')
+        self.assertRaises(AssertionError, lexicon.Sentence, 'ovs')
+        self.assertRaises(AssertionError, lexicon.Sentence, 'osv')
+        self.assertRaises(AssertionError, lexicon.Sentence, 'bogus')
+        self.assertRaises(AssertionError, lexicon.Sentence, 'b0gus')
+        self.assertRaises(AssertionError, lexicon.Sentence, 'b0gu$')
+        self.assertRaises(AssertionError, lexicon.Sentence, 'bogus bogus bogus')
+        self.assertRaises(AssertionError, lexicon.Sentence, {'svo'})
+        self.assertRaises(AssertionError, lexicon.Sentence, '1234')
+        self.assertRaises(AssertionError, lexicon.Sentence, 1234)
+        self.assertRaises(AssertionError, lexicon.Sentence, ['svo'])
+        self.assertRaises(AssertionError, lexicon.Sentence, ('sov',))
+        self.assertRaises(AssertionError, lexicon.Sentence, 'svo,')
+        self.assertRaises(AssertionError, lexicon.Sentence, {'svo': ''})
+        self.assertRaises(AssertionError, lexicon.Sentence, '')
 
     def test_invalid_data_structure(self):
         """Attempt to build a sentence with an unexpected data structure should raise an error"""
@@ -532,20 +534,20 @@ class SentenceTest(unittest.TestCase):
         invalid_svo9 = self.game_lexicon.scan_text('go through the door')
         invalid_svo10 = self.game_lexicon.scan_text('Player go through the wooden, cheap door')
 
-        self.assertRaises(ParserError, self.sentence.build, invalid_svo0)
-        self.assertRaises(ParserError, self.sentence.build, invalid_svo1)
-        self.assertRaises(ParserError, self.sentence.build, invalid_svo2)
-        self.assertRaises(ParserError, self.sentence.build, invalid_svo3)
-        self.assertRaises(ParserError, self.sentence.build, invalid_svo4)
-        self.assertRaises(ParserError, self.sentence.build, invalid_svo5)
-        self.assertRaises(ParserError, self.sentence.build, invalid_svo6)
-        self.assertRaises(ParserError, self.sentence.build, invalid_svo7)
-        self.assertRaises(ParserError, self.sentence.build, invalid_svo8)
-        self.assertRaises(ParserError, self.sentence.build, invalid_svo9)
-        self.assertRaises(ParserError, self.sentence.build, invalid_svo10)
+        self.assertRaises(lexicon.ParserError, self.sentence.build, invalid_svo0)
+        self.assertRaises(lexicon.ParserError, self.sentence.build, invalid_svo1)
+        self.assertRaises(lexicon.ParserError, self.sentence.build, invalid_svo2)
+        self.assertRaises(lexicon.ParserError, self.sentence.build, invalid_svo3)
+        self.assertRaises(lexicon.ParserError, self.sentence.build, invalid_svo4)
+        self.assertRaises(lexicon.ParserError, self.sentence.build, invalid_svo5)
+        self.assertRaises(lexicon.ParserError, self.sentence.build, invalid_svo6)
+        self.assertRaises(lexicon.ParserError, self.sentence.build, invalid_svo7)
+        self.assertRaises(lexicon.ParserError, self.sentence.build, invalid_svo8)
+        self.assertRaises(lexicon.ParserError, self.sentence.build, invalid_svo9)
+        self.assertRaises(lexicon.ParserError, self.sentence.build, invalid_svo10)
 
     def test_build_valid_sov_sentences(self):
-        self.sentence = Sentence(word_order='sov')
+        self.sentence = lexicon.Sentence(word_order='sov')
 
         valid_sov0 = self.game_lexicon.scan_text('Player bear punch')
         valid_sov1 = self.game_lexicon.scan_text('Player the bear punch')
@@ -568,7 +570,7 @@ class SentenceTest(unittest.TestCase):
         self.assertEqual(self.sentence.build(valid_sov8), 'player door go')
 
     def test_build_invalid_sov_sentences(self):
-        self.sentence = Sentence(word_order='sov')
+        self.sentence = lexicon.Sentence(word_order='sov')
 
         invalid_sov0 = self.game_lexicon.scan_text('bear punch')
         invalid_sov1 = self.game_lexicon.scan_text('the bear punch')
@@ -581,19 +583,19 @@ class SentenceTest(unittest.TestCase):
         invalid_sov8 = self.game_lexicon.scan_text('Player the bear in the face punch')
         invalid_sov9 = self.game_lexicon.scan_text('Player the bear in the nose smack')
 
-        self.assertRaises(ParserError, self.sentence.build, invalid_sov0)
-        self.assertRaises(ParserError, self.sentence.build, invalid_sov1)
-        self.assertRaises(ParserError, self.sentence.build, invalid_sov2)
-        self.assertRaises(ParserError, self.sentence.build, invalid_sov3)
-        self.assertRaises(ParserError, self.sentence.build, invalid_sov4)
-        self.assertRaises(ParserError, self.sentence.build, invalid_sov5)
-        self.assertRaises(ParserError, self.sentence.build, invalid_sov6)
-        self.assertRaises(ParserError, self.sentence.build, invalid_sov7)
-        self.assertRaises(ParserError, self.sentence.build, invalid_sov8)
-        self.assertRaises(ParserError, self.sentence.build, invalid_sov9)
+        self.assertRaises(lexicon.ParserError, self.sentence.build, invalid_sov0)
+        self.assertRaises(lexicon.ParserError, self.sentence.build, invalid_sov1)
+        self.assertRaises(lexicon.ParserError, self.sentence.build, invalid_sov2)
+        self.assertRaises(lexicon.ParserError, self.sentence.build, invalid_sov3)
+        self.assertRaises(lexicon.ParserError, self.sentence.build, invalid_sov4)
+        self.assertRaises(lexicon.ParserError, self.sentence.build, invalid_sov5)
+        self.assertRaises(lexicon.ParserError, self.sentence.build, invalid_sov6)
+        self.assertRaises(lexicon.ParserError, self.sentence.build, invalid_sov7)
+        self.assertRaises(lexicon.ParserError, self.sentence.build, invalid_sov8)
+        self.assertRaises(lexicon.ParserError, self.sentence.build, invalid_sov9)
 
     def test_build_valid_vso_sentences(self):
-        self.sentence = Sentence(word_order='vso')
+        self.sentence = lexicon.Sentence(word_order='vso')
 
         valid_vso0 = self.game_lexicon.scan_text('punch Player bear')
         valid_vso1 = self.game_lexicon.scan_text('punch Player the bear')
@@ -616,7 +618,7 @@ class SentenceTest(unittest.TestCase):
         self.assertEqual(self.sentence.build(valid_vso8), 'go player door')
 
     def test_build_invalid_vso_sentences(self):
-        self.sentence = Sentence(word_order='vso')
+        self.sentence = lexicon.Sentence(word_order='vso')
 
         invalid_vso0 = self.game_lexicon.scan_text('punch bear Player')
         invalid_vso1 = self.game_lexicon.scan_text('punch the bear Player')
@@ -627,11 +629,11 @@ class SentenceTest(unittest.TestCase):
         invalid_vso6 = self.game_lexicon.scan_text('punch through the door Player')
         invalid_vso7 = self.game_lexicon.scan_text('go through the door Player')
 
-        self.assertRaises(ParserError, self.sentence.build, invalid_vso0)
-        self.assertRaises(ParserError, self.sentence.build, invalid_vso1)
-        self.assertRaises(ParserError, self.sentence.build, invalid_vso2)
-        self.assertRaises(ParserError, self.sentence.build, invalid_vso3)
-        self.assertRaises(ParserError, self.sentence.build, invalid_vso4)
-        self.assertRaises(ParserError, self.sentence.build, invalid_vso5)
-        self.assertRaises(ParserError, self.sentence.build, invalid_vso6)
-        self.assertRaises(ParserError, self.sentence.build, invalid_vso7)
+        self.assertRaises(lexicon.ParserError, self.sentence.build, invalid_vso0)
+        self.assertRaises(lexicon.ParserError, self.sentence.build, invalid_vso1)
+        self.assertRaises(lexicon.ParserError, self.sentence.build, invalid_vso2)
+        self.assertRaises(lexicon.ParserError, self.sentence.build, invalid_vso3)
+        self.assertRaises(lexicon.ParserError, self.sentence.build, invalid_vso4)
+        self.assertRaises(lexicon.ParserError, self.sentence.build, invalid_vso5)
+        self.assertRaises(lexicon.ParserError, self.sentence.build, invalid_vso6)
+        self.assertRaises(lexicon.ParserError, self.sentence.build, invalid_vso7)

@@ -1,12 +1,15 @@
-from ast import literal_eval
+# Standard library
+import ast
 import os
 import sys
 
+# Third-party
 import web
 
 root_path = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.append(root_path)
 
+# Project specific
 from mindgames import number_distance  # noqa
 
 urls = (
@@ -41,7 +44,7 @@ class Play:
 
 class Result:
     def POST(self):
-        data = literal_eval(web.input().get('raw_data'))
+        data = ast.literal_eval(web.input().get('raw_data'))
         answer = web.input().get('answer')
         result = number_distance.generate_results(data, answer)
         level = data.get('left_bound'), data.get('right_bound')

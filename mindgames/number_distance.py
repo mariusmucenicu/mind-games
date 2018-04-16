@@ -1,6 +1,7 @@
-from ast import literal_eval
-from collections import OrderedDict
-from random import choice, randint
+# Standard library
+import ast
+import collections
+import random
 
 
 def fetch_difficulties(representation=False, internal=False):
@@ -27,7 +28,7 @@ def fetch_difficulties(representation=False, internal=False):
         ('l. impossible+ (including negative numbers)', (-10**9 + 1, 10**9 - 1)),
     )
 
-    difficulty_levels = OrderedDict(dict_data)
+    difficulty_levels = collections.OrderedDict(dict_data)
     difficulty_values = difficulty_levels.values()
 
     for min_value, max_value in difficulty_values:
@@ -95,7 +96,7 @@ def change_difficulty(avg_correct, avg_wrong, game_difficulty, all_difficulties)
     if avg_statistics >= 50:
         if difficulty_level + 1 < difficulty_levels:
             difficulty_level += 1
-            cheerful_quote = choice(cheerful_messages)
+            cheerful_quote = random.choice(cheerful_messages)
             print('{0}\nYou have an average of {1}% correct answers. '
                   'Auto increasing difficulty\n'.format(cheerful_quote, avg_statistics))
         else:
@@ -104,7 +105,7 @@ def change_difficulty(avg_correct, avg_wrong, game_difficulty, all_difficulties)
     else:
         if difficulty_level:
             difficulty_level -= 1
-            criticism_quote = choice(criticism_messages)
+            criticism_quote = random.choice(criticism_messages)
             print('{0}\nYou have an average of {1}% correct answers. '
                   'Auto decreasing difficulty\n'.format(criticism_quote, avg_statistics))
         else:
@@ -118,10 +119,10 @@ def generate_interval(game_difficulty):
     start_value = game_difficulty[0]
     stop_value = game_difficulty[1]
     left_glyphs, right_glyphs = ('[', '('), (']', ')')
-    start = randint(start_value, stop_value)
-    stop = randint(start, stop_value)
-    left_glyph = choice(left_glyphs)
-    right_glyph = choice(right_glyphs)
+    start = random.randint(start_value, stop_value)
+    stop = random.randint(start, stop_value)
+    left_glyph = random.choice(left_glyphs)
+    right_glyph = random.choice(right_glyphs)
 
     data = {
         'raw_data': {
@@ -171,7 +172,7 @@ def process_input(user_input):
     user_input = user_input.strip().lower()
 
     if len(user_input) > 1:
-        user_input = literal_eval(user_input)
+        user_input = ast.literal_eval(user_input)
         assert user_input in all_difficulties, 'invalid level'
         return user_input
     else:
