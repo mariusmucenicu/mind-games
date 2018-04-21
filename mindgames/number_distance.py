@@ -1,3 +1,21 @@
+"""
+Implement the interface for a simple mathematical game based on intervals.
+
+Functions:
+==========
+    calculate_statistics: Compute statistics based on amount of correct/wrong answers.
+    change_difficulty: Increment/decrement game difficulty based on calculate_statistics().
+    fetch_difficulties: Return available game difficulties (comprising of upper/lower bound limits).
+    generate_interval: Generate an interval which is a subset within the upper/lower bound limits.
+    generate_results: Compare user results against the expected results for a given question.
+    play: Entry point for the game.
+    process_input: Return a particular difficulty from fetch_difficulties() based on user choice.
+
+Miscellaneous objects:
+======================
+    Except the above, all other objects in this module are to be considered implementation details.
+"""
+
 __author__ = 'Marius Mucenicu <marius_mucenicu@yahoo>'
 
 # Standard library

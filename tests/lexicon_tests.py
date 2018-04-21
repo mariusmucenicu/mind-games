@@ -1,3 +1,16 @@
+"""
+Test mindgames.lexicon functionality.
+
+Classes:
+========
+    AsciiTest: Test mindgames.lexicon.check_ascii functionality.
+    LexiconTest: Test mindgames.lexion.Lexicon functionality.
+
+Miscellaneous objects:
+======================
+    Except the above, all other objects in this module are to be considered implementation details.
+"""
+
 # Standard library
 import unittest
 

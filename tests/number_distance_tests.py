@@ -1,3 +1,17 @@
+"""
+Test mindgames.number_distance functionality.
+
+Functions:
+==========
+    test_calculate_statistics: Test mindgames.number_distance.calculate_statistics functionality.
+    test_change_difficulty: Test mindgames.number_distance.change_difficulty functionality.
+    test_fetch_difficulties: Test mindgames.number_distance.fetch_difficulties functionality.
+
+Miscellaneous objects:
+======================
+    Except the above, all other objects in this module are to be considered implementation details.
+"""
+
 # Third-party
 from nose import tools
 

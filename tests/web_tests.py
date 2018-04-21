@@ -1,3 +1,23 @@
+"""
+Test bin.webapp functionality.
+
+Classes:
+========
+    TestWebApp: Test all public classes within bin.webapp
+        For each public class within bin.webapp there is a corresponding test method within the
+        tests.web_tests.TestWebApp of the form tests.web_tests.TestWebApp.test_<classname>
+        example: bin.webapp.Index is tested by the tests.web_tests.TestWebApp.test_index method.
+
+Notes:
+======
+    Tests will be split so that each method within TestWebApp becomes a class of its own.
+    For the time being, the functionality isn't that complex for the time investment to be worth it.
+
+Miscellaneous objects:
+======================
+    Except the above, all other objects in this module are to be considered implementation details.
+"""
+
 # Standard library
 import os
 import unittest

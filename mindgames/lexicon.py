@@ -1,3 +1,25 @@
+"""
+Implement a way to build valid independent clauses (simple sentences).
+
+This module encapsulates the logic for working with a given Lexicon and build valid, simple
+Sentence(s) from that Lexicon.
+
+Classes:
+========
+    Lexicon: Identify words against a given lexicon.
+    Sentence: Build basic sentences following a word order rule, e.g SVO (Subject Verb Object).
+    ParserError: Raise when trying to build invalid Sentence(s).
+
+Functions:
+==========
+    check_ascii: Check whether a given string is valid ASCII. UTF-8 encoding works as well since
+        it's a superset of ASCII, but the characters must be within the ASCII range.
+
+Miscellaneous objects:
+======================
+    Except the above, all other objects in this module are to be considered implementation details.
+"""
+
 __author__ = 'Marius Mucenicu <marius_mucenicu@yahoo.com>'
 
 
