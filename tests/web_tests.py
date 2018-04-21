@@ -13,7 +13,7 @@ from bin import webapp
 os.environ['WEBPY_ENV'] = 'test'
 
 
-class TestCode(unittest.TestCase):
+class TestWebApp(unittest.TestCase):
     def setUp(self):
         middleware = []
         self.testApp = fixture.TestApp(webapp.app.wsgifunc(*middleware))
