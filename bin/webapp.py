@@ -33,6 +33,8 @@ Notes:
         that by default.
 """
 
+__author__ = 'Marius Mucenicu <marius_mucenicu@yahoo.com>'
+
 # Standard library
 import ast
 import os
