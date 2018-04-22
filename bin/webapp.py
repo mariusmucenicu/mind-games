@@ -63,16 +63,46 @@ render = web.template.render(templates_path, base='layout')
 
 
 class Index:
+    """
+    Methods:
+    ========
+        GET()
+
+    Miscellaneous objects:
+    ======================
+        Except the above, all other objects in this class are considered implementation details.
+    """
+
     def GET(self):
         return render.index()
 
 
 class Grade:
+    """
+    Methods:
+    ========
+        GET()
+
+    Miscellaneous objects:
+    ======================
+        Except the above, all other objects in this class are considered implementation details.
+    """
+
     def GET(self):
         return render.grade()
 
 
 class Play:
+    """
+    Methods:
+    ========
+        POST()
+
+    Miscellaneous objects:
+    ======================
+        Except the above, all other objects in this class are considered implementation details.
+    """
+
     def POST(self):
         level = web.input().get('level')
         data = number_distance.play(level)
@@ -80,6 +110,16 @@ class Play:
 
 
 class Result:
+    """
+    Methods:
+    ========
+        POST()
+
+    Miscellaneous objects:
+    ======================
+        Except the above, all other objects in this class are considered implementation details.
+    """
+
     def POST(self):
         data = ast.literal_eval(web.input().get('raw_data'))
         answer = web.input().get('answer')

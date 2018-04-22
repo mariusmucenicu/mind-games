@@ -25,14 +25,12 @@ import random
 
 
 def fetch_difficulties(representation=False, internal=False):
-    """
-    Returns either a tuple of two lists containing strings which are the available game difficulties
-    or a list of tuples representing the game difficulties as internal values for the script
-    """
+    """Return the game difficulties as a list of ordered tuples, from easiest to most difficult."""
     assert all(isinstance(obj, bool) for obj in (representation, internal)), 'invalid input types'
     assert representation or internal, 'at least one input should be true'
     assert not (representation and internal), 'only one input should be true, not both'
 
+    # FIXME(Marius): return just the internal values and associate with user choice from front-end.
     dict_data = (
         ('a. very easy', (0, 10**2 - 1)),
         ('b. very easy+ (including negative numbers)', (-10**2 + 1, 10**2 - 1)),
@@ -67,7 +65,17 @@ def fetch_difficulties(representation=False, internal=False):
 
 
 def calculate_statistics(correct, wrong):
-    """Computes the statistics based on the amount of items in categories correct and wrong"""
+    """
+    Compute the statistics based on the numbers represented by correct and wrong.
+
+    Args:
+        :param correct (int): Number of correct answers.
+        :param wrong (int): Number of wrong answers.
+
+    Returns:
+        A tuple of length 3 of the form:
+            (total number of items, correct percentage of total, wrong percentage of total)
+    """
     assert all(type(obj) == int for obj in (correct, wrong)), 'integers expected'
 
     total = correct + wrong
@@ -78,13 +86,17 @@ def calculate_statistics(correct, wrong):
 
 def change_difficulty(avg_correct, avg_wrong, game_difficulty, all_difficulties):
     """
-    Increases or decreases the game difficulty from a range of difficulties based on
-    the success rate computed from avg_correct and avg_wrong
+    Increase or decrease the game difficulty from a range of difficulties based on the success rate.
 
-    avg_correct: int, number of correct answers
-    avg_wrong: int, number of wrong answers
-    game_difficulty: tuple, current difficulty level from a range of game difficulties
-    all_difficulties: tuple, a range of difficulty levels
+    Args:
+        :param avg_correct (int): Number of correct answers.
+        :param avg_wrong (int): Number of wrong answers.
+        :param game_difficulty (tuple): Current difficulty level.
+        :param all_difficulties (tuple): A range of difficulty levels.
+
+    Returns:
+        A tuple of length 2 of the form:
+            (lower_bound, upper_bound)
     """
     assert game_difficulty in all_difficulties, 'invalid input data'
 
@@ -135,7 +147,17 @@ def change_difficulty(avg_correct, avg_wrong, game_difficulty, all_difficulties)
 
 
 def generate_interval(game_difficulty):
-    """Function description"""
+    """
+    Generate an interval within two limits.
+
+    Args:
+        :param game_difficulty (tuple): Upper bound and lower bound values for an interval.
+
+    Returns:
+        A dictionary of length 2 comprising of:
+            1. the 'raw data' used to create the mathematical interval (limits, glyphs)
+            2. the formatted 'interval' based on data from 1.
+    """
     start_value = game_difficulty[0]
     stop_value = game_difficulty[1]
     left_glyphs, right_glyphs = ('[', '('), (']', ')')
@@ -159,7 +181,17 @@ def generate_interval(game_difficulty):
 
 
 def generate_results(data, value):
-    """Function description"""
+    """
+    Compare a given value (usually from a user) against a computed value and return the results.
+
+    Args:
+        :param data (dict): A mathematical interval of a fixed length.
+        :param value (int): A value used for indicating the total numbers in the given interval.
+
+    Returns:
+        A tuple of length 2 of the form:
+            (cpu_result, human_result == cpu_result)
+    """
     assert type(data) == dict, 'invalid data type, got {0}, expected dict'.format(type(data))
     assert value, 'invalid value'
 
@@ -186,7 +218,16 @@ def generate_results(data, value):
 
 
 def process_input(user_input):
-    """Function description"""
+    """
+    Fetch a game difficulty based on a given input.
+
+    Args:
+        :param user_input (str): A value corresponding to a game difficulty.
+
+    Returns:
+        A tuple of length 2 of the form:
+            (lower_bound, upper_bound)
+    """
     all_difficulties = fetch_difficulties(internal=True)
     available_choices = fetch_difficulties(representation=True)
     user_input = user_input.strip().lower()
@@ -202,7 +243,15 @@ def process_input(user_input):
 
 
 def play(user_input):
-    """Function description"""
+    """
+    Start the game.
+
+    Args:
+        :param user_input (str): A value corresponding to a game difficulty.
+
+    Returns:
+        See generate_interval's function for the return value.
+    """
     game_difficulty = process_input(user_input)
     assert game_difficulty, 'cannot start game wihtout data'
     return generate_interval(game_difficulty)

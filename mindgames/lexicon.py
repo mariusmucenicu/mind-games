@@ -36,17 +36,33 @@ class ParserError(Exception):
 
 
 class Lexicon:
+    """
+    Methods:
+    ========
+        scan_text()
+        split_alnum()
+        validate()
+
+    Miscellaneous objects:
+    ======================
+        Except the above, all other objects in this class are considered implementation details.
+    """
+
     def __init__(self, wordbook):
         """
-        wordbook: dictionary, words representing the lexicon of a particular subject
+        Initialize a new Lexicon object.
 
-        the wordbook must have the following form:
-        {'part_of_speech' : {value1, value2, value3, etc.}}, i.e:
+        Args:
+            :param wordbook (dict): Words, representing the lexicon of a particular subject.
 
-        {'subject': {'player', 'showman', 'etc'},
-         'verb': {'go', 'run', 'etc'},
-         'object': {'door', 'vault', 'etc'},
-         'constituent': {'in', 'at', 'etc'}}
+        Example:
+            The wordbook must have the following form:
+            {'part_of_speech' : {value1, value2, value3, etc.}}
+
+            {'subject': {'player', 'showman', 'etc'},
+             'verb': {'go', 'run', 'etc'},
+             'object': {'door', 'vault', 'etc'},
+             'constituent': {'in', 'at', 'etc'}}
         """
         # class invariants
         assert wordbook, 'cannot operate on empty dictionary'
@@ -56,7 +72,25 @@ class Lexicon:
         self.wordbook = wordbook
 
     def validate(self, wordbook):
-        """Ensures the wordbook contains: unique lowercase words with just alphabetic characters"""
+        """
+        Check whether the wordbook provided has unique lowercase words with just alpha chars.
+
+        Args:
+            :param wordbook (dict): A lexicon (vocabulary/dictionary).
+
+        Returns:
+            True (bool) if all checks have passed successfully.
+
+        Raises:
+            AssertionError:
+                If the word categories (parts of speech) are greater than 64.
+                If any word category contains: uppercase, non-valid-ASCII chars, non-alpha chars, or
+                    is not of type string.
+                If the values associated with each category is not a set.
+                If the words comprising the lexicon contain: uppercase, non-valid-ASCII chars,
+                    non-alpha chars, or are not of type string.
+                If there are duplicates hidden amongst different categories.
+        """
         # TODO(Marius): also check the parts of speech against the acknowledged classification
         assert len(wordbook) <= 64, 'too many parts of speech (word categories) in the lexicon'
         assert all(
@@ -83,12 +117,19 @@ class Lexicon:
         return True
 
     def split_alnum(self, raw_string):
-        """Parses a raw string and removes any non alphanumeric characters out of it.
+        """
+        Parses a raw string and remove any non alphanumeric characters out of it.
 
-        Words must be composed either entirely out of alphabetic characters: 'the', 'king', 'deuce'
-        or entirely out of digits: '1990', but not mixed: 'th3', 'k1ng'
+        Args:
+            :param raw_string (str): An unformatted, raw text.
 
-        returns: a list of formatted words (lowercase, special characters removed) and/or numbers
+        Returns:
+            A list of formatted words (lowercase, special characters removed) and/or numbers.
+
+        Raises:
+            AssertionError:
+                If words are not composed entirely out of alphabetic characters like: 'the', 'king',
+                'deuce' or entirely out of digits: '1990', '2079'. Bad (would raise): 'th3', 'k1ng'.
         """
         assert type(raw_string) == str, 'invalid data type, str expected'
         assert len(raw_string) <= 512, 'maximum input length of 512 characters exceeded'
@@ -111,7 +152,17 @@ class Lexicon:
         return words
 
     def scan_text(self, raw_string):
-        """Scans a text and matches words against a lexicon to identify each word's class"""
+        """
+        Scan a text and match words against a lexicon to identify each word's class
+
+        Args:
+            :param raw_string (str): An unformatted, raw text.
+
+        Returns:
+            A list of processed words where each word from the input string, has been identified
+            and labeled with a word class from a given lexicon, or the 'error' class if it could not
+            be found.
+        """
         assert raw_string, 'invalid call with no data'
         assert check_ascii(raw_string), 'invalid characters'
 
@@ -130,15 +181,29 @@ class Lexicon:
 
 
 class Sentence:
+    """
+    Methods:
+    ========
+        build()
+
+    Miscellaneous objects:
+    ======================
+        Except the above, all other objects in this class are considered implementation details.
+    """
+
     def __init__(self, word_order):
         """
-        word_order: string, represents the rule upon which sentences will built
+        Initialize a new Sentence object.
 
-        The most popular, acknowledged word orders are:
-            * Subject Verb Object (SVO),
-            * Subject Object Verb (SOV),
-            * Verb Subject Object (VSO),
-        All together they account for more than 85% of the world's languages
+        Args:
+            :param word_order (str): Represents the rule upon which sentences will built.
+
+        Notes:
+            The most popular, acknowledged word orders are:
+                * Subject Verb Object (SVO),
+                * Subject Object Verb (SOV),
+                * Verb Subject Object (VSO),
+            All together they account for more than 85% of the world's languages
         """
         # class invariants
         assert type(word_order) == str, 'invalid input type, str expected'
@@ -153,9 +218,25 @@ class Sentence:
         self.expected_order = word_pattern[word_order]
 
     def build(self, words):
-        """Builds a simple sentence (one independent clause) based on the word order
+        """
+        Build a simple sentence (one independent clause) based on the word order.
 
-        words: list, contains 2 item tuples of the form ('token', 'word'), i.e ('verb', 'build')
+        Args:
+            :param words (list): Contains 2 item tuples of the form ('token', 'word')
+
+        Returns:
+            A simple sentence with the identified words from the lexicon, given a word order.
+
+        Raises:
+            ParserError:
+                If the word to be appended to the sentence is not an expected word.
+                Example: If the word order is: SVO (Subject Verb Object) it expects a Subject first.
+                    If you give it a sentence like Smack the bear, it will raise an exception.
+
+        Notes:
+            Constituents from the lexicon are ignored in order to build a variety of sentences with
+                a small vocabulary.
+            Example: Punch the bear in the face will yield Punch bear face.
         """
         assert words, 'invalid call with no data'
         assert all(
