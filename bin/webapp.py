@@ -47,6 +47,7 @@ root_path = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.append(root_path)
 
 # Project specific
+# pylint: disable=wrong-import-position
 from mindgames import number_distance  # noqa
 
 urls = (
