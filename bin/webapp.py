@@ -33,6 +33,9 @@ Notes:
         that by default.
 """
 
+# pylint: disable=wrong-import-position
+# pylint: disable=invalid-name
+
 __author__ = 'Marius Mucenicu <marius_mucenicu@yahoo.com>'
 
 # Standard library
@@ -47,7 +50,6 @@ root_path = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.append(root_path)
 
 # Project specific
-# pylint: disable=wrong-import-position
 from mindgames import number_distance  # noqa
 
 urls = (
@@ -59,8 +61,8 @@ urls = (
 
 templates_dir = os.path.dirname(os.path.dirname(os.path.realpath(__file__)))
 templates_path = '{0}/templates'.format(templates_dir)
-app = web.application(urls, globals())
 render = web.template.render(templates_path, base='layout')
+app = web.application(urls, globals())
 
 
 class Index:
