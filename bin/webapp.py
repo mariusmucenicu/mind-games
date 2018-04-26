@@ -137,4 +137,7 @@ class Result:
 
 if __name__ == '__main__':
     if not ('WEBPY_ENV' in os.environ and os.environ['WEBPY_ENV'] == 'test'):
+        print('Starting development server at: ', end='')
         app.run()
+    else:
+        print('We are in test mode')
