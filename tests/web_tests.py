@@ -37,9 +37,6 @@ class TestWebApp(unittest.TestCase):
     def setUp(self):
         middleware = []
         self.testApp = fixture.TestApp(webapp.app.wsgifunc(*middleware))
-        templates_dir = os.path.dirname(os.path.dirname(os.path.realpath(__file__)))
-        templates_path = '{0}/templates'.format(templates_dir)
-        webapp.render = webapp.web.template.render(templates_path, base='layout')
 
     def test_index(self):
         response = self.testApp.get('/')
