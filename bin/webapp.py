@@ -59,9 +59,9 @@ urls = (
     '/result', 'Result',
 )
 
-templates_dir = os.path.dirname(os.path.dirname(os.path.realpath(__file__)))
-templates_path = '{0}/templates'.format(templates_dir)
-render = web.template.render(templates_path, base='layout')
+TEMPLATES_DIR = os.path.dirname(os.path.dirname(os.path.realpath(__file__)))
+TEMPLATES_PATH = '{0}/templates'.format(TEMPLATES_DIR)
+render = web.template.render(TEMPLATES_PATH, base='layout')
 app = web.application(urls, globals())
 
 
