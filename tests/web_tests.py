@@ -83,17 +83,16 @@ class TestWebApp(unittest.TestCase):
 
     def test_result_correct(self):
         tools.assert_raises(fixture.AppError, self.testApp.get, '/result')  # this is a 405 raise
+        raw_data = {
+            'left_glyph': '[',
+            'right_glyph': ')',
+            'left_bound': 0,
+            'right_bound': 99,
+            'start': 59,
+            'stop': 78
+        }
         post_params = {
-            'raw_data': str(
-                {
-                    'left_glyph': '[',
-                    'right_glyph': ')',
-                    'left_bound': 0,
-                    'right_bound': 99,
-                    'start': 59,
-                    'stop': 78,
-                }
-            ),
+            'raw_data': str(raw_data),
             'answer': 19,
         }
         response = self.testApp.post('/result', params=post_params)
@@ -109,17 +108,16 @@ class TestWebApp(unittest.TestCase):
 
     def test_result_incorrect(self):
         tools.assert_raises(fixture.AppError, self.testApp.get, '/result')  # this is a 405 raise
+        raw_data = {
+            'left_glyph': '[',
+            'right_glyph': ')',
+            'left_bound': 0,
+            'right_bound': 99,
+            'start': 59,
+            'stop': 78,
+        }
         post_params = {
-            'raw_data': str(
-                {
-                    'left_glyph': '[',
-                    'right_glyph': ')',
-                    'left_bound': 0,
-                    'right_bound': 99,
-                    'start': 59,
-                    'stop': 78,
-                }
-            ),
+            'raw_data': str(raw_data),
             'answer': 24,
         }
         response = self.testApp.post('/result', params=post_params)

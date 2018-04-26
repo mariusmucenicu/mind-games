@@ -174,7 +174,7 @@ def generate_interval(game_difficulty):
             'right_bound': stop_value,
             'start': start,
             'stop': stop,
-            },
+        },
         'interval': '{0}{start}, {stop}{1}'.format(left_glyph, right_glyph, start=start, stop=stop)
     }
     return data

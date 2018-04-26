@@ -33,12 +33,11 @@ class AsciiTest(unittest.TestCase):
 
 class LexiconTest(unittest.TestCase):
     def setUp(self):
-        self.my_lexicon = lexicon.Lexicon(
-            {
-                'subject': {'guido', 'dropbox'},
-                'predicate': {'create', 'forge'},
-            }
-        )
+        sample_lexicon = {
+            'subject': {'guido', 'dropbox'},
+            'predicate': {'create', 'forge'},
+        }
+        self.my_lexicon = lexicon.Lexicon(sample_lexicon)
 
     def test_split_alnum(self):
         self.assertRaises(AssertionError, self.my_lexicon.split_alnum, ' We the best music!!1one  ')
@@ -454,17 +453,14 @@ class LexiconTest(unittest.TestCase):
 
 class SentenceTest(unittest.TestCase):
     def setUp(self):
+        sample_lexicon = {
+            'subject': {'player'},
+            'verb': {'smack', 'punch', 'go', 'open'},
+            'object': {'bear', 'door', 'face', 'nose'},
+            'constituent': {'in', 'the', 'their', 'that', 'at', 'upon', 'where', 'on', 'through'}
+        }
         self.sentence = lexicon.Sentence(word_order='SVO')
-        self.game_lexicon = lexicon.Lexicon(
-            {
-                'subject': {'player'},
-                'verb': {'smack', 'punch', 'go', 'open'},
-                'object': {'bear', 'door', 'face', 'nose'},
-                'constituent': {
-                    'in', 'the', 'their', 'that', 'at', 'upon', 'where', 'on', 'through'
-                }
-            }
-        )
+        self.game_lexicon = lexicon.Lexicon(sample_lexicon)
 
     def test_invalid_vaid_word_orders(self):
         self.assertRaises(AssertionError, lexicon.Sentence, 'vos')
