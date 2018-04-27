@@ -26,7 +26,6 @@ __author__ = 'Marius Mucenicu <marius_mucenicu@yahoo.com>'
 def check_ascii(raw_string):
     """Checks whether all the characters in an input string are ASCII compatible"""
     assert raw_string, 'invalid call with no data'
-    assert type(raw_string) == str, 'invalid data type, str expected'
     return all(ord(letter) < 127 for letter in raw_string)
 
 
@@ -66,9 +65,7 @@ class Lexicon:
         """
         # class invariants
         assert wordbook, 'cannot operate on empty dictionary'
-        assert isinstance(wordbook, dict), 'expected a dict type but got {0}'.format(type(wordbook))
         assert self.validate(wordbook), 'invalid lexicon'
-
         self.wordbook = wordbook
 
     def validate(self, wordbook):
@@ -94,20 +91,14 @@ class Lexicon:
         # TODO(Marius): also check the parts of speech against the acknowledged classification
         assert len(wordbook) <= 64, 'too many parts of speech (word categories) in the lexicon'
         assert all(
-            type(term) == str and term.isalpha() and term.islower() and check_ascii(term)
-            for term in wordbook.keys()
+            term.isalpha() and term.islower() and check_ascii(term) for term in wordbook.keys()
         ), 'invalid word type or format within keys'
-        assert all(
-            type(word_set) == set
-            for word_set in wordbook.values()
-        ), 'invalid data structure within values'
 
         checked_words = set()
         for word_set in wordbook.values():
             assert word_set, 'empty data set not allowed'
             assert all(
-                type(word) == str and word.isalpha() and word.islower() and check_ascii(word)
-                for word in word_set
+                word.isalpha() and word.islower() and check_ascii(word) for word in word_set
             ), 'invalid word found in {0}'.format(word_set)
 
             if word_set & checked_words:
@@ -131,7 +122,6 @@ class Lexicon:
                 If words are not composed entirely out of alphabetic characters like: 'the', 'king',
                 'deuce' or entirely out of digits: '1990', '2079'. Bad (would raise): 'th3', 'k1ng'.
         """
-        assert type(raw_string) == str, 'invalid data type, str expected'
         assert len(raw_string) <= 512, 'maximum input length of 512 characters exceeded'
 
         special_characters = {
@@ -206,7 +196,6 @@ class Sentence:
             All together they account for more than 85% of the world's languages
         """
         # class invariants
-        assert type(word_order) == str, 'invalid input type, str expected'
         word_order = word_order.strip().lower()
         assert word_order in ('svo', 'sov', 'vso'), 'invalid word order'
 
@@ -239,15 +228,7 @@ class Sentence:
             Example: Punch the bear in the face will yield Punch bear face.
         """
         assert words, 'invalid call with no data'
-        assert all(
-            len(pair) == 2 and type(pair) == tuple
-            for pair in words
-        ), 'invalid (token, word) data structure or items within != str'
-        assert all(
-            type(item) == str
-            for pair in words
-            for item in pair
-        ), 'invalid element type in token-word pair'
+        assert all(len(pair) == 2 for pair in words), 'unequal (token, word) pairs'
 
         position = 0
         sentence = []

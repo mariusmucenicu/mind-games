@@ -46,11 +46,12 @@ def test_fetch_difficulties():
 
 
 def test_calculate_statistics():
-    correct_p = round(3/23 * 100, 2)
-    wrong_p = round(100 - correct_p, 2)
-    tools.assert_equals(number_distance.calculate_statistics(3, 20), (23, correct_p, wrong_p))
-    tools.assert_raises(AssertionError, number_distance.calculate_statistics, 3.0, 15)
-    tools.assert_raises(AssertionError, number_distance.calculate_statistics, 3.0, 20.0)
+    tools.assert_equals(number_distance.calculate_statistics(3, 20), (23, 13.04, 86.96))
+    tools.assert_equals(number_distance.calculate_statistics(3, 20), (23.0, 13.04, 86.96))
+    tools.assert_equals(number_distance.calculate_statistics(3.0, 15), (18.0, 16.67, 83.33))
+    tools.assert_equals(number_distance.calculate_statistics(19, 20), (39, 48.72, 51.28))
+    tools.assert_equals(number_distance.calculate_statistics(15.0, 20), (35.0, 42.86, 57.14))
+    tools.assert_equals(number_distance.calculate_statistics(20.0, 20), (40.0, 50.0, 50.0))
 
 
 def test_change_difficulty():

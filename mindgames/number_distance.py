@@ -50,7 +50,6 @@ def fetch_difficulties(representation=False, internal=False):
     difficulty_values = difficulty_levels.values()
 
     for min_value, max_value in difficulty_values:
-        assert type(min_value) == int and type(max_value) == int, 'values must be integers'
         assert min_value <= max_value, 'invalid values for game difficulty'
     assert len(set(difficulty_values)) == len(difficulty_values), 'duplicates found'
 
@@ -76,8 +75,6 @@ def calculate_statistics(correct, wrong):
         A tuple of length 3 of the form:
             (total number of items, correct percentage of total, wrong percentage of total)
     """
-    assert all(type(obj) == int for obj in (correct, wrong)), 'integers expected'
-
     total = correct + wrong
     correct_percentage = round(correct / total * 100, 2)
     wrong_percentage = round(100 - correct_percentage, 2)
@@ -192,7 +189,7 @@ def generate_results(data, value):
         A tuple of length 2 of the form:
             (cpu_result, human_result == cpu_result)
     """
-    assert type(data) == dict, 'invalid data type, got {0}, expected dict'.format(type(data))
+    assert data, 'no data'
     assert value, 'invalid value'
 
     try:

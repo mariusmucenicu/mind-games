@@ -20,15 +20,12 @@ from mindgames import lexicon
 
 class AsciiTest(unittest.TestCase):
     def test_check_ascii(self):
-        self.assertEqual(any(lexicon.check_ascii(chr(x)) for x in range(125, 255)), True)
+        self.assertEqual(lexicon.check_ascii({'a': 'test'}), True)  # false positive
         self.assertEqual(all(lexicon.check_ascii(chr(x)) for x in range(0, 127)), True)
         self.assertEqual(any(lexicon.check_ascii(chr(x)) for x in range(127, 255)), False)
-        self.assertRaises(AssertionError, lexicon.check_ascii, '')
-        self.assertRaises(AssertionError, lexicon.check_ascii, [])
-        self.assertRaises(AssertionError, lexicon.check_ascii, [1, 2])
-        self.assertRaises(AssertionError, lexicon.check_ascii, ['abc'])
-        self.assertRaises(AssertionError, lexicon.check_ascii, 1234)
-        self.assertRaises(AssertionError, lexicon.check_ascii, {'a': 'test'})
+        self.assertRaises(TypeError, lexicon.check_ascii, [1, 2])
+        self.assertRaises(TypeError, lexicon.check_ascii, ['abc'])
+        self.assertRaises(TypeError, lexicon.check_ascii, 1234)
 
 
 class LexiconTest(unittest.TestCase):
@@ -116,7 +113,7 @@ class LexiconTest(unittest.TestCase):
             'object': {'bear', 'python', 'game', 'door'},
             'constituent': {'at', 'or', 'in', 'through', 'over', 'this', 'the', 'that'}
         }
-        self.assertRaises(AssertionError, self.my_lexicon.validate, invalid_lexicon_int)
+        self.assertRaises(AttributeError, self.my_lexicon.validate, invalid_lexicon_int)
 
         invalid_lexicon_tuple = {
             'subject': {'i', 'player', ('julia', 'moore'), ('zuck', 'mark')},
@@ -124,7 +121,7 @@ class LexiconTest(unittest.TestCase):
             'object': {'bear', 'python', 'game', 'door'},
             'constituent': {'at', 'or', 'in', 'through', 'over', 'this', 'the', 'that'}
         }
-        self.assertRaises(AssertionError, self.my_lexicon.validate, invalid_lexicon_tuple)
+        self.assertRaises(AttributeError, self.my_lexicon.validate, invalid_lexicon_tuple)
 
         invalid_lexicon_alnum = {
             'subject': {'i', 'player', 'julia', 'zuck', 'z00m', 'm00re'},
@@ -153,7 +150,7 @@ class LexiconTest(unittest.TestCase):
         invalid_lexicon_numbers = {
             'numerals': {0, 1, 2, 3, 4, 5, 6, 7, 8, 9}
         }
-        self.assertRaises(AssertionError, self.my_lexicon.validate, invalid_lexicon_numbers)
+        self.assertRaises(AttributeError, self.my_lexicon.validate, invalid_lexicon_numbers)
 
         invalid_lexicon_numerals = {
             'numerals': {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9'}
@@ -470,36 +467,48 @@ class SentenceTest(unittest.TestCase):
         self.assertRaises(AssertionError, lexicon.Sentence, 'b0gus')
         self.assertRaises(AssertionError, lexicon.Sentence, 'b0gu$')
         self.assertRaises(AssertionError, lexicon.Sentence, 'bogus bogus bogus')
-        self.assertRaises(AssertionError, lexicon.Sentence, {'svo'})
         self.assertRaises(AssertionError, lexicon.Sentence, '1234')
-        self.assertRaises(AssertionError, lexicon.Sentence, 1234)
-        self.assertRaises(AssertionError, lexicon.Sentence, ['svo'])
-        self.assertRaises(AssertionError, lexicon.Sentence, ('sov',))
         self.assertRaises(AssertionError, lexicon.Sentence, 'svo,')
-        self.assertRaises(AssertionError, lexicon.Sentence, {'svo': ''})
         self.assertRaises(AssertionError, lexicon.Sentence, '')
+        self.assertRaises(AttributeError, lexicon.Sentence, {'svo'})
+        self.assertRaises(AttributeError, lexicon.Sentence, 1234)
+        self.assertRaises(AttributeError, lexicon.Sentence, ['svo'])
+        self.assertRaises(AttributeError, lexicon.Sentence, ('sov',))
+        self.assertRaises(AttributeError, lexicon.Sentence, {'svo': ''})
 
     def test_invalid_data_structure(self):
         """Attempt to build a sentence with an unexpected data structure should raise an error"""
-        self.assertRaises(AssertionError, self.sentence.build, [['verb', 'eat'], ('subject', 'I')])
-        self.assertRaises(AssertionError, self.sentence.build, [('verb', 'eat'), {'subject', 'I'}])
         self.assertRaises(AssertionError, self.sentence.build, [{'verb': 'eat'}, ('subject', 'I')])
         self.assertRaises(AssertionError, self.sentence.build, [('verb', 'eat', 'sleep', 'rave')])
         self.assertRaises(AssertionError, self.sentence.build, ['verb', 'eat', 'sleep', 'rave'])
         self.assertRaises(AssertionError, self.sentence.build, {'verb', 'eat', 'sleep', 'rave'})
         self.assertRaises(AssertionError, self.sentence.build, {'verb': 'eat', 'sleep': 'rave'})
+        self.assertRaises(
+            lexicon.ParserError, self.sentence.build, [['verb', 'eat'], ('subject', 'I')]
+        )
+        self.assertRaises(
+            lexicon.ParserError, self.sentence.build, [('verb', 'eat'), {'subject', 'I'}]
+        )
 
     def test_invalid_item_types(self):
         """Attempt to build a sentence with unexpected types within pairs should raise an error"""
-        self.assertRaises(AssertionError, self.sentence.build, [(1, 'eat'), ('subject', 'I')])
-        self.assertRaises(AssertionError, self.sentence.build, [(1, 2), ('subject', 'I')])
-        self.assertRaises(AssertionError, self.sentence.build, [(1, 2), (3, 4)])
-        self.assertRaises(AssertionError, self.sentence.build, [('verb', 'eat'), ('subject', 3.14)])
-        self.assertRaises(AssertionError, self.sentence.build, [('verb', []), ('subject', 'I')])
-        self.assertRaises(AssertionError, self.sentence.build, [('verb', ['eat'])])
-        self.assertRaises(AssertionError, self.sentence.build, [('verb', {}), ('subject', 'I')])
-        self.assertRaises(AssertionError, self.sentence.build, [('verb', set()), ('subject', 'I')])
-        self.assertRaises(AssertionError, self.sentence.build, [('verb', {'eat'})])
+        self.assertRaises(lexicon.ParserError, self.sentence.build, [(1, 'eat'), ('subject', 'I')])
+        self.assertRaises(lexicon.ParserError, self.sentence.build, [(1, 2), ('subject', 'I')])
+        self.assertRaises(lexicon.ParserError, self.sentence.build, [(1, 2), (3, 4)])
+        self.assertRaises(lexicon.ParserError, self.sentence.build, [('verb', ['eat'])])
+        self.assertRaises(lexicon.ParserError, self.sentence.build, [('verb', {'eat'})])
+        self.assertRaises(
+            lexicon.ParserError, self.sentence.build, [('verb', 'eat'), ('subject', 3.14)]
+        )
+        self.assertRaises(
+            lexicon.ParserError, self.sentence.build, [('verb', []), ('subject', 'I')]
+        )
+        self.assertRaises(
+            lexicon.ParserError, self.sentence.build, [('verb', {}), ('subject', 'I')]
+        )
+        self.assertRaises(
+            lexicon.ParserError, self.sentence.build, [('verb', set()), ('subject', 'I')]
+        )
 
     def test_build_valid_svo_sentences(self):
         """Build a Subject Verb Object simple sentence (independent clause) out of some of words"""
