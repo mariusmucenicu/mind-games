@@ -46,8 +46,9 @@ import sys
 # Third-party
 import web
 
-root_path = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-sys.path.append(root_path)
+script_path = os.path.dirname(os.path.abspath(__file__))
+root_path = os.path.dirname(script_path)
+sys.path.extend((root_path, script_path))
 
 # Project specific
 from mindgames import number_distance  # noqa
