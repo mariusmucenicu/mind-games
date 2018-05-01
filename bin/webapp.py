@@ -109,8 +109,11 @@ class Play:
 
     def POST(self):
         level = web.input().get('level')
-        data = number_distance.play(level)
-        return render.play(data)
+        if not level:
+            raise web.seeother('/grade')
+        else:
+            data = number_distance.play(level)
+            return render.play(data)
 
 
 class Result:

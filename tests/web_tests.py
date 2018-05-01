@@ -3,15 +3,11 @@ Test bin.webapp functionality.
 
 Classes:
 ========
-    TestWebApp: Test all public classes within bin.webapp
-        For each public class within bin.webapp there is a corresponding test method within the
-        tests.web_tests.TestWebApp of the form tests.web_tests.TestWebApp.test_<classname>
-        example: bin.webapp.Index is tested by the tests.web_tests.TestWebApp.test_index method.
+    TestIndex: Test the requests going under /index
+    TestGrade: Test the requests going under /grade
+    TestPlay: Test the requests going under /play
+    TestResult: Test the requests going under /result
 
-Notes:
-======
-    Tests will be split so that each method within TestWebApp becomes a class of its own.
-    For the time being, the functionality isn't that complex for the time investment to be worth it.
 
 Miscellaneous objects:
 ======================
@@ -33,7 +29,7 @@ from bin import webapp
 os.environ['WEBPY_ENV'] = 'test'
 
 
-class TestWebApp(unittest.TestCase):
+class TestIndex(unittest.TestCase):
     def setUp(self):
         middleware = []
         self.testApp = fixture.TestApp(webapp.app.wsgifunc(*middleware))
@@ -52,6 +48,12 @@ class TestWebApp(unittest.TestCase):
         )
         response.mustcontain(*match_items)
 
+
+class TestGrade(unittest.TestCase):
+    def setUp(self):
+        middleware = []
+        self.testApp = fixture.TestApp(webapp.app.wsgifunc(*middleware))
+
     def test_grade(self):
         response = self.testApp.get('/grade')
         tools.assert_equals(response.status, 200)
@@ -65,8 +67,20 @@ class TestWebApp(unittest.TestCase):
         )
         response.mustcontain(*match_items)
 
+
+class TestPlay(unittest.TestCase):
+    def setUp(self):
+        middleware = []
+        self.testApp = fixture.TestApp(webapp.app.wsgifunc(*middleware))
+
+    def test_get_not_allowed(self):
+        tools.assert_raises(fixture.AppError, self.testApp.get, '/play')  # 405 Method not allowed
+
+    def test_play_post_with_no_value(self):
+        response = self.testApp.post('/play')
+        tools.assert_equals(response.status, 303)
+
     def test_play(self):
-        tools.assert_raises(fixture.AppError, self.testApp.get, '/play')  # this is a 405 raise
         response = self.testApp.post('/play', params={'level': 'a'})
         tools.assert_equals(response.status, 200)
         match_items = (
@@ -80,6 +94,12 @@ class TestWebApp(unittest.TestCase):
             'play-form-btn',
         )
         response.mustcontain(*match_items)
+
+
+class TestResult(unittest.TestCase):
+    def setUp(self):
+        middleware = []
+        self.testApp = fixture.TestApp(webapp.app.wsgifunc(*middleware))
 
     def test_result_correct(self):
         tools.assert_raises(fixture.AppError, self.testApp.get, '/result')  # this is a 405 raise
