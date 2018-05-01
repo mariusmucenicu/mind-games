@@ -60,7 +60,7 @@ body {
 }
 
 .secret-message {
-    width: 30px;
+    width: auto;
 }
 
 .secret-message:hover p.new-label span {
