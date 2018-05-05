@@ -20,7 +20,7 @@ Miscellaneous objects:
     Except the above, all other objects in this module are to be considered implementation details.
 """
 
-__author__ = 'Marius Mucenicu <marius_mucenicu@yahoo>'
+__author__ = 'Marius Mucenicu <marius_mucenicu@yahoo.com>'
 
 # Standard library
 import logging
