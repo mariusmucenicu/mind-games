@@ -113,7 +113,10 @@ class Play:
             raise web.seeother('/grade')
         else:
             data = number_distance.play(level)
-            return render.play(data)
+            if not data:
+                raise web.internalerror('Oops. I fucked up! :D')
+            else:
+                return render.play(data)
 
 
 class Result:

@@ -4,12 +4,16 @@ Implement the interface for a simple mathematical game based on intervals.
 Functions:
 ==========
     calculate_statistics: Compute statistics based on amount of correct/wrong answers.
-    change_difficulty: Increment/decrement game difficulty based on calculate_statistics().
-    fetch_difficulties: Return available game difficulties (comprising of upper/lower bound limits).
+    change_game_level: Increment/decrement the degree of difficulty based on calculate_statistics().
+    fetch_game_level: Return a game level from a series of game levels, based on user preference.
     generate_interval: Generate an interval which is a subset within the upper/lower bound limits.
     generate_results: Compare user results against the expected results for a given question.
     play: Entry point for the game.
-    process_input: Return a particular difficulty from fetch_difficulties() based on user choice.
+    validate_game_levels: Ensure the game levels respect certain criteria.
+
+CONSTANTS:
+==========
+    GAME_LEVELS: A series of available game levels ranging in difficulty.
 
 Miscellaneous objects:
 ======================
@@ -19,53 +23,28 @@ Miscellaneous objects:
 __author__ = 'Marius Mucenicu <marius_mucenicu@yahoo>'
 
 # Standard library
-import ast
-import collections
+import logging
 import random
 
-
-def fetch_difficulties(representation=False, internal=False):
-    """Return the game difficulties as a list of ordered tuples, from easiest to most difficult."""
-    assert all(isinstance(obj, bool) for obj in (representation, internal)), 'invalid input types'
-    assert representation or internal, 'at least one input should be true'
-    assert not (representation and internal), 'only one input should be true, not both'
-
-    # FIXME(Marius): return just the internal values and associate with user choice from front-end.
-    dict_data = (
-        ('a. very easy', (0, 10**2 - 1)),
-        ('b. very easy+ (including negative numbers)', (-10**2 + 1, 10**2 - 1)),
-        ('c. easy', (0, 10**3 - 1)),
-        ('d. easy+ (including negative numbers)', (-10**3 + 1, 10**3 - 1)),
-        ('e. normal', (0, 10**4 - 1)),
-        ('f. normal+ (including negative numbers)', (-10**4 + 1, 10**4 - 1)),
-        ('g. hard', (0, 10**5 - 1)),
-        ('h. hard+ (including negative numbers)', (-10**5 + 1, 10**5 - 1)),
-        ('i. very hard', (0, 10**6 - 1)),
-        ('j. very hard+ (including negative numbers)', (-10**6 + 1, 10**6 - 1)),
-        ('k. impossible', (0, 10**9 - 1)),
-        ('l. impossible+ (including negative numbers)', (-10**9 + 1, 10**9 - 1)),
-    )
-
-    difficulty_levels = collections.OrderedDict(dict_data)
-    difficulty_values = difficulty_levels.values()
-
-    for min_value, max_value in difficulty_values:
-        assert min_value <= max_value, 'invalid values for game difficulty'
-    assert len(set(difficulty_values)) == len(difficulty_values), 'duplicates found'
-
-    difficulty_keys = difficulty_levels.keys()
-    user_choices = [choice.split('.')[0].strip().lower() for choice in difficulty_keys]
-    assert len(set(user_choices)) == len(user_choices), 'duplicates found'
-
-    if representation:
-        return user_choices
-    else:
-        return list(difficulty_values)
+GAME_LEVELS = (
+    (0, 10**2 - 1),
+    (-10**2 + 1, 10**2 - 1),
+    (0, 10**3 - 1),
+    (-10**3 + 1, 10**3 - 1),
+    (0, 10**4 - 1),
+    (-10**4 + 1, 10**4 - 1),
+    (0, 10**5 - 1),
+    (-10**5 + 1, 10**5 - 1),
+    (0, 10**6 - 1),
+    (-10**6 + 1, 10**6 - 1),
+    (0, 10**9 - 1),
+    (-10**9 + 1, 10**9 - 1),
+)
 
 
 def calculate_statistics(correct, wrong):
     """
-    Compute the statistics based on the numbers represented by correct and wrong.
+    Compute the statistics based on the total number of correct and wrong answers.
 
     Args:
         :param correct (int): Number of correct answers.
@@ -73,7 +52,7 @@ def calculate_statistics(correct, wrong):
 
     Returns:
         A tuple of length 3 of the form:
-            (total number of items, correct percentage of total, wrong percentage of total)
+            (total number of answers, correct percentage (of total), wrong percentage (of total))
     """
     total = correct + wrong
     correct_percentage = round(correct / total * 100, 2)
@@ -81,24 +60,24 @@ def calculate_statistics(correct, wrong):
     return total, correct_percentage, wrong_percentage
 
 
-def change_difficulty(avg_correct, avg_wrong, game_difficulty, all_difficulties):
+def change_game_level(avg_correct, avg_wrong, game_level, all_game_levels):
     """
-    Increase or decrease the game difficulty from a range of difficulties based on the success rate.
+    Increase or decrease the game difficulty level from a range of levels based on the success rate.
 
     Args:
         :param avg_correct (int): Number of correct answers.
         :param avg_wrong (int): Number of wrong answers.
-        :param game_difficulty (tuple): Current difficulty level.
-        :param all_difficulties (tuple): A range of difficulty levels.
+        :param game_level (tuple): Current game level.
+        :param all_game_levels (tuple): Available game levels.
 
     Returns:
         A tuple of length 2 of the form:
             (lower_bound, upper_bound)
     """
-    assert game_difficulty in all_difficulties, 'invalid input data'
+    assert game_level in all_game_levels, 'invalid input data'
 
-    difficulty_levels = len(all_difficulties)
-    difficulty_level = all_difficulties.index(game_difficulty)
+    GAME_LEVELS = len(all_game_levels)
+    game_level = all_game_levels.index(game_level)
 
     cheerful_messages = (
         'Congratulations on your success! You have made us all proud. Keep up the good work!',
@@ -123,8 +102,8 @@ def change_difficulty(avg_correct, avg_wrong, game_difficulty, all_difficulties)
     avg_statistics = calculate_statistics(avg_correct, avg_wrong)[1]
 
     if avg_statistics >= 50:
-        if difficulty_level + 1 < difficulty_levels:
-            difficulty_level += 1
+        if game_level + 1 < GAME_LEVELS:
+            game_level += 1
             cheerful_quote = random.choice(cheerful_messages)
             print('{0}\nYou have an average of {1}% correct answers. '
                   'Auto increasing difficulty\n'.format(cheerful_quote, avg_statistics))
@@ -132,49 +111,78 @@ def change_difficulty(avg_correct, avg_wrong, game_difficulty, all_difficulties)
             print('You are playing at the maximum level and going strong.\n'
                   'Please consider e-mailing marius_mucenicu@yahoo.com for extra levels\n')
     else:
-        if difficulty_level:
-            difficulty_level -= 1
+        if game_level:
+            game_level -= 1
             criticism_quote = random.choice(criticism_messages)
             print('{0}\nYou have an average of {1}% correct answers. '
                   'Auto decreasing difficulty\n'.format(criticism_quote, avg_statistics))
         else:
             print('You are playing at the lowest level and still doing dreadfully.\n'
                   'You are a bad abacist, please consider stepping up your game!\n')
-    return all_difficulties[difficulty_level]
+    return all_game_levels[game_level]
 
 
-def generate_interval(game_difficulty):
+def fetch_game_level(user_input):
+    """
+    Fetch a particular game level based on a given input.
+
+    Args:
+        :param user_input (str): A cardinal number used to extract a game level from a tuple.
+
+    Returns:
+        A tuple of length 2 of the form:
+            (lower_bound, upper_bound)
+    """
+    try:
+        game_level = int(user_input.strip())
+    except ValueError as e:
+        logging.exception(e)
+        return None
+
+    if validate_game_levels(GAME_LEVELS) and 0 <= game_level < len(GAME_LEVELS):
+        return GAME_LEVELS[game_level]
+    else:
+        logging.error('Unable to fetch the game level with index: {0}'.format(game_level))
+        return None
+
+
+def generate_interval(game_level):
     """
     Generate an interval within two limits.
 
     Args:
-        :param game_difficulty (tuple): Upper bound and lower bound values for an interval.
+        :param game_level (tuple): Upper bound and lower bound values for an interval.
 
     Returns:
         A dictionary of length 2 comprising of:
-            1. the 'raw data' used to create the mathematical interval (limits, glyphs)
-            2. the formatted 'interval' based on data from 1.
+            1. the 'raw data' used to create the mathematical interval (limits, glyphs).
+            2. the formatted 'interval' based on data from step 1.
     """
-    start_value = game_difficulty[0]
-    stop_value = game_difficulty[1]
-    left_glyphs, right_glyphs = ('[', '('), (']', ')')
-    start = random.randint(start_value, stop_value)
-    stop = random.randint(start, stop_value)
-    left_glyph = random.choice(left_glyphs)
-    right_glyph = random.choice(right_glyphs)
+    if game_level is None:
+        return game_level
+    else:
+        start_value = game_level[0]
+        stop_value = game_level[1]
+        left_glyphs, right_glyphs = ('[', '('), (']', ')')
+        start = random.randint(start_value, stop_value)
+        stop = random.randint(start, stop_value)
+        left_glyph = random.choice(left_glyphs)
+        right_glyph = random.choice(right_glyphs)
 
-    data = {
-        'raw_data': {
-            'left_glyph': left_glyph,
-            'right_glyph': right_glyph,
-            'left_bound': start_value,
-            'right_bound': stop_value,
-            'start': start,
-            'stop': stop,
-        },
-        'interval': '{0}{start}, {stop}{1}'.format(left_glyph, right_glyph, start=start, stop=stop)
-    }
-    return data
+        data = {
+            'raw_data': {
+                'left_glyph': left_glyph,
+                'right_glyph': right_glyph,
+                'left_bound': start_value,
+                'right_bound': stop_value,
+                'start': start,
+                'stop': stop,
+            },
+            'interval': (
+                '{0}{start}, {stop}{1}'.format(left_glyph, right_glyph, start=start, stop=stop)
+            )
+        }
+        return data
 
 
 def generate_results(data, value):
@@ -214,41 +222,42 @@ def generate_results(data, value):
     return cpu_result, cpu_result == int(value)
 
 
-def process_input(user_input):
-    """
-    Fetch a game difficulty based on a given input.
-
-    Args:
-        :param user_input (str): A value corresponding to a game difficulty.
-
-    Returns:
-        A tuple of length 2 of the form:
-            (lower_bound, upper_bound)
-    """
-    all_difficulties = fetch_difficulties(internal=True)
-    available_choices = fetch_difficulties(representation=True)
-    user_input = user_input.strip().lower()
-
-    if len(user_input) > 1:
-        user_input = ast.literal_eval(user_input)
-        assert user_input in all_difficulties, 'invalid level'
-        return user_input
-    else:
-        assert user_input in available_choices, 'invalid choice'
-        difficulty_level = available_choices.index(user_input)
-        return all_difficulties[difficulty_level]
-
-
 def play(user_input):
     """
     Start the game.
 
     Args:
-        :param user_input (str): A value corresponding to a game difficulty.
+        :param user_input (str): A value corresponding to a game level.
 
     Returns:
         See generate_interval's function for the return value.
     """
-    game_difficulty = process_input(user_input)
-    assert game_difficulty, 'cannot start game wihtout data'
-    return generate_interval(game_difficulty)
+    game_level = fetch_game_level(user_input)
+    return generate_interval(game_level)
+
+
+def validate_game_levels(game_levels):
+    """
+    Validate a set of game levels against a set of rules.
+
+    Args:
+        :param game_levels (tuple): A series of game levels.
+
+    Returns:
+        A boolean object: True if all game levels are valid, False otherwise.
+
+    Notes:
+        Game levels should meet the following 2 criteria:
+        1. Should be unique across the entire levels (not having a level appear multiple times).
+        2. The game difficulties themselves should be valid mathematical intervals, i.e the lower
+            bound should not be greater than the upper bound.
+    """
+
+    if not len(set(game_levels)) == len(game_levels):
+        return False
+    else:
+        for lower_bound, upper_bound in game_levels:
+            if lower_bound > upper_bound:
+                return False
+        else:
+            return True

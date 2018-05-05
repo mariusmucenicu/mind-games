@@ -80,9 +80,12 @@ class TestPlay(unittest.TestCase):
         response = self.testApp.post('/play')
         tools.assert_equals(response.status, 303)
 
-    def test_play(self):
-        response = self.testApp.post('/play', params={'level': 'a'})
-        tools.assert_equals(response.status, 200)
+    def test_play_post_with_wrong_value(self):
+        tools.assert_raises(fixture.AppError, self.testApp.post, '/play', params={'level': 'a'})
+        tools.assert_raises(fixture.AppError, self.testApp.post, '/play', params={'level': 12})
+
+    def test_play_post_valid_data(self):
+        response = self.testApp.post('/play', params={'level': 0})
         match_items = (
             'Hit it',
             "I'm feeling lucky",
