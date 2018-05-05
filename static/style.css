@@ -1,3 +1,5 @@
+/* The selectors are in lexicographic order according to their specificity */
+
 body {
     background-color: #eee!important;
 }
@@ -94,4 +96,4 @@ body {
         flex: 0 0 50%;
         max-width: 100%;
     }
-
+}

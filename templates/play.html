@@ -16,13 +16,15 @@ $var title: Play
     <form id="user-answer" action="/result" method="POST">
       <div class="row" align="center">
         <div class="col-md-12">
-          <input class="play-form-text" type="text" name="answer">
+          <input id="hit-it-form" class="play-form-text" type="text" name="answer"
+              onkeyup="checkEmptyForm()">
         </div>
       </div>
     </form>
     <div id="footer" class="row top-buffer">
       <div class="col-md-6" align="right" id="play-btn-col-left">
-        <button type="submit" class="btn btn-basic btn-sm play-form-btn" form="user-answer">
+        <button id="hit-it-button" type="submit" class="btn btn-basic btn-sm play-form-btn"
+            form="user-answer" disabled>
           <span>Hit it</span>
         </button>
         <input type="hidden" name="raw_data" value="$data['raw_data']" form="user-answer">

@@ -6,3 +6,11 @@ function randomint() {
   random_number = Math.floor(Math.random() * (right_bound-left_bound+1) + left_bound);
   document.getElementById('user-gamble').elements['answer'].value = random_number
 }
+
+function checkEmptyForm() {
+    if (document.getElementById('hit-it-form').value) {
+        document.getElementById('hit-it-button').disabled = false;
+    } else {
+        document.getElementById('hit-it-button').disabled = true;
+    }
+}
