@@ -173,10 +173,9 @@ def generate_interval(game_level):
             'raw_data': {
                 'left_glyph': left_glyph,
                 'right_glyph': right_glyph,
-                'left_bound': start_value,
-                'right_bound': stop_value,
                 'start': start,
                 'stop': stop,
+                'game_level': GAME_LEVELS.index(game_level),
             },
             'interval': (
                 '{0}{start}, {stop}{1}'.format(left_glyph, right_glyph, start=start, stop=stop)
