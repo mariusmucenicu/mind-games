@@ -7,7 +7,8 @@ Functions:
     change_game_level: Increment/decrement the degree of difficulty based on calculate_statistics().
     fetch_game_level: Return a game level from a series of game levels, based on user preference.
     generate_interval: Generate an interval which is a subset within the upper/lower bound limits.
-    generate_results: Compare user results against the expected results for a given question.
+    generate_results: Compare the user's result with the expected result for a given mathematical
+        interval and return the results.
     play: Entry point for the game.
     validate_game_levels: Ensure the game levels respect certain criteria.
 
@@ -76,7 +77,7 @@ def change_game_level(avg_correct, avg_wrong, game_level, all_game_levels):
     """
     assert game_level in all_game_levels, 'invalid input data'
 
-    GAME_LEVELS = len(all_game_levels)
+    game_levels = len(all_game_levels)
     game_level = all_game_levels.index(game_level)
 
     cheerful_messages = (
@@ -102,7 +103,7 @@ def change_game_level(avg_correct, avg_wrong, game_level, all_game_levels):
     avg_statistics = calculate_statistics(avg_correct, avg_wrong)[1]
 
     if avg_statistics >= 50:
-        if game_level + 1 < GAME_LEVELS:
+        if game_level + 1 < game_levels:
             game_level += 1
             cheerful_quote = random.choice(cheerful_messages)
             print('{0}\nYou have an average of {1}% correct answers. '
@@ -135,8 +136,8 @@ def fetch_game_level(user_input):
     """
     try:
         game_level = int(user_input.strip())
-    except ValueError as e:
-        logging.exception(e)
+    except ValueError as ex:
+        logging.exception(ex)
         return None
 
     if validate_game_levels(GAME_LEVELS) and 0 <= game_level < len(GAME_LEVELS):
@@ -184,31 +185,28 @@ def generate_interval(game_level):
         return data
 
 
-def generate_results(data, value):
+def generate_results(data, user_answer):
     """
-    Compare a given value (usually from a user) against a computed value and return the results.
+    Compare a user given value against a CPU computed value and return the results.
 
     Args:
-        :param data (dict): A mathematical interval of a fixed length.
-        :param value (int): A value used for indicating the total numbers in the given interval.
+        :param data (dict): A mapping containing metadata about a mathematical interval.
+        :param user_answer (int): A value indicating the number of numbers in a given interval.
 
     Returns:
         A tuple of length 2 of the form:
             (cpu_result, human_result == cpu_result)
     """
-    assert data, 'no data'
-    assert value, 'invalid value'
-
     try:
-        int(value)
-    except ValueError:
-        raise AssertionError('Invalid data received for value')
+        user_answer = int(user_answer)
+    except ValueError as ex:
+        logging.exception(ex)
+        return None
 
     left_glyph = data.get('left_glyph')
     right_glyph = data.get('right_glyph')
     start = data.get('start')
     stop = data.get('stop')
-    cpu_result = None
 
     if left_glyph == '[' and right_glyph == ']':
         cpu_result = len(range(start, stop + 1))
@@ -216,9 +214,7 @@ def generate_results(data, value):
         cpu_result = len(range(start, stop - 1))
     else:
         cpu_result = len(range(start, stop))
-
-    assert cpu_result is not None, 'correct data type and format received, invalid values'
-    return cpu_result, cpu_result == int(value)
+    return cpu_result, cpu_result == user_answer
 
 
 def play(user_input):

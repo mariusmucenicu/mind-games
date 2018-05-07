@@ -131,17 +131,22 @@ class Result:
     """
 
     def POST(self):
-        data = ast.literal_eval(web.input().get('raw_data'))
-        answer = web.input().get('answer')
-        result = number_distance.generate_results(data, answer)
-        level = data.get('game_level')
-        question = '{0}{start}, {stop}{1}'.format(data.get('left_glyph'), data.get('right_glyph'),
-                                                  start=data.get('start'), stop=data.get('stop'))
+        raw_data = ast.literal_eval(web.input().get('raw_data'))
+        user_answer = web.input().get('answer')
+        game_level = raw_data.get('game_level')
+        left_glyph = raw_data.get('left_glyph')
+        right_glyph = raw_data.get('right_glyph')
+        start = raw_data.get('start')
+        stop = raw_data.get('stop')
+        question = '{0}{start}, {stop}{1}'.format(left_glyph, right_glyph, start=start, stop=stop)
 
-        if result[1]:
-            return render.result_success(level)
+        result = number_distance.generate_results(raw_data, user_answer)
+        if not result:
+            raise web.internalerror('Oops. I fucked up! :D')
+        elif result[1]:
+            return render.result_success(game_level)
         else:
-            return render.result_failure(level, question, answer, result[0])
+            return render.result_failure(game_level, question, user_answer, result[0])
 
 
 if __name__ == '__main__':
