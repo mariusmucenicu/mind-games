@@ -129,8 +129,10 @@ class TestResult(unittest.TestCase):
         )
         response.mustcontain(*match_items)
 
-    def test_result_incorrect(self):
+    def test_result_get_not_allowed(self):
         tools.assert_raises(fixture.AppError, self.testApp.get, '/result')  # this is a 405 raise
+
+    def test_result_incorrect(self):
         raw_data = {
             'left_glyph': '[',
             'right_glyph': ')',
