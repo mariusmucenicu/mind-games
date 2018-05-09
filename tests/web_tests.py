@@ -155,3 +155,18 @@ class TestResult(unittest.TestCase):
             'btn'
         )
         response.mustcontain(*match_items)
+
+    def test_post_erroneous_data(self):
+        raw_data = {
+            'left_glyph': '[',
+            'right_glyph': ')',
+            'left_bound': 0,
+            'right_bound': 99,
+            'start': 59,
+            'stop': 78,
+        }
+        post_params = {
+            'raw_data': str(raw_data),
+            'answer': 'bogus',  # only integers allowed
+        }
+        tools.assert_raises(fixture.AppError, self.testApp.post, '/result', params=post_params)
