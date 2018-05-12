@@ -6,7 +6,7 @@ Functions:
     calculate_statistics: Compute statistics based on amount of correct/wrong answers.
     change_game_level: Increment/decrement the degree of difficulty based on calculate_statistics().
     fetch_game_level: Return a game level from a series of game levels, based on user preference.
-    generate_interval: Generate an interval which is a subset within the upper/lower bound limits.
+    generate_interval: Generate an interval within a range of two values (the lower/upper bound).
     generate_results: Compare the user's result with the expected result for a given mathematical
         interval and return the results.
     play: Entry point for the game.
@@ -152,7 +152,7 @@ def generate_interval(game_level):
     Generate an interval within two limits.
 
     Args:
-        :param game_level (tuple): Upper bound and lower bound values for an interval.
+        :param game_level (tuple): Upper/lower bound values from which an interval is built.
 
     Returns:
         A dictionary of length 2 comprising of:
