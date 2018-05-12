@@ -10,6 +10,7 @@ Functions:
     generate_results: Compare the user's result with the expected result for a given mathematical
         interval and return the results.
     play: Entry point for the game.
+    prettify_number: Split large numbers into groups of three digits to aid readability.
     validate_game_levels: Ensure the game levels respect certain criteria.
 
 CONSTANTS:
@@ -179,7 +180,10 @@ def generate_interval(game_level):
                 'game_level': GAME_LEVELS.index(game_level),
             },
             'interval': (
-                '{0}{start}, {stop}{1}'.format(left_glyph, right_glyph, start=start, stop=stop)
+                '{left_glyph}{start}, {stop}{right_glyph}'.format(
+                    left_glyph=left_glyph, right_glyph=right_glyph,
+                    start=prettify_number(start), stop=prettify_number(stop)
+                )
             )
         }
         return data
@@ -229,6 +233,42 @@ def play(user_input):
     """
     game_level = fetch_game_level(user_input)
     return generate_interval(game_level)
+
+
+def prettify_number(number):
+    """
+    Make numbers greater than 100 more readable by grouping into groups of 3 digits.
+
+    Example:
+        1000 -> 1 000
+        65536 -> 65 536
+        1000000 -> 1 000 000
+
+    Args:
+        :param number (int): Number to be formatted.
+
+    Returns:
+        A string representation of the number prettily formatted.
+    """
+    number = str(number)
+    if len(number) <= 3:
+        return number
+    else:
+        raw_formatted_number = []
+        slice_start = len(number) - 3
+        slice_stop = len(number)
+
+        for position in range(-3, -len(number), -3):
+            three_chuck = number[slice_start:slice_stop]
+            raw_formatted_number.insert(0, three_chuck)
+            slice_stop = slice_start
+            if slice_start - 3 <= 0:
+                raw_formatted_number.insert(0, number[:slice_start])
+            else:
+                slice_start = slice_start - 3
+
+        pretty_formatted_number = ' '.join(raw_formatted_number)
+        return pretty_formatted_number
 
 
 def validate_game_levels(game_levels):

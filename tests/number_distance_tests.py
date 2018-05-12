@@ -7,6 +7,7 @@ Functions:
     test_change_game_level: Test mindgames.number_distance.change_game_level functionality.
     test_fetch_game_level: Test mindgames.number_distance.fetch_game_level functionality.
     test_generate_results: Test mindgames.number_distance.generate_results functionality.
+    test_prettify_number: Test mindgames.number_distance.prettify_number functionality.
 
 Miscellaneous objects:
 ======================
@@ -88,3 +89,14 @@ def test_generate_results():
     tools.assert_not_equals(number_distance.generate_results(open_interval, 33)[0], 100)
     tools.assert_not_equals(number_distance.generate_results(half_open_interval, 33)[0], 100)
     tools.assert_not_equals(number_distance.generate_results(closed_interval, 33)[0], 100)
+
+
+def test_prettify_number():
+    tools.assert_equals(number_distance.prettify_number(100), '100')
+    tools.assert_equals(number_distance.prettify_number(1000), '1 000')
+    tools.assert_equals(number_distance.prettify_number(10000), '10 000')
+    tools.assert_equals(number_distance.prettify_number(100000), '100 000')
+    tools.assert_equals(number_distance.prettify_number(1000000), '1 000 000')
+    tools.assert_equals(number_distance.prettify_number(10000000), '10 000 000')
+    tools.assert_equals(number_distance.prettify_number(100000000), '100 000 000')
+    tools.assert_equals(number_distance.prettify_number(1000000000), '1 000 000 000')
