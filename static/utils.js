@@ -1,4 +1,4 @@
-function randomint() {
+function randomInt() {
   var rawString = document.getElementById('user-gamble').elements['raw_data'].value;
   rawString = JSON.parse(rawString.replace(/'/g, '"'));
   lowerBound = rawString.start;
