@@ -8,9 +8,9 @@ function randomInt() {
 }
 
 function checkEmptyForm() {
-    if (document.getElementById('hit-it-form').value) {
-        document.getElementById('hit-it-button').disabled = false;
-    } else {
-        document.getElementById('hit-it-button').disabled = true;
-    }
+  if (document.getElementById('hit-it-form').value) {
+      document.getElementById('hit-it-button').disabled = false;
+  } else {
+      document.getElementById('hit-it-button').disabled = true;
+  }
 }
