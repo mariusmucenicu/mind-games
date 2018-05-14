@@ -267,6 +267,9 @@ def prettify_number(number):
             else:
                 slice_start = slice_start - 3
 
+        if raw_formatted_number[0] == '-':
+            raw_formatted_number[:2] = [raw_formatted_number[0] + raw_formatted_number[1]]
+
         pretty_formatted_number = ' '.join(raw_formatted_number)
         return pretty_formatted_number
 
