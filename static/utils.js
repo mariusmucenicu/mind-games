@@ -14,3 +14,17 @@ function checkEmptyForm() {
       document.getElementById('hit-it-button').disabled = true;
   }
 }
+
+function changeIntervalDelimitersColor() {
+    var interval = document.getElementById('interval');
+    var intervalDelimiters = ['[', '(', ')', ']', ',']
+
+    for (var i = 0; i < intervalDelimiters.length; i++) {
+        var delimiter = intervalDelimiters[i]
+        var delimiterExists = interval.innerHTML.indexOf(delimiter);
+        if (delimiterExists !== -1) {
+            var customHTML = '<span style="color:black;">{}</span>'.replace('{}', delimiter);
+            interval.innerHTML = interval.innerHTML.replace(delimiter, customHTML);
+        }
+    }
+}
