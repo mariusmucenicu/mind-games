@@ -1,9 +1,9 @@
 function randomInt() {
   var rawString = document.getElementById('user-gamble').elements['raw_data'].value;
   rawString = JSON.parse(rawString.replace(/'/g, '"'));
-  lowerBound = rawString.start;
-  upperBound = rawString.stop;
-  random_number = Math.floor(Math.random() * (upperBound-lowerBound+1) + lowerBound);
+  var lowerBound = rawString.start;
+  var upperBound = rawString.stop;
+  var random_number = Math.floor(Math.random() * (upperBound-lowerBound+1) + lowerBound);
   document.getElementById('user-gamble').elements['answer'].value = random_number
 }
 
