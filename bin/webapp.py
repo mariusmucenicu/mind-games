@@ -136,8 +136,8 @@ class Result:
         game_level = raw_data.get('game_level')
         left_glyph = raw_data.get('left_glyph')
         right_glyph = raw_data.get('right_glyph')
-        start = raw_data.get('start')
-        stop = raw_data.get('stop')
+        start = number_distance.prettify_number(raw_data.get('start'))
+        stop = number_distance.prettify_number(raw_data.get('stop'))
         question = '{0}{start}, {stop}{1}'.format(left_glyph, right_glyph, start=start, stop=stop)
 
         result = number_distance.generate_results(raw_data, user_answer)
@@ -146,7 +146,10 @@ class Result:
         elif result[1]:
             return render.result_success(game_level)
         else:
-            return render.result_failure(game_level, question, user_answer, result[0])
+            return render.result_failure(
+                game_level, question, number_distance.prettify_number(user_answer),
+                number_distance.prettify_number(result[0])
+            )
 
 
 if __name__ == '__main__':
