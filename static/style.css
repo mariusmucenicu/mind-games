@@ -12,6 +12,17 @@ body {
     margin-top: 10vh;
 }
 
+.footer-status-code {
+    border-top-style: solid;
+    border-top-color: #23272b;
+    background-color: #28a745;
+    height: 40px;
+}
+
+.header-status-code {
+    padding: 5vh 0;
+}
+
 .interval {
     color: #28a745;
 }
@@ -78,8 +89,21 @@ body {
     margin-top: 1rem;
 }
 
+.text-status-code {
+    margin-top: 1rem;
+    margin-bottom: 2rem;
+}
 .top-buffer {
     margin-top: 20px;
+}
+
+#droopy404 {
+    display: block;
+    margin: 0 auto;
+}
+
+#person {
+    color: red;
 }
 
 #play-btn-col-left {
@@ -95,5 +119,20 @@ body {
     .col-md-6 {
         flex: 0 0 50%;
         max-width: 100%;
+    }
+}
+
+@media only screen and (max-width: 992px) {
+    .extra-buffer {
+        margin-top: 5vh;
+    }
+}
+
+@media only screen and (max-width: 992px) and (min-width: 768px) {
+    #dino500 {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%,-50%);
     }
 }

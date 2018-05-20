@@ -66,6 +66,20 @@ render = web.template.render(TEMPLATES_PATH, base='layout')
 app = web.application(urls, globals())
 
 
+def _notfound():
+    """Return a custom 404 page."""
+    return web.notfound(render.custom404())
+
+
+def _internalerror():
+    """Return a custom 500 page."""
+    return web.internalerror(render.custom500())
+
+
+app.notfound = _notfound
+app.internalerror = _internalerror
+
+
 class Index:
     """
     Methods:
@@ -142,7 +156,7 @@ class Result:
 
         result = number_distance.generate_results(raw_data, user_answer)
         if not result:
-            raise web.internalerror('Oops. I fucked up! :D')
+            raise app.internalerror()
         elif result[1]:
             return render.result_success(game_level)
         else:
