@@ -69,10 +69,8 @@ venv.bak/
 /site
 
 # front-end files (allow only minified for frameworks)
-/static/bootstrap/**/*.css
-/static/bootstrap/**/!*.min.css
-/static/bootstrap/**/*.js
-/static/bootstrap/**/!*.min.js
+/static/bootstrap/**/bootstrap.*
+!/static/bootstrap/**/bootstrap.min.*
 
 # project specific configuration
 .idea
