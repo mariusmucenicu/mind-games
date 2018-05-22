@@ -128,7 +128,7 @@ class Play:
         else:
             data = number_distance.play(level)
             if not data:
-                raise web.internalerror('Oops. I fucked up! :D')
+                raise app.internalerror()
             else:
                 return render.play(data)
 
