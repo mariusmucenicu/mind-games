@@ -25,8 +25,7 @@ In order to get started you need to go through these simple steps:
 ```nosetests``` (This command should show absolutely no errors.)
 
 ### 5. Running the game
-+ (Windows): ```python bin\webapp.py```
-+ (Unix systems): ```python bin/webapp.py```
++ ```python -m bin.webapp```
 + Open your favourite browser and punch in: http://localhost:8080/
 
 ## Contributing
