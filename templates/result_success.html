@@ -1,4 +1,4 @@
-$def with (level)
+$def with (data)
 $var title: Success
 
 
@@ -16,7 +16,7 @@ $var title: Success
 <div class="row top-buffer" align="center">
   <div class="col-md-6" align="right">
     <form action="/play" method="POST">
-      <button class="btn btn-success" type="submit" name="level" value="$level">
+      <button class="btn btn-success" type="submit" name="level" value="$data['game_level']">
         Next question
       </button>
     </form>

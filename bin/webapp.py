@@ -144,25 +144,15 @@ class Result:
     """
 
     def POST(self):
-        raw_data = ast.literal_eval(web.input().get('raw_data'))
-        user_answer = web.input().get('answer')
-        game_level = raw_data.get('game_level')
-        left_glyph = raw_data.get('left_glyph')
-        right_glyph = raw_data.get('right_glyph')
-        start = number_distance.prettify_number(raw_data.get('start'))
-        stop = number_distance.prettify_number(raw_data.get('stop'))
-        question = '{0}{start}, {stop}{1}'.format(left_glyph, right_glyph, start=start, stop=stop)
+        data_to_dict = ast.literal_eval(web.input().get('data'))
+        result_data = number_distance.generate_results(data_to_dict)
 
-        result = number_distance.generate_results(raw_data, user_answer)
-        if not result:
+        if not result_data:
             raise app.internalerror()
-        elif result[1]:
-            return render.result_success(game_level)
+        elif result_data['outcome']:
+            return render.result_success(result_data)
         else:
-            return render.result_failure(
-                game_level, question, number_distance.prettify_number(user_answer),
-                number_distance.prettify_number(result[0])
-            )
+            return render.result_failure(result_data)
 
 
 if __name__ == '__main__':

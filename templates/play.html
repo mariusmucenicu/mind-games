@@ -5,7 +5,10 @@ $var title: Play
 <div class="row text-center">
   <div class="col-md-12">
     <h1><span>How many integers are within this interval ?</span></h1>
-    <h1><span id="interval" class="interval">$data['interval']</span></h1>
+    <h1>
+      $data['left_glyph']<span class="interval-limit">$data['start_representation']</span>,
+      <span class="interval-limit">$data['stop_representation']</span>$data['right_glyph']
+    </h1>
   </div>
 </div>
 <div class="row">
@@ -16,29 +19,24 @@ $var title: Play
     <form id="user-answer" action="/result" method="POST" autocomplete="off">
       <div class="row" align="center">
         <div class="col-md-12">
-          <input id="hit-it-form" class="play-form-text" type="text" name="answer"
-              onkeyup="checkEmptyForm()">
+          <input id="hit-it-form" class="play-form-text" type="text" onkeyup="checkEmptyForm()">
+          <input type="hidden" id="metadata" value="$data">
         </div>
       </div>
     </form>
     <div id="footer" class="row top-buffer">
       <div class="col-md-6" align="right" id="play-btn-col-left">
-        <button id="hit-it-button" type="submit" class="btn btn-basic btn-sm play-form-btn"
-            form="user-answer" disabled>
+        <button id="hit-it-btn" type="submit" class="btn btn-basic btn-sm play-form-btn"
+            form="user-answer" onclick="processFormData(this.id);" disabled>
           <span>Hit it</span>
         </button>
-        <input type="hidden" name="raw_data" value="$data['raw_data']" form="user-answer">
       </div>
       <div class="col-md-6" align="left" id="play-btn-col-right">
-        <form id="user-gamble" action="/result" method="POST">
-          <button type="submit" class="btn btn-basic btn-sm play-form-btn" name="answer"
-              onclick="randomInt();">
-            <span>I'm feeling lucky</span>
-          </button>
-          <input type="hidden" name="raw_data" value="$data['raw_data']">
-        </form>
+        <button id="feeling-lucky-btn" type="submit" class="btn btn-basic btn-sm play-form-btn"
+            form="user-answer" onclick="processFormData(this.id);">
+          <span>I'm feeling lucky</span>
+        </button>
       </div>
     </div>
   </div>
 </div>
-<script>changeIntervalDelimitersColor();</script>

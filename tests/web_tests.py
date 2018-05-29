@@ -31,8 +31,7 @@ os.environ['WEBPY_ENV'] = 'test'
 
 class TestIndex(unittest.TestCase):
     def setUp(self):
-        middleware = []
-        self.testApp = fixture.TestApp(webapp.app.wsgifunc(*middleware))
+        self.testApp = fixture.TestApp(webapp.app.wsgifunc())
 
     def test_index(self):
         response = self.testApp.get('/')
@@ -45,14 +44,14 @@ class TestIndex(unittest.TestCase):
             'the half-open interval',
             'btn-begin',
             'btn-quit',
+            '...Shh',
         )
         response.mustcontain(*match_items)
 
 
 class TestGrade(unittest.TestCase):
     def setUp(self):
-        middleware = []
-        self.testApp = fixture.TestApp(webapp.app.wsgifunc(*middleware))
+        self.testApp = fixture.TestApp(webapp.app.wsgifunc())
 
     def test_grade(self):
         response = self.testApp.get('/grade')
@@ -64,14 +63,17 @@ class TestGrade(unittest.TestCase):
             'Hard',
             'Use selected',
             'Just pick one for me',
+            'Numberphile',
+            'Warm up',
+            'Numbers are my thing',
+            'God blessed my genes'
         )
         response.mustcontain(*match_items)
 
 
 class TestPlay(unittest.TestCase):
     def setUp(self):
-        middleware = []
-        self.testApp = fixture.TestApp(webapp.app.wsgifunc(*middleware))
+        self.testApp = fixture.TestApp(webapp.app.wsgifunc())
 
     def test_get_not_allowed(self):
         tools.assert_raises(fixture.AppError, self.testApp.get, '/play')  # 405 Method not allowed
@@ -101,22 +103,21 @@ class TestPlay(unittest.TestCase):
 
 class TestResult(unittest.TestCase):
     def setUp(self):
-        middleware = []
-        self.testApp = fixture.TestApp(webapp.app.wsgifunc(*middleware))
+        self.testApp = fixture.TestApp(webapp.app.wsgifunc())
 
     def test_result_correct(self):
-        tools.assert_raises(fixture.AppError, self.testApp.get, '/result')  # this is a 405 raise
-        raw_data = {
+        post_data = {
             'left_glyph': '[',
             'right_glyph': ')',
-            'left_bound': 0,
-            'right_bound': 99,
-            'start': 59,
-            'stop': 78
+            'start_internal': 0,
+            'stop_internal': 99,
+            'start_representation': '0',
+            'stop_representation': '99',
+            'answer': 99,
+            'game_level': 0,
         }
         post_params = {
-            'raw_data': str(raw_data),
-            'answer': 19,
+            'data': str(post_data),
         }
         response = self.testApp.post('/result', params=post_params)
         tools.assert_equals(response.status, 200)
@@ -129,21 +130,53 @@ class TestResult(unittest.TestCase):
         )
         response.mustcontain(*match_items)
 
+    def test_result_correct_repr(self):
+        # the answer is incorrect to check the representation of large numbers in groups of 3
+        # by rendering the results failure HTML
+        post_data = {
+            'left_glyph': '[',
+            'right_glyph': ')',
+            'start_internal': 299792458,
+            'stop_internal': 299792459,
+            'start_representation': '299 792 458',
+            'stop_representation': '299 792 459',
+            'answer': 2,
+            'game_level': 11,
+        }
+        post_params = {
+            'data': str(post_data),
+        }
+        response = self.testApp.post('/result', params=post_params)
+        tools.assert_equals(response.status, 200)
+        match_items = (
+            'Incorrect!',
+            'Next question',
+            "I'm done for today",
+            'btn-danger',
+            'btn',
+            '299 792 458',
+            '299 792 459',
+            'Your answer',
+            'Correct answer',
+        )
+        response.mustcontain(*match_items)
+
     def test_result_get_not_allowed(self):
         tools.assert_raises(fixture.AppError, self.testApp.get, '/result')  # this is a 405 raise
 
     def test_result_incorrect(self):
-        raw_data = {
+        post_data = {
             'left_glyph': '[',
             'right_glyph': ')',
-            'left_bound': 0,
-            'right_bound': 99,
-            'start': 59,
-            'stop': 78,
+            'start_internal': 0,
+            'stop_internal': 99,
+            'start_representation': '0',
+            'stop_representation': '99',
+            'answer': 100,
+            'game_level': 0,
         }
         post_params = {
-            'raw_data': str(raw_data),
-            'answer': 24,
+            'data': str(post_data),
         }
         response = self.testApp.post('/result', params=post_params)
         tools.assert_equals(response.status, 200)
@@ -157,16 +190,27 @@ class TestResult(unittest.TestCase):
         response.mustcontain(*match_items)
 
     def test_post_erroneous_data(self):
-        raw_data = {
+        bogus_values = (
+            ('left_glyph', ']'),
+            ('right_glyph', '('),
+            ('start_representation', '5'),
+            ('answer', 'bogus'),
+            ('game_level', ''),
+        )
+        post_data = {
             'left_glyph': '[',
             'right_glyph': ')',
-            'left_bound': 0,
-            'right_bound': 99,
-            'start': 59,
-            'stop': 78,
+            'start_internal': 0,
+            'stop_internal': 99,
+            'start_representation': '0',
+            'stop_representation': '99',
+            'answer': 99,
+            'game_level': 0,
         }
-        post_params = {
-            'raw_data': str(raw_data),
-            'answer': 'bogus',  # only integers allowed
-        }
-        tools.assert_raises(fixture.AppError, self.testApp.post, '/result', params=post_params)
+        for bogus_item, bogus_value in bogus_values:
+            fresh_post_data = post_data.copy()
+            fresh_post_data[bogus_item] = bogus_value
+            post_params = {
+                'data': str(fresh_post_data),
+            }
+            tools.assert_raises(fixture.AppError, self.testApp.post, '/result', params=post_params)

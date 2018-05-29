@@ -7,10 +7,10 @@ Functions:
     change_game_level: Increment/decrement the degree of difficulty based on calculate_statistics().
     fetch_game_level: Return a game level from a series of game levels, based on user preference.
     generate_interval: Generate an interval within a range of two values (the lower/upper bound).
-    generate_results: Compare the user's result with the expected result for a given mathematical
-        interval and return the results.
+    generate_results: Compare the user's result with the expected result for a given question.
     play: Entry point for the game.
     prettify_number: Split large numbers into groups of three digits to aid readability.
+    validate_form_data: Ensure the data passed in through the form matches an expected format.
     validate_game_levels: Ensure the game levels respect certain criteria.
 
 CONSTANTS:
@@ -156,9 +156,7 @@ def generate_interval(game_level):
         :param game_level (tuple): Upper/lower bound values from which an interval is built.
 
     Returns:
-        A dictionary of length 2 comprising of:
-            1. the 'raw data' used to create the mathematical interval (limits, glyphs).
-            2. the formatted 'interval' based on data from step 1.
+        A dictionary comprising the 'raw data' (metadata) used to create the mathematical interval.
     """
     if game_level is None:
         return game_level
@@ -172,53 +170,51 @@ def generate_interval(game_level):
         right_glyph = random.choice(right_glyphs)
 
         data = {
-            'raw_data': {
-                'left_glyph': left_glyph,
-                'right_glyph': right_glyph,
-                'start': start,
-                'stop': stop,
-                'game_level': GAME_LEVELS.index(game_level),
-            },
-            'interval': (
-                '{left_glyph}{start}, {stop}{right_glyph}'.format(
-                    left_glyph=left_glyph, right_glyph=right_glyph,
-                    start=prettify_number(start), stop=prettify_number(stop)
-                )
-            )
+            'left_glyph': left_glyph,
+            'right_glyph': right_glyph,
+            'start_internal': start,
+            'stop_internal': stop,
+            'start_representation': prettify_number(start),
+            'stop_representation': prettify_number(stop),
+            'game_level': GAME_LEVELS.index(game_level),
         }
         return data
 
 
-def generate_results(data, user_answer):
+def generate_results(data):
     """
-    Compare a user given value against a CPU computed value and return the results.
+    Generate results based on a mathematical interval as well as a user's answer.
 
     Args:
-        :param data (dict): A mapping containing metadata about a mathematical interval.
-        :param user_answer (int): A value indicating the number of numbers in a given interval.
+        :param data (dict): A mapping containing metadata about a particular game question.
 
     Returns:
-        A tuple of length 2 of the form:
-            (cpu_result, human_result == cpu_result)
+        A dict comprising the initial data plus the result of comparing a user's answer with the
+        expected result.
+
     """
-    try:
-        user_answer = int(user_answer)
-    except ValueError as ex:
-        logging.exception(ex)
-        return None
 
-    left_glyph = data.get('left_glyph')
-    right_glyph = data.get('right_glyph')
-    start = data.get('start')
-    stop = data.get('stop')
+    if validate_form_data(data):
+        answer = data.get('answer')
+        left_glyph = data.get('left_glyph')
+        right_glyph = data.get('right_glyph')
+        start = data.get('start_internal')
+        stop = data.get('stop_internal')
 
-    if left_glyph == '[' and right_glyph == ']':
-        cpu_result = len(range(start, stop + 1))
-    elif left_glyph == '(' and right_glyph == ')':
-        cpu_result = len(range(start, stop - 1))
+        if left_glyph == '[' and right_glyph == ']':
+            cpu_result = len(range(start, stop + 1))
+        elif left_glyph == '(' and right_glyph == ')':
+            cpu_result = len(range(start, stop - 1))
+        else:
+            cpu_result = len(range(start, stop))
+
+        data['cpu_internal'] = cpu_result
+        data['cpu_representation'] = prettify_number(cpu_result)
+        data['answer_representation'] = prettify_number(answer)
+        data['outcome'] = cpu_result == answer
+        return data
     else:
-        cpu_result = len(range(start, stop))
-    return cpu_result, cpu_result == user_answer
+        return None
 
 
 def play(user_input):
@@ -272,6 +268,71 @@ def prettify_number(number):
 
         pretty_formatted_number = ' '.join(raw_formatted_number)
         return pretty_formatted_number
+
+
+def validate_form_data(form_data):
+    """
+    Make sure the form data passed in respects a certain format.
+
+    Args:
+        :param form_data (dict): Data passed through form.
+
+    Returns:
+        True for valid data, None for invalid data.
+
+    Notes:
+        This validation only ensures that the data format is consistent with what the game expects.
+        It does not ensure that the values are unaltered and as a consequence one could easily trick
+        the game and pass all the quiz questions by sending in desired mathematical intervals with
+        numbers that match the size of those intervals.
+    """
+    expected_glyphs = {'left_glyph': ('[', '('), 'right_glyph': (']', ')')}
+    expected_numbers = (
+        'start_internal', 'stop_internal', 'start_representation', 'stop_representation', 'answer',
+        'game_level',
+    )
+    internal_values = []
+    representation_values = []
+
+    for glyph, value in expected_glyphs.items():
+        if glyph not in form_data:
+            logging.error('%s not found in form data.', glyph)
+            return None
+        elif form_data[glyph] not in value:
+            logging.error('unexpected glyph %s', form_data[glyph])
+            return None
+
+    for number in expected_numbers:
+        if number not in form_data:
+            logging.error('%s not found in form data.', number)
+            return None
+        else:
+            try:
+                if isinstance(form_data[number], str) and 'representation' in number:
+                    form_value = form_data[number].replace(' ', '')
+                    representation_values.append(int(form_value))
+                elif isinstance(form_data[number], int) and 'internal' in number:
+                    form_value = form_data[number]
+                    internal_values.append(int(form_value))
+                else:
+                    int(form_data[number])
+            except ValueError as ex:
+                logging.exception(ex)
+                return None
+
+    lower_bound = internal_values[0]
+    upper_bound = internal_values[1]
+    no_values = not (internal_values and representation_values)
+
+    if no_values or internal_values != representation_values or lower_bound > upper_bound:
+        logging.error(
+            'inconsistency among numbers'
+            '\tinternal values: %s'
+            ' != representation values: %s', internal_values, representation_values
+        )
+        return None
+    else:
+        return True
 
 
 def validate_game_levels(game_levels):

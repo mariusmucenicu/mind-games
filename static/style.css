@@ -23,7 +23,7 @@ body {
     padding: 5vh 0;
 }
 
-.interval {
+.interval-limit {
     color: #28a745;
 }
 
@@ -61,7 +61,11 @@ body {
 }
 
 .results {
+    display: table;
     font-size: larger;
+    list-style-position: inside;
+    margin: 0 auto;
+    text-align: left;
 }
 
 .result-incorrect {

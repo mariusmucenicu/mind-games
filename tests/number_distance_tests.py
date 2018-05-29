@@ -68,27 +68,102 @@ def test_fetch_game_level():
     tools.assert_equals(number_distance.fetch_game_level('7'), number_distance.GAME_LEVELS[7])
 
 
+def __find_keys_in_generate_results(keys_collection):
+    expected_values = (
+        'cpu_internal', 'cpu_representation', 'answer_representation', 'outcome', 'left_glyph',
+        'right_glyph', 'answer', 'game_level', 'start_representation', 'stop_representation',
+        'start_internal', 'stop_internal',
+    )
+    for key in expected_values:
+        yield key in keys_collection
+
+
 def test_generate_results():
-    open_interval = {'left_glyph': '(', 'right_glyph': ')', 'start': 7, 'stop': 41}
-    half_open_interval = {'left_glyph': '[', 'right_glyph': ')', 'start': 7, 'stop': 41}
-    closed_interval = {'left_glyph': '[', 'right_glyph': ']', 'start': 7, 'stop': 41}
+    interval_correct_1 = {
+        'left_glyph': '(', 'right_glyph': ')', 'start_internal': 7, 'stop_internal': 41,
+        'start_representation': '7', 'stop_representation': '41', 'answer': 33, 'game_level': 0
+    }
+    interval_correct_2 = {
+        'left_glyph': '[', 'right_glyph': ')', 'start_internal': 7, 'stop_internal': 41,
+        'start_representation': '7', 'stop_representation': '41', 'answer': 34, 'game_level': 0
+    }
+    interval_correct_3 = {
+        'left_glyph': '[', 'right_glyph': ']', 'start_internal': 7, 'stop_internal': 41,
+        'start_representation': '7', 'stop_representation': '41', 'answer': 35, 'game_level': 0
+    }
+    interval_correct_4 = {
+        'left_glyph': '(', 'right_glyph': ')', 'start_internal': 200000000, 'game_level': 11,
+        'stop_internal': 350000001, 'start_representation': '200 000 000', 'answer': 150000000,
+        'stop_representation': '350 000 001',
+    }
+    interval_wrong_1 = {
+        'left_glyph': '(', 'right_glyph': ')', 'start_internal': 7, 'stop_internal': 41,
+        'start_representation': '7', 'stop_representation': '41', 'answer': 38, 'game_level': 0
+    }
+    interval_wrong_2 = {
+        'left_glyph': '[', 'right_glyph': ']', 'start_internal': 41, 'stop_internal': 7,
+        'start_representation': '7', 'stop_representation': '41', 'answer': 35, 'game_level': 0
+    }
+    interval_wrong_3 = {
+        'left_glyph': '[', 'right_glyph': ']', 'start_internal': 41, 'stop_internal': 7,
+        'start_representation': '41', 'stop_representation': '7', 'answer': 35, 'game_level': 0
+    }
+    invalid_glyphs = {
+        'left_glyph': ('|', '{', '/', ']', ')'),
+        'right_glyph': ('|', '}', '/', '[', '('),
+    }
 
-    invalid_answer = 'a'
-    tools.assert_equals(number_distance.generate_results(open_interval, invalid_answer), None)
-    invalid_answer2 = 'l0'  # the character 'el'
-    tools.assert_equals(number_distance.generate_results(open_interval, invalid_answer2), None)
-    invalid_answer3 = '(11,)'
-    tools.assert_equals(number_distance.generate_results(open_interval, invalid_answer3), None)
-    invalid_answer4 = '[11]'
-    tools.assert_equals(number_distance.generate_results(open_interval, invalid_answer4), None)
+    # test invalid glyph values
+    for glyph_internal, glyph_representation in invalid_glyphs.items():
+        sample_correct_interval = interval_correct_1.copy()
+        for glyph in glyph_representation:
+            sample_correct_interval[glyph_internal] = glyph
+            tools.assert_equals(number_distance.generate_results(sample_correct_interval), None)
 
-    tools.assert_equals(number_distance.generate_results(open_interval, 33), (33, True))
-    tools.assert_equals(number_distance.generate_results(half_open_interval, 34), (34, True))
-    tools.assert_equals(number_distance.generate_results(closed_interval, 35), (35, True))
+    # test invalid missing keys
+    for key in iter(interval_correct_1.keys()):
+        sample_incorrect_interval = interval_correct_1.copy()
+        sample_incorrect_interval.pop(key)
+        tools.assert_equals(number_distance.generate_results(sample_incorrect_interval), None)
 
-    tools.assert_not_equals(number_distance.generate_results(open_interval, 33)[0], 100)
-    tools.assert_not_equals(number_distance.generate_results(half_open_interval, 33)[0], 100)
-    tools.assert_not_equals(number_distance.generate_results(closed_interval, 33)[0], 100)
+    generated_values_correct = number_distance.generate_results(interval_correct_1)
+    generated_values_correct_2 = (number_distance.generate_results(interval_correct_2))
+    generated_values_correct_3 = (number_distance.generate_results(interval_correct_3))
+    generated_values_wrong = number_distance.generate_results(interval_wrong_1)
+    generated_values_wrong_2 = (number_distance.generate_results(interval_wrong_2))
+    generated_values_wrong_3 = (number_distance.generate_results(interval_wrong_3))
+    generated_values_wrong_4 = (number_distance.generate_results(interval_correct_4))
+
+    tools.assert_equals(all(__find_keys_in_generate_results(generated_values_correct)), True)
+    tools.assert_equals(all(__find_keys_in_generate_results(generated_values_wrong)), True)
+
+    tools.assert_equals(generated_values_correct['answer_representation'], '33')
+    tools.assert_equals(generated_values_correct['cpu_representation'], '33')
+    tools.assert_equals(generated_values_correct['cpu_internal'], 33)
+    tools.assert_equals(generated_values_correct['outcome'], True)
+
+    tools.assert_equals(generated_values_correct_2['answer_representation'], '34')
+    tools.assert_equals(generated_values_correct_2['cpu_representation'], '34')
+    tools.assert_equals(generated_values_correct_2['cpu_internal'], 34)
+    tools.assert_equals(generated_values_correct_2['outcome'], True)
+
+    tools.assert_equals(generated_values_correct_3['answer_representation'], '35')
+    tools.assert_equals(generated_values_correct_3['cpu_representation'], '35')
+    tools.assert_equals(generated_values_correct_3['cpu_internal'], 35)
+    tools.assert_equals(generated_values_correct_3['outcome'], True)
+
+    tools.assert_equals(generated_values_wrong['answer_representation'], '38')
+    tools.assert_equals(generated_values_wrong['cpu_representation'], '33')
+    tools.assert_equals(generated_values_wrong['cpu_internal'], 33)
+    tools.assert_equals(generated_values_wrong['outcome'], False)
+
+    tools.assert_equals(generated_values_wrong_4['answer_representation'], '150 000 000')
+    tools.assert_equals(generated_values_wrong_4['cpu_representation'], '150 000 000')
+    tools.assert_equals(generated_values_wrong_4['cpu_internal'], 150000000)
+    tools.assert_equals(generated_values_wrong_4['outcome'], True)
+
+    tools.assert_equals(generated_values_wrong_2, None)
+    tools.assert_equals(generated_values_wrong_3, None)
 
 
 def test_prettify_number():

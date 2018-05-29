@@ -1,14 +1,27 @@
-$def with (level, question, answer, result)
+$def with (data)
 $var title: Failure
 
 
 <div class="row text-center">
   <div class="col-md-12">
     <h1><span class="result-incorrect text-uppercase">Incorrect!</span></h1>
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-12">
     <div class="results">
-      Interval: <strong>$question</strong><br></li>
-      Your answer: <strong class="result-incorrect">$answer</strong><br></li>
-      Correct answer: <strong class="result-correct">$result</strong></li>
+      <ul>
+        <li>
+          Interval: <strong>$data['left_glyph']<span>$data['start_representation']</span>,
+          <span>$data['stop_representation']</span>$data['right_glyph']</strong><br>
+        </li>
+        <li>
+          Your answer: <strong class="result-incorrect">$data['answer_representation']</strong><br>
+        </li>
+        <li>
+          Correct answer: <strong class="result-correct">$data['cpu_representation']</strong>
+        </li>
+      </ul>
     </div>
     <hr>
   </div>
@@ -21,7 +34,7 @@ $var title: Failure
 <div class="row top-buffer" align="center">
   <div class="col-md-6" align="right">
     <form action="/play" method="POST">
-      <button class="btn btn-danger" type="submit" name="level" value="$level">
+      <button class="btn btn-danger" type="submit" name="level" value="$data['game_level']">
         Next question
       </button>
     </form>
