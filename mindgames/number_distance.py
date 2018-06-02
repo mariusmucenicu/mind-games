@@ -144,7 +144,7 @@ def fetch_game_level(user_input):
     if validate_game_levels(GAME_LEVELS) and 0 <= game_level < len(GAME_LEVELS):
         return GAME_LEVELS[game_level]
     else:
-        logging.error('Unable to fetch the game level with index: {0}'.format(game_level))
+        logging.error('Unable to fetch the game level with index: %s', game_level)
         return None
 
 
@@ -254,9 +254,9 @@ def prettify_number(number):
         slice_start = len(number) - 3
         slice_stop = len(number)
 
-        for position in range(-3, -len(number), -3):
-            three_chuck = number[slice_start:slice_stop]
-            raw_formatted_number.insert(0, three_chuck)
+        for _ in range(-3, -len(number), -3):
+            three_chunk = number[slice_start:slice_stop]
+            raw_formatted_number.insert(0, three_chunk)
             slice_stop = slice_start
             if slice_start - 3 <= 0:
                 raw_formatted_number.insert(0, number[:slice_start])
@@ -358,5 +358,4 @@ def validate_game_levels(game_levels):
         for lower_bound, upper_bound in game_levels:
             if lower_bound > upper_bound:
                 return False
-        else:
-            return True
+        return True
