@@ -74,7 +74,8 @@ $var title: Grade
 <div class="row top-buffer">
   <div class="col-md-12">
     <form action="/play" method="post">
-      <button type="submit" name="level" value="0" class="btn btn-warning btn-lg btn-block">
+      <button type="submit" name="level" class="btn btn-warning btn-lg btn-block"
+          onclick=fetchGameLevel(this)>
         Just pick one for me
       </button>
     </form>

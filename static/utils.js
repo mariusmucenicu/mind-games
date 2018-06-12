@@ -47,3 +47,9 @@ function checkEmptyForm() {
         document.getElementById('hit-it-btn').disabled = true;
     }
 }
+
+
+function fetchGameLevel(btn) {
+    var gameLevel = generateRandomNumber(3);
+    btn.value = gameLevel;
+}
