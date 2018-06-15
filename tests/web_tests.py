@@ -15,7 +15,6 @@ Miscellaneous objects:
 """
 
 # Standard library
-import os
 import unittest
 
 # Third-party
@@ -24,9 +23,6 @@ from paste import fixture
 
 # Project specific
 from bin import webapp
-
-# this is needed to avoid kicking off the development server during tests
-os.environ['WEBPY_ENV'] = 'test'
 
 
 class TestIndex(unittest.TestCase):
