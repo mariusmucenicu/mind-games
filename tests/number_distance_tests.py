@@ -168,6 +168,7 @@ def test_generate_results():
 
 def test_prettify_number():
     tools.assert_equals(number_distance.prettify_number(100), '100')
+    tools.assert_equals(number_distance.prettify_number(-100), '-100')
     tools.assert_equals(number_distance.prettify_number(1000), '1 000')
     tools.assert_equals(number_distance.prettify_number(-1000), '-1 000')
     tools.assert_equals(number_distance.prettify_number(10000), '10 000')

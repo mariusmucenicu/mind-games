@@ -251,17 +251,15 @@ def prettify_number(number):
         return number
     else:
         raw_formatted_number = []
-        slice_start = len(number) - 3
         slice_stop = len(number)
 
-        for _ in range(-3, -len(number), -3):
+        for slice_start in range(-3, -len(number), -3):
             three_chunk = number[slice_start:slice_stop]
             raw_formatted_number.insert(0, three_chunk)
             slice_stop = slice_start
-            if slice_start - 3 <= 0:
+
+            if slice_start - 3 <= -len(number):
                 raw_formatted_number.insert(0, number[:slice_start])
-            else:
-                slice_start = slice_start - 3
 
         if raw_formatted_number[0] == '-':
             raw_formatted_number[:2] = [raw_formatted_number[0] + raw_formatted_number[1]]
