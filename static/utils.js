@@ -4,8 +4,8 @@ function generateRandomNumber(upperBound, leftGlyph='(', rightGlyph=']', lowerBo
      * for the closed interval, i.e [2, 2] will yield either 0 or 1 (which is intended)
      * and the probability for the rest of the cases is 1/(upperBound + 1)
      */
-    openInterval = leftGlyph == '(' && rightGlyph == ')';
-    closedInterval = leftGlyph == '[' && rightGlyph == ']';
+    var openInterval = leftGlyph == '(' && rightGlyph == ')';
+    var closedInterval = leftGlyph == '[' && rightGlyph == ']';
 
     if (openInterval) {
         upperBound = upperBound - 1;
