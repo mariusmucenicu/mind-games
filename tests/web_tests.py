@@ -15,14 +15,27 @@ Miscellaneous objects:
 """
 
 # Standard library
+import logging
 import unittest
 
 # Third-party
 from nose import tools
 from paste import fixture
+from paste import lint
 
 # Project specific
 from bin import webapp
+
+
+def __debug_writer(self, value): # pylint: disable=unused-argument
+    # work-around to ensure prints from web.py framework are not considered exceptions by paste
+    if value == '\n':
+        return None
+    else:
+        logging.error('No errors should be written (got: %s)', value)
+
+
+lint.ErrorWrapper.write = __debug_writer
 
 
 class TestIndex(unittest.TestCase):
