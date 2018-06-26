@@ -27,7 +27,7 @@ from paste import lint
 from bin import webapp
 
 
-def __debug_writer(self, value): # pylint: disable=unused-argument
+def __debug_writer(self, value):  # pylint: disable=unused-argument
     # work-around to ensure prints from web.py framework are not considered exceptions by paste
     if value == '\n':
         return None

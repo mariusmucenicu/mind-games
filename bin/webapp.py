@@ -19,18 +19,19 @@ Miscellaneous objects:
 
 Usage:
 ======
-    python bin/webapp.py [port]
+    python -m bin.webapp [port]
 
 Notes:
 ======
-    Run it from the root folder, not from within bin.
-    If you don't specify a port it will default to 8080.
-    Create your own personal domain in a few easy steps:
+    - Run it from the root folder not from within bin.
+    - If you don't specify a port it will default to 8080.
+    - Create your own personal domain in a few easy steps:
         1. Add 127.0.0.1 <domain_name.extension> to your hosts file, e.g: mucenicu.rocks.
         2. Pop open Chrome/Mozilla Firefox/Opera/etc. punch the domain and enjoy the game.
-        3. Careful, if you don't run the development server with the port 80, which is the default
-        for HTTP, you will need to add the port as well, e.g: mucenicu.rocks:8080 since it runs on
-        that by default.
+        3. Run the script on default HTTP port 80, i.e python -m bin.webapp 80
+        4. Careful, if you don't run the development server on port 80 you will need to add
+            the port as well when requesting pages, i.e mucenicu.rocks:8080 (in the browser), since
+            the server uses 8080 by default.
 """
 
 # pylint: disable=wrong-import-position
@@ -52,7 +53,7 @@ sys.path.append(script_path)
 # Project specific
 from mindgames import number_distance  # noqa
 
-urls = (
+URLS = (
     '/', 'Index',
     '/grade', 'Grade',
     '/play', 'Play',
@@ -62,7 +63,7 @@ urls = (
 TEMPLATES_DIR = os.path.dirname(os.path.dirname(os.path.realpath(__file__)))
 TEMPLATES_PATH = '{0}/templates'.format(TEMPLATES_DIR)
 render = web.template.render(TEMPLATES_PATH, base='layout')
-app = web.application(urls, globals())
+app = web.application(URLS, globals())
 
 
 def _notfound():
