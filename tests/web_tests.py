@@ -7,11 +7,6 @@ Classes:
     TestGrade: Test the requests going under /grade
     TestPlay: Test the requests going under /play
     TestResult: Test the requests going under /result
-
-
-Miscellaneous objects:
-======================
-    Except the above, all other objects in this module are to be considered implementation details.
 """
 
 # Standard library

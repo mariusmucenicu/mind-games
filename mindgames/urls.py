@@ -1,11 +1,9 @@
 """
-Main package for all mindgames tests.
+Map a URL to the view that handles it.
 
-Modules:
-========
-    lexicon_tests: Test mindgames.lexicon functionality.
-    number_distance_tests: Test mindgames.number_distance functionality.
-    web_tests: Test bin.webapp functionality.
+Constants
+=========
+URLS: Container for URL-View mappings.
 
 Miscellaneous objects:
 ======================
@@ -13,3 +11,12 @@ Miscellaneous objects:
         everything else is an implementation detail, and shouldn't be relied upon as it may change
         over time.
 """
+
+from mindgames import views
+
+URLS = (
+    '/', views.Index,
+    '/grade', views.Grade,
+    '/play', views.Play,
+    '/result', views.Result,
+)

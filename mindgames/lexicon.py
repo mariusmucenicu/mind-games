@@ -17,7 +17,9 @@ Functions:
 
 Miscellaneous objects:
 ======================
-    Except the above, all other objects in this module are to be considered implementation details.
+    Except for the public objects exported by this module and their public APIs (if applicable),
+        everything else is an implementation detail, and shouldn't be relied upon as it may change
+        over time.
 """
 
 __author__ = 'Marius Mucenicu <marius_mucenicu@yahoo.com>'
@@ -41,10 +43,6 @@ class Lexicon:
         scan_text()
         split_alnum()
         validate()
-
-    Miscellaneous objects:
-    ======================
-        Except the above, all other objects in this class are considered implementation details.
     """
 
     def __init__(self, wordbook):
@@ -175,10 +173,6 @@ class Sentence:
     Methods:
     ========
         build()
-
-    Miscellaneous objects:
-    ======================
-        Except the above, all other objects in this class are considered implementation details.
     """
 
     def __init__(self, word_order):

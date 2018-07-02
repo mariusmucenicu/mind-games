@@ -7,5 +7,7 @@ Modules:
 
 Miscellaneous objects:
 ======================
-    Except the above, all other objects in this package are to be considered implementation details.
+    Except for the public objects exported by this module and their public APIs (if applicable),
+        everything else is an implementation detail, and shouldn't be relied upon as it may change
+        over time.
 """

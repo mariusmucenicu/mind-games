@@ -1,18 +1,22 @@
 """
-Main package for all mindgames.
+Store logic and configuration for the entire project.
 
 Modules:
 ========
     lexicon: Handle building sentences from a given lexicon.
     number_distance: Handle mathematical intervals scenarios.
+    settings: Store generic parameters.
+    urls: Map URLs to views.
+    views: Handle HTTP requests.
 
 Notes:
 ======
     This package is intended to bundle all of the core functionality from this application, which is
-    comprised of different interactive games.
-    Any new games should be isolated within modules and placed within this folder.
+        comprised of different interactive games, which in turn have different configurations.
 
 Miscellaneous objects:
 ======================
-    Except the above, all other objects in this package are to be considered implementation details.
+    Except for the public objects exported by this module and their public APIs (if applicable),
+        everything else is an implementation detail, and shouldn't be relied upon as it may change
+        over time.
 """

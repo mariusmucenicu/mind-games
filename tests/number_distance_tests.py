@@ -8,10 +8,6 @@ Functions:
     test_fetch_game_level: Test mindgames.number_distance.fetch_game_level functionality.
     test_generate_results: Test mindgames.number_distance.generate_results functionality.
     test_prettify_number: Test mindgames.number_distance.prettify_number functionality.
-
-Miscellaneous objects:
-======================
-    Except the above, all other objects in this module are to be considered implementation details.
 """
 
 # Third-party

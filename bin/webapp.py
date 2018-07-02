@@ -6,26 +6,15 @@ actual serving files on the internet. Should you want to publish the game and ha
 with it over the internet, you should try to serve files through nginx/apache or a real mature web
 server.
 
-Classes:
-========
-    Index: Get the homepage.
-    Grade: Get the grade (difficulty levels) page.
-    Play: Start the game.
-    Result: Return result based on user input compared against the correct answer.
-
-Miscellaneous objects:
-======================
-    Except the above, all other objects in this module are to be considered implementation details.
-
 Usage:
 ======
     python -m bin.webapp [port]
 
 Notes:
 ======
-    - Run it from the root folder not from within bin.
-    - If you don't specify a port it will default to 8080.
-    - Create your own personal domain in a few easy steps:
+    Run it from the root folder not from within bin.
+    If you don't specify a port it will default to 8080.
+    Create your own personal domain in a few easy steps:
         1. Add 127.0.0.1 <domain_name.extension> to your hosts file, e.g: mucenicu.rocks.
         2. Pop open Chrome/Mozilla Firefox/Opera/etc. punch the domain and enjoy the game.
         3. Run the script on default HTTP port 80, i.e python -m bin.webapp 80
@@ -34,127 +23,30 @@ Notes:
             the server uses 8080 by default.
 """
 
-# pylint: disable=wrong-import-position
-# pylint: disable=invalid-name
-
 __author__ = 'Marius Mucenicu <marius_mucenicu@yahoo.com>'
-
-# Standard library
-import ast
-import os
-import sys
 
 # Third-party
 import web
 
-script_path = os.path.dirname(os.path.abspath(__file__))
-sys.path.append(script_path)
-
 # Project specific
-from mindgames import number_distance  # noqa
+from mindgames import settings
+from mindgames import urls
 
-URLS = (
-    '/', 'Index',
-    '/grade', 'Grade',
-    '/play', 'Play',
-    '/result', 'Result',
-)
-
-TEMPLATES_DIR = os.path.dirname(os.path.dirname(os.path.realpath(__file__)))
-TEMPLATES_PATH = '{0}/templates'.format(TEMPLATES_DIR)
-render = web.template.render(TEMPLATES_PATH, base='layout')
-app = web.application(URLS, globals())
+app = web.application(urls.URLS, globals())  # pylint: disable=invalid-name
 
 
 def _notfound():
     """Return a custom 404 page."""
-    return web.notfound(render.custom404())
+    return web.notfound(settings.base_render.custom404())
 
 
 def _internalerror():
     """Return a custom 500 page."""
-    return web.internalerror(render.custom500())
+    return web.internalerror(settings.base_render.custom500())
 
 
 app.notfound = _notfound
 app.internalerror = _internalerror
-
-
-class Index:
-    """
-    Methods:
-    ========
-        GET()
-
-    Miscellaneous objects:
-    ======================
-        Except the above, all other objects in this class are considered implementation details.
-    """
-
-    def GET(self):
-        return render.index()
-
-
-class Grade:
-    """
-    Methods:
-    ========
-        GET()
-
-    Miscellaneous objects:
-    ======================
-        Except the above, all other objects in this class are considered implementation details.
-    """
-
-    def GET(self):
-        return render.grade()
-
-
-class Play:
-    """
-    Methods:
-    ========
-        POST()
-
-    Miscellaneous objects:
-    ======================
-        Except the above, all other objects in this class are considered implementation details.
-    """
-
-    def POST(self):
-        level = web.input().get('level')
-        if not level:
-            raise web.seeother('/grade')
-        else:
-            data = number_distance.play(level)
-            if not data:
-                raise app.internalerror()
-            else:
-                return render.play(data)
-
-
-class Result:
-    """
-    Methods:
-    ========
-        POST()
-
-    Miscellaneous objects:
-    ======================
-        Except the above, all other objects in this class are considered implementation details.
-    """
-
-    def POST(self):
-        data_to_dict = ast.literal_eval(web.input().get('data'))
-        result_data = number_distance.generate_results(data_to_dict)
-
-        if not result_data:
-            raise app.internalerror()
-        elif result_data['outcome']:
-            return render.result_success(result_data)
-        else:
-            return render.result_failure(result_data)
-
 
 if __name__ == '__main__':
     print('Starting development server at: ', end='')
