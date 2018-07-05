@@ -16,7 +16,7 @@ Miscellaneous objects:
 """
 
 # Standard library
-import ast
+import json
 
 # Third-party
 import web
@@ -77,7 +77,7 @@ class Result:
     """
 
     def POST(self):
-        data_to_dict = ast.literal_eval(web.input().get('data'))
+        data_to_dict = json.loads(web.input().get('data'))
         result_data = number_distance.generate_results(data_to_dict)
 
         if not result_data:

@@ -314,7 +314,7 @@ def validate_form_data(form_data):
                     internal_values.append(int(form_value))
                 else:
                     int(form_data[number])
-            except ValueError as ex:
+            except (TypeError, ValueError) as ex:
                 logging.exception(ex)
                 return None
 
