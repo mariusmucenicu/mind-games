@@ -25,7 +25,7 @@ import web
 from mindgames import number_distance
 from mindgames import settings
 
-# pylint: disable=invalid-namels
+# pylint: disable=invalid-name
 
 
 class Index:
