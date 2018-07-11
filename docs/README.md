@@ -5,13 +5,14 @@ Encapsulates o series of interactive games with the purpose of increasing one's 
 In order to get started you need to go through these simple steps:
 
 ### 1. Prerequisites
-+ Make sure you have Python3 installed, it won't work with Python2.
-    + If you haven't got Python3 on your system, make sure to download it from [here](https://www.python.org/).
++ Make sure you have any version of Python 3.6.X installed:
+    + It won't work with Python 2.X, Python 3.7.X and it hasn't been tested for any Python 3.X < Python 3.6.
+    + If you haven't got a Python 3.6.X version on your system, make sure to download it from [here](https://www.python.org/).
 + Clone or download this repository locally.
-+ Create a Python3 virtual environment.
++ Create a Python 3.6.X virtual environment.
     + The purpose of this virtual environment is to isolate the game's package dependencies.
-    + (Since python3.6): ```python3 -m venv /path/to/new/virtual/environment```
-    + (Before python3.6): ```Just upgrade to 3.6 or later, the future is now.```
+    + (Since python 3.6): ```python3 -m venv /path/to/new/virtual/environment```
+    + (Before python 3.6): ```Just download and install any 3.6.X version.```
     + Activate the virtual environment by running the following:
         + (Windows): ```/path/to/new/virtual/environment/Lib/Scripts/activate```
         + (Unix systems): ```source /path/to/new/virtual/environment/bin/activate```
