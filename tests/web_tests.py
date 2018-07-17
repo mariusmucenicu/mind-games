@@ -10,6 +10,7 @@ Classes:
 """
 
 # Standard library
+import json
 import logging
 import unittest
 
@@ -121,7 +122,7 @@ class TestResult(unittest.TestCase):
             'game_level': 0,
         }
         post_params = {
-            'data': str(post_data),
+            'data': json.dumps(post_data),
         }
         response = self.testApp.post('/result', params=post_params)
         tools.assert_equals(response.status, 200)
@@ -148,7 +149,7 @@ class TestResult(unittest.TestCase):
             'game_level': 11,
         }
         post_params = {
-            'data': str(post_data),
+            'data': json.dumps(post_data),
         }
         response = self.testApp.post('/result', params=post_params)
         tools.assert_equals(response.status, 200)
@@ -180,7 +181,7 @@ class TestResult(unittest.TestCase):
             'game_level': 0,
         }
         post_params = {
-            'data': str(post_data),
+            'data': json.dumps(post_data),
         }
         response = self.testApp.post('/result', params=post_params)
         tools.assert_equals(response.status, 200)
