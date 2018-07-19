@@ -26,13 +26,26 @@ Notes:
 __author__ = 'Marius Mucenicu <marius_mucenicu@yahoo.com>'
 
 # Third-party
+import logging
 import web
 
 # Project specific
 from mindgames import settings
 from mindgames import urls
 
-app = web.application(urls.URLS, globals())  # pylint: disable=invalid-name
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger(__name__)
+
+app = web.application(urls.URLS, globals())
+
+
+def _load_session():
+    """Initialize a session object using a particular type of storage (DiskStore, DBStore, etc.)"""
+    db = web.database(dbn='sqlite', db='mindgames.db')
+    store = web.session.DBStore(db, 'sessions')
+    initializer = {'correct_answers': 0, 'incorrect_answers': 0, 'total_answers': 0, 'average': 5}
+    session = web.session.Session(app, store, initializer)
+    web.config._session = session
 
 
 def _notfound():
@@ -49,5 +62,7 @@ app.notfound = _notfound
 app.internalerror = _internalerror
 
 if __name__ == '__main__':
-    print('Starting development server at: ', end='')
+    logger.info('Initializing session object')
+    _load_session()
+    logger.info('Starting development server')
     app.run()

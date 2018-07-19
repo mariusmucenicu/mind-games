@@ -7,6 +7,7 @@ Classes:
     Grade: Get the grade (difficulty levels) page.
     Play: Start the game.
     Result: Return result based on user input.
+    RequestHandler: Store configurations for views.
 
 Miscellaneous objects:
 ======================
@@ -16,6 +17,7 @@ Miscellaneous objects:
 """
 
 # Standard library
+import logging
 import json
 
 # Third-party
@@ -26,9 +28,48 @@ from mindgames import number_distance
 from mindgames import settings
 
 # pylint: disable=invalid-name
+logger = logging.getLogger(__name__)
 
 
-class Index:
+class RequestHandler:
+    def __init__(self):
+        self.session = web.config.get('_session') or {}
+
+    def _update_user_statistics(self, game_metadata):
+        if not self.session:
+            return
+        elif game_metadata['outcome']:
+            self.session['correct_answers'] += 1
+        else:
+            self.session['incorrect_answers'] += 1
+
+        self.session['total_answers'] += 1
+        last_average = self.session['correct_answers'] + self.session['incorrect_answers']
+
+        if last_average == self.session['average']:
+            self._change_game_level(game_metadata)
+            self._reset_user_statistics()
+        else:
+            logging.debug('Skipping reset statistics')
+
+    def _reset_user_statistics(self):
+        self.session['correct_answers'] = 0
+        self.session['incorrect_answers'] = 0
+
+    def _change_game_level(self, game_metadata):
+        correct_answers = self.session['correct_answers']
+        incorrect_answers = self.session['incorrect_answers']
+        current_game_level = game_metadata['game_level']
+        new_game_level = number_distance.change_game_level(
+            correct_answers, incorrect_answers, current_game_level
+        )
+        game_metadata['game_level'] = new_game_level
+
+    def clear_session(self):
+        self.session.kill()
+
+
+class Index(RequestHandler):
     """
     Methods:
     ========
@@ -39,7 +80,7 @@ class Index:
         return settings.base_render.index()
 
 
-class Grade:
+class Grade(RequestHandler):
     """
     Methods:
     ========
@@ -50,7 +91,7 @@ class Grade:
         return settings.base_render.grade()
 
 
-class Play:
+class Play(RequestHandler):
     """
     Methods:
     ========
@@ -69,7 +110,7 @@ class Play:
                 return settings.base_render.play(data)
 
 
-class Result:
+class Result(RequestHandler):
     """
     Methods:
     ========
@@ -83,6 +124,8 @@ class Result:
         if not result_data:
             raise web.internalerror()
         elif result_data['outcome']:
+            self._update_user_statistics(result_data)
             return settings.base_render.result_success(result_data)
         else:
+            self._update_user_statistics(result_data)
             return settings.base_render.result_failure(result_data)

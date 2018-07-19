@@ -4,7 +4,7 @@ Implement the interface for a simple mathematical game based on intervals.
 Functions:
 ==========
     calculate_statistics: Compute statistics based on amount of correct/wrong answers.
-    change_game_level: Increment/decrement the degree of difficulty based on calculate_statistics().
+    change_game_level: Increment/decrement the degree of difficulty based on statistics.
     fetch_game_level: Return a game level from a series of game levels, based on user preference.
     generate_interval: Generate an interval within a range of two values (the lower/upper bound).
     generate_results: Compare the user's result with the expected result for a given question.
@@ -27,6 +27,8 @@ __author__ = 'Marius Mucenicu <marius_mucenicu@yahoo.com>'
 # Standard library
 import logging
 import random
+
+logger = logging.getLogger(__name__)
 
 GAME_LEVELS = (
     (0, 10**2 - 1),
@@ -59,69 +61,35 @@ def calculate_statistics(correct, wrong):
     total = correct + wrong
     correct_percentage = round(correct / total * 100, 2)
     wrong_percentage = round(100 - correct_percentage, 2)
-    return total, correct_percentage, wrong_percentage
+    return correct_percentage, wrong_percentage
 
 
-def change_game_level(avg_correct, avg_wrong, game_level, all_game_levels):
+def change_game_level(avg_correct, avg_wrong, game_level):
     """
-    Increase or decrease the game difficulty level from a range of levels based on the success rate.
+    Increase or decrease the game difficulty level based on the success rate.
 
     Args:
         :param avg_correct (int): Number of correct answers.
         :param avg_wrong (int): Number of wrong answers.
         :param game_level (tuple): Current game level.
-        :param all_game_levels (tuple): Available game levels.
 
     Returns:
-        A tuple of length 2 of the form:
-            (lower_bound, upper_bound)
+        An int, corresponding to the position of the current game level in GAME_LEVELS.
     """
-    assert game_level in all_game_levels, 'invalid input data'
 
-    game_levels = len(all_game_levels)
-    game_level = all_game_levels.index(game_level)
+    game_levels = len(GAME_LEVELS)
+    correct_percentage = calculate_statistics(avg_correct, avg_wrong)[0]
 
-    cheerful_messages = (
-        'Congratulations on your success! You have made us all proud. Keep up the good work!',
-        "Keep being awesome, and I'll keep saying congratulations.",
-        'I love to see good things come to good people. This is one of those times.',
-        'I have so much pride in my heart right now. It might even be a sin.',
-        'You are our shining star. Well done.',
-        'Congratulations for scaling new heights and setting new standards.',
-        "If Oscars were given for a job well done, I'd nominate you!"
-        'Congratulations for your fantastic achievement!',
-    )
-    criticism_messages = (
-        'Tell me… Is being stupid a profession or are you just gifted?',
-        "Zombies eat brains. You're safe.",
-        "I'd agree with you but then we'd both be wrong.",
-        "I'll try being nicer, if you try being smarter.",
-        "Well at least your mom thinks you're pretty…",
-        'I thought I had seen the pinnacle of stupid… Then I met you.',
-        "If had a dollar for every smart thing you say. I'll be poor.",
-    )
-
-    avg_statistics = calculate_statistics(avg_correct, avg_wrong)[1]
-
-    if avg_statistics >= 50:
+    if correct_percentage >= 50:
         if game_level + 1 < game_levels:
             game_level += 1
-            cheerful_quote = random.choice(cheerful_messages)
-            print('{0}\nYou have an average of {1}% correct answers. '
-                  'Auto increasing difficulty\n'.format(cheerful_quote, avg_statistics))
         else:
-            print('You are playing at the maximum level and going strong.\n'
-                  'Please consider e-mailing marius_mucenicu@yahoo.com for extra levels\n')
+            logger.warning('Maximum level reached')
+    elif game_level:
+        game_level -= 1
     else:
-        if game_level:
-            game_level -= 1
-            criticism_quote = random.choice(criticism_messages)
-            print('{0}\nYou have an average of {1}% correct answers. '
-                  'Auto decreasing difficulty\n'.format(criticism_quote, avg_statistics))
-        else:
-            print('You are playing at the lowest level and still doing dreadfully.\n'
-                  'You are a bad abacist, please consider stepping up your game!\n')
-    return all_game_levels[game_level]
+        logger.warning('Minimum level reached')
+    return game_level
 
 
 def fetch_game_level(user_input):
