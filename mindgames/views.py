@@ -27,7 +27,6 @@ import web
 from mindgames import number_distance
 from mindgames import settings
 
-# pylint: disable=invalid-name
 logger = logging.getLogger(__name__)
 
 

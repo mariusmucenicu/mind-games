@@ -34,4 +34,4 @@ import web
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.realpath(__file__)))
 TEMPLATES_PATH = os.path.join(BASE_DIR, 'templates')
-base_render = web.template.render(TEMPLATES_PATH, base='layout')  # pylint: disable=invalid-name
+base_render = web.template.render(TEMPLATES_PATH, base='layout')
