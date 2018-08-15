@@ -106,13 +106,13 @@ def fetch_game_level(user_input):
     try:
         game_level = int(user_input.strip())
     except ValueError as ex:
-        logging.exception(ex)
+        logger.exception(ex)
         return None
 
     if validate_game_levels(GAME_LEVELS) and 0 <= game_level < len(GAME_LEVELS):
         return GAME_LEVELS[game_level]
     else:
-        logging.error('Unable to fetch the game level with index: %s', game_level)
+        logger.error('Unable to fetch the game level with index: %s', game_level)
         return None
 
 
@@ -262,15 +262,15 @@ def validate_form_data(form_data):
 
     for glyph, value in expected_glyphs.items():
         if glyph not in form_data:
-            logging.error('%s not found in form data.', glyph)
+            logger.error('%s not found in form data.', glyph)
             return None
         elif form_data[glyph] not in value:
-            logging.error('unexpected glyph %s', form_data[glyph])
+            logger.error('unexpected glyph %s', form_data[glyph])
             return None
 
     for number in expected_numbers:
         if number not in form_data:
-            logging.error('%s not found in form data.', number)
+            logger.error('%s not found in form data.', number)
             return None
         else:
             try:
@@ -283,7 +283,7 @@ def validate_form_data(form_data):
                 else:
                     int(form_data[number])
             except (TypeError, ValueError) as ex:
-                logging.exception(ex)
+                logger.exception(ex)
                 return None
 
     lower_bound = internal_values[0]
@@ -291,7 +291,7 @@ def validate_form_data(form_data):
     no_values = not (internal_values and representation_values)
 
     if no_values or internal_values != representation_values or lower_bound > upper_bound:
-        logging.error(
+        logger.error(
             'inconsistency among numbers'
             '\tinternal values: %s'
             ' != representation values: %s', internal_values, representation_values

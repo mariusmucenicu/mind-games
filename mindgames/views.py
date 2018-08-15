@@ -49,7 +49,7 @@ class RequestHandler:
             self._change_game_level(game_metadata)
             self._reset_user_statistics()
         else:
-            logging.debug('Skipping reset statistics')
+            logger.debug('Skipping reset statistics')
 
     def _reset_user_statistics(self):
         self.session['correct_answers'] = 0

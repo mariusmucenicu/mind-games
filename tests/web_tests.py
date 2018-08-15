@@ -22,13 +22,15 @@ from paste import lint
 # Project specific
 from bin import webapp
 
+logger = logging.getLogger(__name__)
+
 
 def __debug_writer(self, value):  # pylint: disable=unused-argument
     # work-around to ensure prints from web.py framework are not considered exceptions by paste
     if value == '\n':
         return None
     else:
-        logging.error('No errors should be written (got: %s)', value)
+        logger.error('No errors should be written (got: %s)', value)
 
 
 lint.ErrorWrapper.write = __debug_writer
