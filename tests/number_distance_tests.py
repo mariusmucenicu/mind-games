@@ -86,15 +86,15 @@ def test_generate_results():
         'stop_internal': 350000001, 'start_representation': '200 000 000', 'answer': 150000000,
         'stop_representation': '350 000 001',
     }
-    interval_wrong_1 = {
+    interval_incorrect_1 = {
         'left_glyph': '(', 'right_glyph': ')', 'start_internal': 7, 'stop_internal': 41,
         'start_representation': '7', 'stop_representation': '41', 'answer': 38, 'game_level': 0
     }
-    interval_wrong_2 = {
+    interval_incorrect_2 = {
         'left_glyph': '[', 'right_glyph': ']', 'start_internal': 41, 'stop_internal': 7,
         'start_representation': '7', 'stop_representation': '41', 'answer': 35, 'game_level': 0
     }
-    interval_wrong_3 = {
+    interval_incorrect_3 = {
         'left_glyph': '[', 'right_glyph': ']', 'start_internal': 41, 'stop_internal': 7,
         'start_representation': '41', 'stop_representation': '7', 'answer': 35, 'game_level': 0
     }
@@ -119,13 +119,13 @@ def test_generate_results():
     generated_values_correct = number_distance.generate_results(interval_correct_1)
     generated_values_correct_2 = (number_distance.generate_results(interval_correct_2))
     generated_values_correct_3 = (number_distance.generate_results(interval_correct_3))
-    generated_values_wrong = number_distance.generate_results(interval_wrong_1)
-    generated_values_wrong_2 = (number_distance.generate_results(interval_wrong_2))
-    generated_values_wrong_3 = (number_distance.generate_results(interval_wrong_3))
-    generated_values_wrong_4 = (number_distance.generate_results(interval_correct_4))
+    generated_values_incorrect = number_distance.generate_results(interval_incorrect_1)
+    generated_values_incorrect_2 = (number_distance.generate_results(interval_incorrect_2))
+    generated_values_incorrect_3 = (number_distance.generate_results(interval_incorrect_3))
+    generated_values_incorrect_4 = (number_distance.generate_results(interval_correct_4))
 
     tools.assert_equals(all(__find_keys_in_generate_results(generated_values_correct)), True)
-    tools.assert_equals(all(__find_keys_in_generate_results(generated_values_wrong)), True)
+    tools.assert_equals(all(__find_keys_in_generate_results(generated_values_incorrect)), True)
 
     tools.assert_equals(generated_values_correct['answer_representation'], '33')
     tools.assert_equals(generated_values_correct['cpu_representation'], '33')
@@ -142,18 +142,18 @@ def test_generate_results():
     tools.assert_equals(generated_values_correct_3['cpu_internal'], 35)
     tools.assert_equals(generated_values_correct_3['outcome'], True)
 
-    tools.assert_equals(generated_values_wrong['answer_representation'], '38')
-    tools.assert_equals(generated_values_wrong['cpu_representation'], '33')
-    tools.assert_equals(generated_values_wrong['cpu_internal'], 33)
-    tools.assert_equals(generated_values_wrong['outcome'], False)
+    tools.assert_equals(generated_values_incorrect['answer_representation'], '38')
+    tools.assert_equals(generated_values_incorrect['cpu_representation'], '33')
+    tools.assert_equals(generated_values_incorrect['cpu_internal'], 33)
+    tools.assert_equals(generated_values_incorrect['outcome'], False)
 
-    tools.assert_equals(generated_values_wrong_4['answer_representation'], '150 000 000')
-    tools.assert_equals(generated_values_wrong_4['cpu_representation'], '150 000 000')
-    tools.assert_equals(generated_values_wrong_4['cpu_internal'], 150000000)
-    tools.assert_equals(generated_values_wrong_4['outcome'], True)
+    tools.assert_equals(generated_values_incorrect_4['answer_representation'], '150 000 000')
+    tools.assert_equals(generated_values_incorrect_4['cpu_representation'], '150 000 000')
+    tools.assert_equals(generated_values_incorrect_4['cpu_internal'], 150000000)
+    tools.assert_equals(generated_values_incorrect_4['outcome'], True)
 
-    tools.assert_equals(generated_values_wrong_2, None)
-    tools.assert_equals(generated_values_wrong_3, None)
+    tools.assert_equals(generated_values_incorrect_2, None)
+    tools.assert_equals(generated_values_incorrect_3, None)
 
 
 def test_prettify_number():

@@ -3,7 +3,7 @@ Implement the interface for a simple mathematical game based on intervals.
 
 Functions:
 ==========
-    calculate_statistics: Compute statistics based on amount of correct/wrong answers.
+    calculate_statistics: Compute statistics based on amount of correct/incorrect answers.
     change_game_level: Increment/decrement the degree of difficulty based on statistics.
     fetch_game_level: Return a game level from a series of game levels, based on user preference.
     generate_interval: Generate an interval within a range of two values (the lower/upper bound).
@@ -46,31 +46,31 @@ GAME_LEVELS = (
 )
 
 
-def calculate_statistics(correct, wrong):
+def calculate_statistics(correct, incorrect):
     """
-    Compute the statistics based on the total number of correct and wrong answers.
+    Compute the statistics based on the total number of correct and incorrect answers.
 
     Args:
         :param correct (int): Number of correct answers.
-        :param wrong (int): Number of wrong answers.
+        :param incorrect (int): Number of incorrect answers.
 
     Returns:
         A tuple of length 3 of the form:
-            (total number of answers, correct percentage (of total), wrong percentage (of total))
+            (total number of answers, correct percentage, incorrect percentage)
     """
-    total = correct + wrong
+    total = correct + incorrect
     correct_percentage = round(correct / total * 100, 2)
-    wrong_percentage = round(100 - correct_percentage, 2)
-    return correct_percentage, wrong_percentage
+    incorrect_percentage = round(100 - correct_percentage, 2)
+    return correct_percentage, incorrect_percentage
 
 
-def change_game_level(avg_correct, avg_wrong, game_level):
+def change_game_level(avg_correct, avg_incorrect, game_level):
     """
     Increase or decrease the game difficulty level based on the success rate.
 
     Args:
         :param avg_correct (int): Number of correct answers.
-        :param avg_wrong (int): Number of wrong answers.
+        :param avg_incorrect (int): Number of incorrect answers.
         :param game_level (tuple): Current game level.
 
     Returns:
@@ -78,7 +78,7 @@ def change_game_level(avg_correct, avg_wrong, game_level):
     """
 
     game_levels = len(GAME_LEVELS)
-    correct_percentage = calculate_statistics(avg_correct, avg_wrong)[0]
+    correct_percentage = calculate_statistics(avg_correct, avg_incorrect)[0]
 
     if correct_percentage >= 50:
         if game_level + 1 < game_levels:

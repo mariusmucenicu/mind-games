@@ -89,7 +89,7 @@ class TestPlay(unittest.TestCase):
         response = self.testApp.post('/play')
         tools.assert_equals(response.status, 303)
 
-    def test_play_post_with_wrong_value(self):
+    def test_play_post_with_incorrect_value(self):
         tools.assert_raises(fixture.AppError, self.testApp.post, '/play', params={'level': 'a'})
         tools.assert_raises(fixture.AppError, self.testApp.post, '/play', params={'level': 12})
 
