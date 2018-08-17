@@ -71,7 +71,7 @@ def change_game_level(avg_correct, avg_incorrect, game_level):
     Args:
         :param avg_correct (int): Number of correct answers.
         :param avg_incorrect (int): Number of incorrect answers.
-        :param game_level (tuple): Current game level.
+        :param game_level (int): Number representing the current degree of difficulty.
 
     Returns:
         An int, corresponding to the position of the current game level in GAME_LEVELS.
