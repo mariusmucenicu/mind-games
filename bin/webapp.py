@@ -33,7 +33,7 @@ import web
 from mindgames import settings
 from mindgames import urls
 
-logging.basicConfig(level=logging.INFO)
+logging.basicConfig(level=logging.DEBUG)
 logger = logging.getLogger(__name__)
 
 app = web.application(urls.URLS, globals())
@@ -48,20 +48,22 @@ def _load_session():
     web.config._session = session
 
 
-def _notfound():
-    """Return a custom 404 page."""
-    return web.notfound(settings.base_render.custom404())
-
-
 def _internalerror():
     """Return a custom 500 page."""
     return web.internalerror(settings.base_render.custom500())
+
+
+def _notfound():
+    """Return a custom 404 page."""
+    return web.notfound(settings.base_render.custom404())
 
 
 app.notfound = _notfound
 app.internalerror = _internalerror
 
 if __name__ == '__main__':
+    logger.info('Checking database status')
+    settings.check_database()
     logger.info('Initializing session object')
     _load_session()
     logger.info('Starting development server')
