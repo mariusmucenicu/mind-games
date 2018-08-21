@@ -33,7 +33,7 @@ import web
 from mindgames import settings
 from mindgames import urls
 
-logging.basicConfig(level=logging.DEBUG)
+logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
 app = web.application(urls.URLS, globals())

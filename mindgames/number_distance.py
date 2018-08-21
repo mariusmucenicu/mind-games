@@ -84,11 +84,11 @@ def change_game_level(avg_correct, avg_incorrect, game_level):
         if game_level + 1 < game_levels:
             game_level += 1
         else:
-            logger.warning('Maximum level reached')
+            logger.info('Maximum level reached')
     elif game_level:
         game_level -= 1
     else:
-        logger.warning('Minimum level reached')
+        logger.info('Minimum level reached')
     return game_level
 
 
