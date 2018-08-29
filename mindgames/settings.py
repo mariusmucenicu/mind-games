@@ -74,6 +74,7 @@ def _check_table(cursor, table):
             )
             assert column_name in DB_TABLE_SCHEMAS[table], column_not_found_error
 
+
 def check_database():
     """Check the database for its core tables, columns in order for the game to work properly."""
     connection = sqlite3.connect('mindgames.db')  # connects to an existing db or creates one
