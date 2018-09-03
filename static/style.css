@@ -118,14 +118,6 @@ body {
     padding-left: 4px;
 }
 
-
-@media only screen and (max-width: 768px) {
-    .col-md-6 {
-        flex: 0 0 50%;
-        max-width: 100%;
-    }
-}
-
 @media only screen and (max-width: 992px) {
     .extra-buffer {
         margin-top: 5vh;
