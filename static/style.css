@@ -120,6 +120,12 @@ body {
     padding-left: 4px;
 }
 
+@media only screen and (max-width: 768px) {
+    #hit-it-form {
+        width: 87.5%;
+    }
+}
+
 @media only screen and (max-width: 992px) {
     .extra-buffer {
         margin-top: 5vh;
@@ -132,5 +138,11 @@ body {
         top: 50%;
         left: 50%;
         transform: translate(-50%,-50%);
+    }
+}
+
+@media only screen and (min-width: 768px) {
+    #hit-it-form {
+        width: 502.94px;
     }
 }
