@@ -78,7 +78,7 @@ body {
 }
 
 .secret-message {
-    width: auto;
+    width: 100%;
 }
 
 .secret-message:hover p.new-label span {
