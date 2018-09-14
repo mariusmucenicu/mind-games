@@ -4,6 +4,11 @@ body {
     background-color: #eee!important;
 }
 
+.btn-answer {
+    width: 157.141px;
+    margin: 0 3px;
+}
+
 .container {
     background-color: rgb(255,255,255);
     min-width: 360px;
@@ -48,7 +53,8 @@ body {
     color: #757575;
     background-color: #f8f8f8;
     border: 1px solid #c6c6c6;
-    width: 23%;
+    width: 126.719px;
+    margin: 0 3px;
     white-space: normal;
     overflow: hidden;
 }

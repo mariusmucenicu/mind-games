@@ -63,21 +63,16 @@ $var title: Grade
           </div>
         </div>
         <div class="row top-buffer">
-          <div class="col-md-12">
+          <div class="col-md-6">
             <button type="submit" class="btn btn-success btn-lg btn-block">Use selected</button>
+          </div>
+          <div class="col-md-6">
+            <button type="submit" name="level" class="btn btn-warning btn-lg btn-block"
+                    onclick=fetchGameLevel(this)>Just pick one for me
+            </button>
           </div>
         </div>
       </fieldset>
-    </form>
-  </div>
-</div>
-<div class="row top-buffer">
-  <div class="col-md-12">
-    <form action="/play" method="post">
-      <button type="submit" name="level" class="btn btn-warning btn-lg btn-block"
-          onclick=fetchGameLevel(this)>
-        Just pick one for me
-      </button>
     </form>
   </div>
 </div>

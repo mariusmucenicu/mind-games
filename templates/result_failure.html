@@ -31,15 +31,13 @@ $var title: Failure
     <img src="/static/images/giphyFailure.webp" class="img-fluid" alt="GIFFY">
   </div>
 </div>
-<div class="row top-buffer" align="center">
-  <div class="col-md-6" align="right">
+<div class="row top-buffer">
+  <div class="col-md-12 text-center">
     <form action="/play" method="POST">
-      <button class="btn btn-danger" type="submit" name="level" value="$data['game_level']">
-        Next question
+      <button class="btn btn-danger btn-answer" type="submit"
+              name="level" value="$data['game_level']">Next question
       </button>
+      <a href="https://www.google.com/" class="btn btn-danger">I'm done for today</a>
     </form>
-  </div>
-  <div class="col-md-6" align="left">
-    <a href="https://www.google.com/" class="btn btn-danger">I'm done for today</a>
   </div>
 </div>
