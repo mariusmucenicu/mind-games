@@ -6,8 +6,11 @@ $var title: Play
   <div class="col-md-12">
     <h1><span>How many integers are within this interval ?</span></h1>
     <h1>
-      $data['left_glyph']<span class="interval-limit">$data['start_representation']</span>,
-      <span class="interval-limit">$data['stop_representation']</span>$data['right_glyph']
+         <span>$data['left_glyph']</span><!-- the comments are used to remove in-line whitespace
+      --><span class="interval-limit">$data['start_representation']</span><!--
+      --><span>,</span>
+         <span class="interval-limit">$data['stop_representation']</span><!--
+      --><span>$data['right_glyph']</span>
     </h1>
   </div>
 </div>
