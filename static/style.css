@@ -4,6 +4,10 @@ body {
     background-color: #eee!important;
 }
 
+embed, img, object, video {
+    max-width: 100%;
+}
+
 .btn-answer {
     width: 157.141px;
     margin: 0 3px;
