@@ -107,6 +107,7 @@ embed, img, object, video {
     margin-top: 1rem;
     margin-bottom: 2rem;
 }
+
 .top-buffer {
     margin-top: 20px;
 }
@@ -152,5 +153,19 @@ embed, img, object, video {
 @media only screen and (min-width: 768px) {
     #hit-it-form {
         width: 502.94px;
+    }
+}
+
+@media only screen and (max-width:550px) {
+    h1 {
+        font-size: 7.27vw;
+    }
+
+    h2 {
+        font-size: 5.82vw;
+    }
+
+    h3 {
+        font-size: 5.09vw;
     }
 }
