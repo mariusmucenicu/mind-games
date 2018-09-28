@@ -73,9 +73,13 @@ embed, img, object, video {
 .results {
     display: table;
     font-size: larger;
-    list-style-position: inside;
     margin: 0 auto;
     text-align: left;
+}
+
+.results ul {
+    padding-inline-start: 10px;
+    margin-bottom: 0;
 }
 
 .result-incorrect {
