@@ -13,14 +13,12 @@ embed, img, object, video {
     margin: 0 3px;
 }
 
-.container {
+.container-fluid {
     background-color: rgb(255,255,255);
+    max-width: 960px;
     min-width: 300px;
     min-height: 434px;
-}
 
-.extra-buffer {
-    margin-top: 10vh;
 }
 
 .footer-status-code {
