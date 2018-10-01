@@ -15,7 +15,8 @@ embed, img, object, video {
 
 .container {
     background-color: rgb(255,255,255);
-    min-width: 360px;
+    min-width: 300px;
+    min-height: 434px;
 }
 
 .extra-buffer {
@@ -139,12 +140,6 @@ embed, img, object, video {
     }
 }
 
-@media only screen and (max-width: 992px) {
-    .extra-buffer {
-        margin-top: 5vh;
-    }
-}
-
 @media only screen and (max-width: 992px) and (min-width: 768px) {
     #dino500 {
         position: absolute;
@@ -160,7 +155,7 @@ embed, img, object, video {
     }
 }
 
-@media only screen and (max-width:550px) {
+@media only screen and (min-width:300px) and (max-width:550px) {
     h1 {
         font-size: 7.27vw;
     }
