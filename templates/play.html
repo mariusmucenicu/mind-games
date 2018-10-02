@@ -1,43 +1,38 @@
 $def with (data)
 $var title: Play
 
-
-<div class="row text-center">
-  <div class="col-md-12">
-    <h1><span>How many integers are within this interval ?</span></h1>
-    <h1>
+<div class="col-12">
+  <div class="row">
+    <div class="col-12 text-center">
+      <h1><span>How many integers are within this interval ?</span></h1>
+      <h1>
          <span>$data['left_glyph']</span><!-- the comments are used to remove in-line whitespace
       --><span class="interval-limit">$data['start_representation']</span><!--
       --><span>,</span>
          <span class="interval-limit">$data['stop_representation']</span><!--
       --><span>$data['right_glyph']</span>
-    </h1>
+      </h1>
+    </div>
   </div>
-</div>
-<div class="row">
-  <div class="col-md-12"><hr/></div>
-</div>
-<div class="row">
-  <div class="col-md-12">
-    <form id="user-answer" action="/result" method="POST" autocomplete="off">
-      <div class="row" align="center">
-        <div class="col-md-12">
-          <input id="hit-it-form" class="play-form-text" type="text" onkeyup="checkEmptyForm()">
-          <input type="hidden" id="metadata" value="$data">
-        </div>
-      </div>
-    </form>
-    <div id="footer" class="row top-buffer">
-      <div class="col-md-12 text-center">
-        <button id="hit-it-btn" type="submit" class="btn btn-basic btn-sm play-form-btn"
-            form="user-answer" onclick="processFormData(this.id);" disabled>
-          <span>Hit it</span>
-        </button>
-        <button id="feeling-lucky-btn" type="submit" class="btn btn-basic btn-sm play-form-btn"
-            form="user-answer" onclick="processFormData(this.id)">
-          <span>I'm feeling lucky</span>
-        </button>
-      </div>
+  <div class="row">
+    <div class="col-12">
+      <hr/>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12 text-center">
+      <form id="user-answer" action="/result" method="POST" autocomplete="off">
+        <input id="hit-it-form" class="play-form-text" type="text" onkeyup="checkEmptyForm()">
+        <input type="hidden" id="metadata" value="$data">
+      </form>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12 text-center">
+      <button id="hit-it-btn" type="submit" class="btn btn-basic btn-sm play-form-btn"
+              form="user-answer" onclick="processFormData(this.id);" disabled>Hit it</button>
+      <button id="feeling-lucky-btn" type="submit" class="btn btn-basic btn-sm play-form-btn"
+              form="user-answer" onclick="processFormData(this.id)">I'm feeling lucky</button>
     </div>
   </div>
 </div>

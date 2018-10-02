@@ -1,6 +1,5 @@
 $def with (content)
 
-
 <!DOCTYPE html>
 <html>
   <head>
@@ -17,7 +16,11 @@ $def with (content)
   </head>
   <body>
     <div class="container-fluid">
-      $:content
+      <div class="row header"></div>
+      <div class="row content">
+        $:content
+      </div>
+      <div class="row footer"></div>
     </div>
   </body>
 </html>
