@@ -1,28 +1,25 @@
 $def with (data)
 $var title: Success
 
-
-<div class="row text-center text-uppercase">
-  <div class="col-md-12">
-    <h1 class="result-correct">Correct!</h1>
-    <hr>
+<div class="col-12">
+  <div class="row text-center text-uppercase">
+    <div class="col-12">
+      <h1 class="result-correct">Correct!</h1>
+      <hr>
+    </div>
+  </div>
+  <div class="row" align="center">
+    <div class="col-12">
+      <img src="/static/images/giphySuccess.webp" class="img-fluid" alt="GIFFY">
+    </div>
+  </div>
+  <div class="row" align="center">
+    <div class="col-12 text-center">
+      <form action="/play" method="POST">
+        <button class="btn btn-success btn-answer" type="submit"
+                name="level" value="$data['game_level']">Next question</button>
+        <a href="https://www.google.com/" class="btn btn-success">I'm done for today</a>
+      </form>
+    </div>
   </div>
 </div>
-<div class="row" align="center">
-  <div class="col-md-12">
-    <img src="/static/images/giphySuccess.webp" class="img-fluid" alt="GIFFY">
-  </div>
-</div>
-<div class="row top-buffer" align="center">
-  <div class="col-md-12 text-center">
-    <form action="/play" method="POST">
-      <button class="btn btn-success btn-answer" type="submit"
-              name="level" value="$data['game_level']">Next question
-      </button>
-      <a href="https://www.google.com/" class="btn btn-success">I'm done for today</a>
-    </form>
-  </div>
-</div>
-
-
-

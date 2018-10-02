@@ -1,78 +1,79 @@
 $var title: Grade
 
-
-<div class="row text-center">
-  <div class="col-md-12">
-    <h1>Please choose one of the following difficulties</h1>
+<div class="col-12">
+  <div class="row">
+    <div class="col-12 text-center">
+      <h1>Please choose one of the following difficulties</h1>
+    </div>
   </div>
-</div>
-<div class="row">
-  <div class="col-md-12">
-    <hr>
+  <div class="row">
+    <div class="col-12">
+      <hr>
+    </div>
   </div>
-</div>
-<div class="row top-buffer" align="center">
-  <div class="col-md-12">
-    <form action="/play" method="post" class="form-horizontal">
-      <fieldset>
-        <div class="row">
-          <div class="col-md-4">
-            <div><h2>Easy</h2></div>
-              <div class="radio">
-                <label><input type="radio" name="level" value="0">Are you even trying?</label>
-              </div>
-              <div class="radio">
-                <label><input type="radio" name="level" value="1">Warm up</label>
-              </div>
-              <div class="radio">
-                <label><input type="radio" name="level" value="2">Very Easy</label>
-              </div>
-              <div class="radio">
-                <label><input type="radio" name="level" value="3">Easy</label>
-              </div>
+  <div class="row" align="center">
+    <div class="col-12">
+      <form action="/play" method="post" class="form-horizontal">
+        <fieldset>
+          <div class="row">
+            <div class="col-4">
+              <div><h2>Easy</h2></div>
+                <div class="radio">
+                  <label><input type="radio" name="level" value="0">Are you even trying?</label>
+                </div>
+                <div class="radio">
+                  <label><input type="radio" name="level" value="1">Warm up</label>
+                </div>
+                <div class="radio">
+                  <label><input type="radio" name="level" value="2">Very Easy</label>
+                </div>
+                <div class="radio">
+                  <label><input type="radio" name="level" value="3">Easy</label>
+                </div>
+            </div>
+            <div class="col-4">
+              <div><h2>Medium</h2></div>
+                <div class="radio">
+                  <label><input type="radio" name="level" value="4">Steady</label>
+                </div>
+                <div class="radio">
+                  <label><input type="radio" name="level" value="5">I got this</label>
+                </div>
+                <div class="radio">
+                  <label><input type="radio" name="level" value="6">I'm not fooling around</label>
+                </div>
+                <div class="radio">
+                  <label><input type="radio" name="level" value="7">Numbers are my thing</label>
+                </div>
+            </div>
+            <div class="col-4">
+              <div><h2>Hard</h2></div>
+                <div class="radio">
+                  <label><input type="radio" name="level" value="8">Math fanboy</label>
+                </div>
+                <div class="radio">
+                  <label><input type="radio" name="level" value="9">You asked for it</label>
+                </div>
+                <div class="radio">
+                  <label><input type="radio" name="level" value="10">Numberphile</label>
+                </div>
+                <div class="radio">
+                  <label><input type="radio" name="level" value="11">God blessed my genes</label>
+                </div>
+            </div>
           </div>
-          <div class="col-md-4">
-            <div><h2>Medium</h2></div>
-              <div class="radio">
-                <label><input type="radio" name="level" value="4">Steady</label>
-              </div>
-              <div class="radio">
-                <label><input type="radio" name="level" value="5">I got this</label>
-              </div>
-              <div class="radio">
-                <label><input type="radio" name="level" value="6">I'm not fooling around</label>
-              </div>
-              <div class="radio">
-                <label><input type="radio" name="level" value="7">Numbers are my thing</label>
-              </div>
+          <div class="row">
+            <div class="col-6">
+              <button type="submit" class="btn btn-success btn-lg btn-block">Use selected</button>
+            </div>
+            <div class="col-6">
+              <button type="submit" name="level" class="btn btn-warning btn-lg btn-block"
+                      onclick=fetchGameLevel(this)>Just pick one for me
+              </button>
+            </div>
           </div>
-          <div class="col-md-4">
-            <div><h2>Hard</h2></div>
-              <div class="radio">
-                <label><input type="radio" name="level" value="8">Math fanboy</label>
-              </div>
-              <div class="radio">
-                <label><input type="radio" name="level" value="9">You asked for it</label>
-              </div>
-              <div class="radio">
-                <label><input type="radio" name="level" value="10">Numberphile</label>
-              </div>
-              <div class="radio">
-                <label><input type="radio" name="level" value="11">God blessed my genes</label>
-              </div>
-          </div>
-        </div>
-        <div class="row top-buffer">
-          <div class="col-md-6">
-            <button type="submit" class="btn btn-success btn-lg btn-block">Use selected</button>
-          </div>
-          <div class="col-md-6">
-            <button type="submit" name="level" class="btn btn-warning btn-lg btn-block"
-                    onclick=fetchGameLevel(this)>Just pick one for me
-            </button>
-          </div>
-        </div>
-      </fieldset>
-    </form>
+        </fieldset>
+      </form>
+    </div>
   </div>
 </div>

@@ -1,5 +1,9 @@
 /* The selectors are in lexicographic order according to their specificity */
 
+body, html {
+    height: 100%;
+}
+
 body {
     background-color: #eee!important;
 }
@@ -15,10 +19,10 @@ embed, img, object, video {
 
 .container-fluid {
     background-color: rgb(255,255,255);
+    min-height: 100%;
+    min-width: 300px;
     max-width: 960px;
-    min-width: 360px;
-    min-height: 434px;
-
+    overflow: auto;
 }
 
 .footer-status-code {
@@ -26,10 +30,6 @@ embed, img, object, video {
     border-top-color: #23272b;
     background-color: #28a745;
     height: 40px;
-}
-
-.header-status-code {
-    padding: 5vh 0;
 }
 
 .interval-limit {
@@ -69,18 +69,6 @@ embed, img, object, video {
     border-style: none;
 }
 
-.results {
-    display: table;
-    font-size: larger;
-    margin: 0 auto;
-    text-align: left;
-}
-
-.results ul {
-    padding-inline-start: 10px;
-    margin-bottom: 0;
-}
-
 .result-incorrect {
     color: #dc3545;
 }
@@ -109,10 +97,6 @@ embed, img, object, video {
 .text-status-code {
     margin-top: 1rem;
     margin-bottom: 2rem;
-}
-
-.top-buffer {
-    margin-top: 20px;
 }
 
 #droopy404 {
@@ -150,19 +134,5 @@ embed, img, object, video {
 @media only screen and (min-width: 768px) {
     #hit-it-form {
         width: 502.94px;
-    }
-}
-
-@media only screen and (min-width:360px) and (max-width:550px) {
-    h1 {
-        font-size: 7.27vw;
-    }
-
-    h2 {
-        font-size: 5.82vw;
-    }
-
-    h3 {
-        font-size: 5.09vw;
     }
 }

@@ -1,43 +1,42 @@
 $def with (data)
 $var title: Failure
 
-
-<div class="row text-center">
-  <div class="col-md-12">
-    <h1><span class="result-incorrect text-uppercase">Incorrect!</span></h1>
+<div class="col-12">
+  <div class="row text-center">
+      <div class="col-12">
+        <h1><span class="result-incorrect text-uppercase">Incorrect!</span></h1>
+      </div>
   </div>
-</div>
-<div class="row">
-  <div class="col-md-12">
-    <div class="results">
-      <ul>
-        <li>
-          Interval: <strong>$data['left_glyph']<span>$data['start_representation']</span>,
-          <span>$data['stop_representation']</span>$data['right_glyph']</strong><br>
-        </li>
-        <li>
-          Your answer: <strong class="result-incorrect">$data['answer_representation']</strong><br>
-        </li>
-        <li>
-          Correct answer: <strong class="result-correct">$data['cpu_representation']</strong>
-        </li>
-      </ul>
+  <div class="row">
+    <div class="col-12">
+        <ul>
+          <li>
+            Interval: <strong>$data['left_glyph']<span>$data['start_representation']</span>,
+            <span>$data['stop_representation']</span>$data['right_glyph']</strong>
+          </li>
+          <li>
+            Your answer: <strong class="result-incorrect">$data['answer_representation']</strong>
+          </li>
+          <li>
+            Correct answer: <strong class="result-correct">$data['cpu_representation']</strong>
+          </li>
+        </ul>
+      <hr>
     </div>
-    <hr>
   </div>
-</div>
-<div class="row" align="center">
-  <div class="col-md-12">
-    <img src="/static/images/giphyFailure.webp" class="img-fluid" alt="GIFFY">
+  <div class="row" align="center">
+    <div class="col-12">
+      <img src="/static/images/giphyFailure.webp" class="img-fluid" alt="GIFFY">
+    </div>
   </div>
-</div>
-<div class="row top-buffer">
-  <div class="col-md-12 text-center">
-    <form action="/play" method="POST">
-      <button class="btn btn-danger btn-answer" type="submit"
-              name="level" value="$data['game_level']">Next question
-      </button>
-      <a href="https://www.google.com/" class="btn btn-danger">I'm done for today</a>
-    </form>
+  <div class="row">
+    <div class="col-12 text-center">
+      <form action="/play" method="POST">
+        <button class="btn btn-danger btn-answer" type="submit"
+                name="level" value="$data['game_level']">Next question
+        </button>
+        <a href="https://www.google.com/" class="btn btn-danger">I'm done for today</a>
+      </form>
+    </div>
   </div>
 </div>
