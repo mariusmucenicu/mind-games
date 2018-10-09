@@ -42,10 +42,9 @@ embed, img, object, video {
     font-weight: bold;
     color: #ffffff;
     text-transform: uppercase;
-    white-space: nowrap;
     border-radius: 3px;
     text-decoration: none;
-    float:right;
+    float: right;
 }
 
 .label.success {
@@ -77,21 +76,12 @@ embed, img, object, video {
     color: #28a745;
 }
 
-.secret-message {
-    width: 100%;
-}
-
 .secret-message:hover p.new-label span {
   display: none;
 }
 
 .secret-message:hover p.new-label:after {
   content: 'Marius Mucenicu had something to do with this website.';
-}
-
-.secret-message .label {
-    margin-bottom: 0;
-    margin-top: 1rem;
 }
 
 .text-status-code {
@@ -120,6 +110,9 @@ embed, img, object, video {
     #hit-it-form {
         width: 87.5%;
     }
+    #btn-begin {
+        margin: 0 auto 1rem;
+    }
 }
 
 @media only screen and (max-width: 992px) and (min-width: 768px) {
@@ -134,5 +127,11 @@ embed, img, object, video {
 @media only screen and (min-width: 768px) {
     #hit-it-form {
         width: 502.94px;
+    }
+}
+
+@media only screen and (min-width:360px) {
+    .secret-message {
+        white-space: nowrap;
     }
 }
