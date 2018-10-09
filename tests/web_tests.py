@@ -46,9 +46,9 @@ class TestIndex(unittest.TestCase):
         match_items = (
             'Welcome to the fascinating world of arithmetic',
             'This game aims to mimic the behavior of an abacus',
-            'the open interval',
-            'the closed interval',
-            'the half-open interval',
+            'open interval',
+            'closed interval',
+            'half-open interval',
             'btn-begin',
             'btn-quit',
             '...Shh',
