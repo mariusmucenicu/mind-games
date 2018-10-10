@@ -16,7 +16,7 @@ embed, img, object, video {
 .container-fluid {
     background-color: rgb(255,255,255);
     max-width: 960px;
-    min-width: 300px;
+    min-width: 360px;
     min-height: 434px;
 
 }
@@ -153,7 +153,7 @@ embed, img, object, video {
     }
 }
 
-@media only screen and (min-width:300px) and (max-width:550px) {
+@media only screen and (min-width:360px) and (max-width:550px) {
     h1 {
         font-size: 7.27vw;
     }
