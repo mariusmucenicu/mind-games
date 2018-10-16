@@ -110,7 +110,8 @@ embed, img, object, video {
     #hit-it-form {
         width: 87.5%;
     }
-    #btn-begin {
+
+    #btn-begin, #btn-use-selected {
         margin: 0 auto 1rem;
     }
 }
