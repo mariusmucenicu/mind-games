@@ -4,39 +4,63 @@ $var title: Failure
 <div class="col-12">
   <div class="row text-center">
       <div class="col-12">
-        <h1><span class="result-incorrect text-uppercase">Incorrect!</span></h1>
+        <h1 class="result-incorrect text-uppercase">Incorrect!</h1>
       </div>
   </div>
   <div class="row">
     <div class="col-12">
-        <ul>
-          <li>
-            Interval: <strong>$data['left_glyph']<span>$data['start_representation']</span>,
-            <span>$data['stop_representation']</span>$data['right_glyph']</strong>
-          </li>
-          <li>
-            Your answer: <strong class="result-incorrect">$data['answer_representation']</strong>
-          </li>
-          <li>
-            Correct answer: <strong class="result-correct">$data['cpu_representation']</strong>
-          </li>
-        </ul>
       <hr>
     </div>
   </div>
   <div class="row" align="center">
     <div class="col-12">
-      <img src="/static/images/giphyFailure.webp" class="img-fluid" alt="GIFFY">
+      <img src="/static/images/giphyFailure.webp" class="img-fluid img-results" alt="GIFFY">
     </div>
   </div>
   <div class="row">
-    <div class="col-12 text-center">
+    <div class="col-12">
+      <hr>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12">
+      <div class="table-responsive table-results mx-auto">
+        <table class="table table-sm table-bordered text-center">
+          <tr>
+            <th class="table-active">Interval</th>
+          </tr>
+          <tr>
+            <td>$data['left_glyph']$data['start_representation'],
+                $data['stop_representation']$data['right_glyph']</td>
+          </tr>
+          <tr>
+            <th class="table-danger">Your answer</th>
+          </tr>
+          <tr>
+            <td>$data['answer_representation']</td>
+          </tr>
+          <tr>
+            <tr>
+              <th class="table-success">Correct answer</th>
+            </tr>
+          </tr>
+          <tr>
+            <td>$data['cpu_representation']</td>
+          </tr>
+        </table>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12 col-sm-6 mb-3">
       <form action="/play" method="POST">
-        <button class="btn btn-danger btn-answer" type="submit"
-                name="level" value="$data['game_level']">Next question
-        </button>
-        <a href="https://www.google.com/" class="btn btn-danger">I'm done for today</a>
+        <button class="btn btn-answer-next btn-block btn-danger" type="submit"
+                name="level" value="$data['game_level']">Next question</button>
       </form>
+    </div>
+    <div class="col-12 col-sm-6 mb-3">
+      <a href="https://www.google.com/"
+         class="btn btn-answer-quit btn-block btn-danger">I'm done for today</a>
     </div>
   </div>
 </div>
