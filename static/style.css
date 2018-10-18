@@ -29,6 +29,7 @@ embed, img, object, video {
 
 .img-results {
     border: 1px solid rgba(0,0,0,.1);
+    width: 491px;
 }
 
 .interval-limit {
@@ -85,6 +86,15 @@ embed, img, object, video {
   content: 'Marius Mucenicu had something to do with this website.';
 }
 
+.table-results {
+    max-width: 491px;
+}
+
+.table-results td,
+.table-results th {
+    font-size: 1.5rem;
+}
+
 .text-status-code {
     margin-top: 1rem;
     margin-bottom: 2rem;
@@ -120,6 +130,11 @@ embed, img, object, video {
     #interval-data h1 {
         font-size: 1.1rem;
     }
+
+    .table-results td,
+    .table-results th {
+        font-size: 1.25rem;
+    }
 }
 
 @media only screen and (min-width: 360px) and (max-width:470px) {
@@ -137,6 +152,11 @@ embed, img, object, video {
     .btn-answer-quit {
         float: left;
         width: 230.5px;
+    }
+
+    .table-results td,
+    .table-results th {
+        font-size: 1.75rem;
     }
 }
 
