@@ -5,21 +5,29 @@ $var title: Success
   <div class="row text-center text-uppercase">
     <div class="col-12">
       <h1 class="result-correct">Correct!</h1>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12">
       <hr>
     </div>
   </div>
   <div class="row" align="center">
-    <div class="col-12">
-      <img src="/static/images/giphySuccess.webp" class="img-fluid" alt="GIFFY">
+    <div class="col-12 mt-2 mb-4">
+      <img id="test" src="/static/images/giphySuccess.webp"
+           class="img-fluid img-results" alt="GIFFY">
     </div>
   </div>
-  <div class="row" align="center">
-    <div class="col-12 text-center">
+  <div class="row">
+    <div class="col-12 col-sm-6 mb-3">
       <form action="/play" method="POST">
-        <button class="btn btn-success btn-answer" type="submit"
+        <button class="btn btn-answer-next btn-block btn-success" type="submit"
                 name="level" value="$data['game_level']">Next question</button>
-        <a href="https://www.google.com/" class="btn btn-success">I'm done for today</a>
       </form>
+    </div>
+    <div class="col-12 col-sm-6 mb-3">
+      <a href="https://www.google.com/"
+         class="btn btn-answer-quit btn-block btn-success">I'm done for today</a>
     </div>
   </div>
 </div>
