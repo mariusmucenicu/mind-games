@@ -12,11 +12,6 @@ embed, img, object, video {
     max-width: 100%;
 }
 
-.btn-answer {
-    width: 157.141px;
-    margin: 0 3px;
-}
-
 .container-fluid {
     background-color: rgb(255,255,255);
     min-height: 100%;
@@ -30,6 +25,10 @@ embed, img, object, video {
     border-top-color: #23272b;
     background-color: #28a745;
     height: 40px;
+}
+
+.img-results {
+    border: 1px solid rgba(0,0,0,.1);
 }
 
 .interval-limit {
@@ -126,6 +125,18 @@ embed, img, object, video {
 @media only screen and (min-width: 360px) and (max-width:470px) {
     #interval-data h1 {
         font-size: 1.5rem;
+    }
+}
+
+@media only screen and (min-width: 576px) {
+    .btn-answer-next {
+        float: right;
+        width: 230.5px;
+    }
+
+    .btn-answer-quit {
+        float: left;
+        width: 230.5px;
     }
 }
 
