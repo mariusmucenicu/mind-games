@@ -95,11 +95,6 @@ embed, img, object, video {
     font-size: 1.5rem;
 }
 
-.text-status-code {
-    margin-top: 1rem;
-    margin-bottom: 2rem;
-}
-
 #droopy404 {
     display: block;
     margin: 0 auto;
@@ -128,6 +123,10 @@ embed, img, object, video {
 
 @media only screen and (max-width: 359px) {
     #interval-data h1 {
+        font-size: 1.1rem;
+    }
+
+    .dino-title {
         font-size: 1.1rem;
     }
 
@@ -160,6 +159,12 @@ embed, img, object, video {
     }
 }
 
+@media only screen and (min-width: 300px) and (max-width: 600px) {
+    .dino-title {
+        font-size: 6.25vw;
+    }
+}
+
 @media only screen and (min-width: 471px) and (max-width: 600px) {
     #interval-data h1 {
         font-size: 2rem;
@@ -169,14 +174,5 @@ embed, img, object, video {
 @media only screen and (max-width: 768px) {
     #btn-begin, #btn-use-selected {
         margin: 0 auto 1rem;
-    }
-}
-
-@media only screen and (min-width: 768px) and (max-width: 992px) {
-    #dino500 {
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%,-50%);
     }
 }
