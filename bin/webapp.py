@@ -50,12 +50,12 @@ def _load_session():
 
 def _internalerror():
     """Return a custom 500 page."""
-    return web.internalerror(settings.base_render.custom500())
+    return web.internalerror(settings.base_render.custom_5xx())
 
 
 def _notfound():
     """Return a custom 404 page."""
-    return web.notfound(settings.base_render.custom404())
+    return web.notfound(settings.base_render.custom_404())
 
 
 app.notfound = _notfound
