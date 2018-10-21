@@ -115,17 +115,27 @@ embed, img, object, video {
 
 /* media queries sorted by screen size in ascending order */
 
-@media only screen and (min-width:360px) {
-    .secret-message {
-        white-space: nowrap;
+@media only screen and (max-width: 300px) {
+    .interval-question {
+        font-size: 1.5rem;
+    }
+
+    .interval-numeric {
+        font-size: 1.256rem;
+    }
+}
+
+@media only screen and (min-width: 301px) and (max-width: 500px) {
+    .interval-question {
+        font-size: 8vw;
+    }
+
+    .interval-numeric {
+        font-size: 6.7vw;
     }
 }
 
 @media only screen and (max-width: 359px) {
-    #interval-data h1 {
-        font-size: 1.1rem;
-    }
-
     .col-12 > .droopy-title {
         font-size: 1rem;
     }
@@ -140,9 +150,9 @@ embed, img, object, video {
     }
 }
 
-@media only screen and (min-width: 360px) and (max-width:470px) {
-    #interval-data h1 {
-        font-size: 1.5rem;
+@media only screen and (min-width:360px) {
+    .secret-message {
+        white-space: nowrap;
     }
 }
 
@@ -169,12 +179,6 @@ embed, img, object, video {
     }
 }
 
-@media only screen and (min-width: 471px) and (max-width: 600px) {
-    #interval-data h1 {
-        font-size: 2rem;
-    }
-}
-
 @media only screen and (max-width: 768px) {
     #btn-begin, #btn-use-selected {
         margin: 0 auto 1rem;
@@ -182,5 +186,11 @@ embed, img, object, video {
 
     .droopy-title {
         font-size: 5.21vw;
+    }
+}
+
+@media only screen and (min-width: 501px) and (max-width: 830px) {
+    .interval-data h1 {
+        font-size: 4.6vw;
     }
 }
