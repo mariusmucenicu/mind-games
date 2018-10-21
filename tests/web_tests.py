@@ -49,8 +49,6 @@ class TestIndex(unittest.TestCase):
             'open interval',
             'closed interval',
             'half-open interval',
-            'btn-begin',
-            'btn-quit',
             '...Shh',
         )
         response.mustcontain(*match_items)
@@ -139,7 +137,7 @@ class TestResult(unittest.TestCase):
 
     def test_result_correct_repr(self):
         # the answer is incorrect to check the representation of large numbers in groups of 3
-        # by rendering the results failure HTML
+        # by rendering the results_incorrect.html
         post_data = {
             'left_glyph': '[',
             'right_glyph': ')',

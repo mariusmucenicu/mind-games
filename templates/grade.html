@@ -11,11 +11,11 @@ $var title: Grade
       <hr>
     </div>
   </div>
-  <div class="row" align="center">
-    <div class="col-12">
+  <div class="row">
+    <div class="col-12" align="center">
       <form action="/play" method="post" class="form-horizontal">
         <fieldset>
-          <div class="row my-3">
+          <div class="row mb-3">
             <div class="col-12 col-sm-4">
               <div><h2>Easy</h2></div>
                 <div class="radio">
@@ -63,14 +63,12 @@ $var title: Grade
             </div>
           </div>
           <div class="row">
-            <div class="col-12 col-md-6">
-              <button id="btn-use-selected" type="submit"
-                      class="btn btn-success btn-lg btn-block">Use selected</button>
+            <div class="col-12 col-md-6 mb-3">
+              <button type="submit" class="btn btn-success btn-lg btn-block">Use selected</button>
             </div>
-            <div class="col-12 col-md-6">
+            <div class="col-12 col-md-6 mb-3">
               <button type="submit" name="level" class="btn btn-warning btn-lg btn-block"
-                      onclick=fetchGameLevel(this)>Just pick one for me
-              </button>
+                      onclick=fetchGameLevel(this)>Just pick one for me</button>
             </div>
           </div>
         </fieldset>

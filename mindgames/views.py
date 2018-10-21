@@ -124,7 +124,7 @@ class Result(RequestHandler):
             raise web.internalerror()
         elif result_data['outcome']:
             self._update_user_statistics(result_data)
-            return settings.base_render.result_success(result_data)
+            return settings.base_render.result_correct(result_data)
         else:
             self._update_user_statistics(result_data)
-            return settings.base_render.result_failure(result_data)
+            return settings.base_render.result_incorrect(result_data)
