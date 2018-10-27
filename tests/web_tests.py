@@ -49,7 +49,22 @@ class TestIndex(unittest.TestCase):
             'open interval',
             'closed interval',
             'half-open interval',
+            'row content my-5',
+            'container-fluid d-flex flex-column',
+            'fontawesome',
+            'bootstrap',
             '...Shh',
+            'A pit stop for your brain.',
+            'footer',
+            'html5',
+            'CSS1',
+            'ecma-international',
+            'Connect with the author:',
+            'python',
+            'twitter',
+            'instagram',
+            'linkedin',
+            'github'
         )
         response.mustcontain(*match_items)
 
