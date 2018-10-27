@@ -2,6 +2,7 @@ $def with (content)
 
 <!DOCTYPE html>
 <html>
+
   <head>
     <title>$content.title</title>
      <!-- note that modern browsers figure out the encoding by themselves -->
@@ -11,16 +12,45 @@ $def with (content)
     <meta name="theme-color" content="#28a745">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/static/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.2/css/all.css"
+          integrity="sha384-/rXc/GQVaYpyDdyxK+ecHPVYJSN9bmVFBvjA/9eOB+pb3F2w2N6fc5qB9Ew5yIns"
+          crossorigin="anonymous">
     <link rel="stylesheet" href="/static/style.css">
     <script src="/static/utils.js"></script>
   </head>
+
   <body>
-    <div class="container-fluid">
+    <div class="container-fluid d-flex flex-column">
       <div class="row header"></div>
-      <div class="row content">
+      <div class="row content my-5 flex-grow-1 flex-shrink-0">
         $:content
       </div>
-      <div class="row footer"></div>
+      <div class="row footer flex-shrink-0">
+        <div class="col-12 col-md-4 mb-2 text-center border-top">
+          &copy; 2018 Mindgames <br>
+          A pit stop for your brain.
+        </div>
+        <div class="col-12 col-md-4 mb-2 border-top text-center">
+          Version 0.1.0 <br> Powered by:
+          <a href="https://www.w3.org/TR/html5/"
+             ><i class="fab fa-html5 fa-lg fa-fw"></i></a>
+          <a href="https://www.w3.org/TR/CSS1/"><i class="fab fa-css3-alt fa-lg fa-fw"></i></a>
+          <a href="http://www.ecma-international.org/publications/standards/Standard.htm">
+            <i class="fab fa-js-square fa-lg fa-fw"></i></a>
+          <a href="https://www.python.org/"><i class="fab fa-lg fa-python fa-fw"></i></a>
+        </div>
+        <div class="col-12 col-md-4 mb-2 border-top text-center">
+          Connect with the author: <br>
+          <a href="https://twitter.com/hasugamer">
+            <i class="fab fa-twitter fa-lg fa-fw"></i></a>
+          <a href="https://www.instagram.com/mmarius90/">
+            <i class="fab fa-instagram fa-lg fa-fw"></i></a>
+          <a href="https://www.linkedin.com/in/mariusmucenicu/">
+            <i class="fab fa-linkedin-in fa-lg fa-fw"></i></a>
+          <a href="https://github.com/mariusmucenicu"><i class="fab fa-github fa-lg fa-fw"></i></a>
+        </div>
+      </div>
     </div>
   </body>
+
 </html>
