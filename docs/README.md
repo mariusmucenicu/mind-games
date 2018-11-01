@@ -5,6 +5,7 @@ Encapsulates o series of interactive games with the purpose of increasing one's 
 + [Getting started](https://github.com/mariusmucenicu/mind-games#getting-started)
 + [Versioning](https://github.com/mariusmucenicu/mind-games#versioning)
 + [Contributing](https://github.com/mariusmucenicu/mind-games#contributing)
++ [Code style guidelines](https://github.com/mariusmucenicu/mind-games#code-style-guidelines)
 
 ## Getting started
 In order to get started you need to go through these simple steps:
@@ -40,14 +41,24 @@ For the versions available, see the [tags on this repository](https://github.com
 This game can benefit from your ideas should you have any, mind you, a new game even.
 Just do your thing and open a pull request and I'll review it.
 Regarding performance, this is just a fun project, however one should not wait like seconds between requests and responses.
-Before opening a pull request read the **Code style** section below.
+Before opening a pull request read the **Code style guidelines** section below.
 
-### Code style
-This project follows [PEP8](https://www.python.org/dev/peps/pep-0008/) **VERY STRICTLY** (don't believe me? skim read throught the sources).
+## Code style guidelines
 
-In order for your changes to be pulled into master do the following:
-1. Read [PEP8](https://www.python.org/dev/peps/pep-0008/).
-2. Read [PEP8](https://www.python.org/dev/peps/pep-0008/) again.
+### Back-end style guide
++ This project follows [PEP8](https://www.python.org/dev/peps/pep-0008/) **very strictly** enforced with [Google's Python Style Guide](https://github.com/google/styleguide/blob/gh-pages/pyguide.md). Don't believe me? skim read throught the sources.
+
+### Front-end style guide
+
++ #### HTML/CSS
+    + This project follows [Google's HTML/CSS Style Guide](https://google.github.io/styleguide/htmlcssguide.html) enforced with [W3C's HTML/CSS Style Guide](https://www.w3schools.com/html/html5_syntax.asp).
+
++ #### JavaScript
+    + This project follows [Google's JavaScript Style Guide](https://google.github.io/styleguide/jsguide.html) enforced with [W3C's JavaScript Style Guide](https://www.w3schools.com/js/js_conventions.asp).
+
+In order for your changes to be **pulled into master** do the following:
+1. Read the style guides above.
+2. Read the style guides above **again**.
 3. Repeat 1 & 2 until everything is flawless.
 
 
