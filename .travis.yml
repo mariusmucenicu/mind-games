@@ -1,0 +1,9 @@
+language: python
+python:
+    - "3.5"
+    - "3.6"
+    # TODO(Marius): Add 3.7 once web.py does a release
+install:
+    - pip install -r requirements.txt
+script:
+    - nosetests
