@@ -11,6 +11,6 @@ matrix:
 before_script:
     - flake8 . --count --max-complexity=11 --max-line-length=100 --statistics
 install:
-    - pip install flake8 -r requirements.txt
+    - pip install -r requirements.txt
 script:
     - nosetests
