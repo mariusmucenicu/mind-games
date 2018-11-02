@@ -1,6 +1,34 @@
 # Mind games
 Encapsulates o series of interactive games with the purpose of increasing one's mood.
 
+<table>
+    <tr>
+        <th rowspan="3">Tests</th>
+        <th>Branch</th>
+        <th>Status</th>
+    </tr>
+    <tr>
+        <td>Master</td>
+        <td><img src="https://travis-ci.com/mariusmucenicu/mind-games.svg?branch=master"></td>
+    </tr>
+    <tr>
+        <td>Staging</td>
+        <td><img src="https://travis-ci.com/mariusmucenicu/mind-games.svg?branch=staging"</td>
+    </tr>
+    <tr>
+        <th>To do</th>
+        <td colspan="2" align="center">
+            <img src="https://img.shields.io/github/issues/mariusmucenicu/mind-games.svg">
+        </td>
+    </tr>
+    <tr>
+        <th>State</th>
+        <td colspan="2" align="center">
+            <img src="https://img.shields.io/github/commits-since/mariusmucenicu/mind-games/0.1.0.svg">
+        </td>
+    </tr>
+</table>
+
 ## Contents
 + [Getting started](https://github.com/mariusmucenicu/mind-games#getting-started)
 + [Versioning](https://github.com/mariusmucenicu/mind-games#versioning)
