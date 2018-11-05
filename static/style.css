@@ -96,10 +96,14 @@ embed, img, object, video {
     max-width: 491px;
 }
 
-.table-results td,
 .table-results th {
+    font-size: 1.75rem;
+}
+
+.table-results td {
     font-size: 1.5rem;
 }
+
 
 /* media queries sorted by screen size in ascending order */
 
@@ -110,6 +114,16 @@ embed, img, object, video {
 
     .interval-numeric {
         font-size: 1.256rem;
+    }
+}
+
+@media only screen and (min-width:360px) and (max-width: 400px) {
+    .table-results th {
+        font-size: 1.5rem;
+    }
+
+    .table-results td {
+        font-size: 1.25rem;
     }
 }
 
@@ -132,9 +146,12 @@ embed, img, object, video {
         font-size: 1.1rem;
     }
 
-    .table-results td,
     .table-results th {
         font-size: 1.25rem;
+    }
+
+    .table-results td {
+        font-size: 1rem;
     }
 }
 
@@ -153,11 +170,6 @@ embed, img, object, video {
     .btn-answer-quit {
         float: left;
         width: 230.5px;
-    }
-
-    .table-results td,
-    .table-results th {
-        font-size: 1.75rem;
     }
 }
 
