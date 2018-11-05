@@ -105,40 +105,19 @@ embed, img, object, video {
 }
 
 
-/* media queries sorted by screen size in ascending order */
+/* media queries with a single characteristic in desscending order */
 
-@media only screen and (max-width: 300px) {
-    .interval-question {
-        font-size: 1.5rem;
+@media only screen and (max-width: 767px) {
+    .droopy-title {
+        font-size: 5.21vw;
     }
-
-    .interval-numeric {
-        font-size: 1.256rem;
-    }
-}
-
-@media only screen and (min-width:360px) and (max-width: 400px) {
-    .table-results th {
-        font-size: 1.5rem;
-    }
-
-    .table-results td {
-        font-size: 1.25rem;
+    .fab, .fas {
+        font-size: 2em;
     }
 }
 
-@media only screen and (min-width: 301px) and (max-width: 500px) {
-    .interval-question {
-        font-size: 8vw;
-    }
-
-    .interval-numeric {
-        font-size: 6.7vw;
-    }
-}
-
-@media only screen and (max-width: 359px) {
-    .col-12 > .droopy-title {
+@media only screen and (max-width: 360px) {
+    .droopy-title {
         font-size: 1rem;
     }
 
@@ -155,7 +134,17 @@ embed, img, object, video {
     }
 }
 
-@media only screen and (min-width:360px) {
+@media only screen and (max-width: 300px) {
+    .interval-question {
+        font-size: 1.5rem;
+    }
+
+    .interval-numeric {
+        font-size: 1.256rem;
+    }
+}
+
+@media only screen and (min-width:361px) {
     .secret-message {
         white-space: nowrap;
     }
@@ -173,23 +162,37 @@ embed, img, object, video {
     }
 }
 
-@media only screen and (min-width: 300px) and (max-width: 600px) {
+
+/* media queries with multiple characteristics in descending order */
+
+@media only screen and (min-width: 501px) and (max-width: 830px) {
+    .interval-data h1 {
+        font-size: 4.6vw;
+    }
+}
+
+@media only screen and (min-width: 361px) and (max-width: 600px) {
     .dino-title {
         font-size: 6.25vw;
     }
 }
 
-@media only screen and (max-width: 767px) {
-    .droopy-title {
-        font-size: 5.21vw;
+@media only screen and (min-width: 301px) and (max-width: 500px) {
+    .interval-question {
+        font-size: 8vw;
     }
-    .fab, .fas {
-        font-size: 2em;
+
+    .interval-numeric {
+        font-size: 6.7vw;
     }
 }
 
-@media only screen and (min-width: 501px) and (max-width: 830px) {
-    .interval-data h1 {
-        font-size: 4.6vw;
+@media only screen and (min-width:361px) and (max-width: 400px) {
+    .table-results th {
+        font-size: 1.5rem;
+    }
+
+    .table-results td {
+        font-size: 1.25rem;
     }
 }
