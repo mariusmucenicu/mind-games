@@ -22,6 +22,13 @@ Encapsulates o series of interactive games with the purpose of increasing one's 
     </td>
   </tr>
   <tr>
+    <th>Measurements</th>
+    <td colspan="2" align="center">
+      <a href="https://codecov.io/gh/mariusmucenicu/mind-games">
+        <img src="https://codecov.io/gh/mariusmucenicu/mind-games/branch/master/graph/badge.svg"></a>
+    </td>
+  </tr>
+  <tr>
     <th>To do</th>
     <td colspan="2" align="center">
       <a href="https://github.com/mariusmucenicu/mind-games/issues">
@@ -29,7 +36,7 @@ Encapsulates o series of interactive games with the purpose of increasing one's 
     </td>
   </tr>
   <tr>
-    <th>State</th>
+    <th>Progress</th>
     <td colspan="2" align="center">
       <a href="https://github.com/mariusmucenicu/mind-games/compare/0.1.0...master">
         <img src="https://img.shields.io/github/commits-since/mariusmucenicu/mind-games/0.1.0.svg"></a>
