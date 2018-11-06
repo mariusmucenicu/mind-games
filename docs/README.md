@@ -54,8 +54,8 @@ Encapsulates o series of interactive games with the purpose of increasing one's 
 In order to get started you need to go through these simple steps:
 
 ### Step 1: Prerequisites
-+ Make sure you have any version of `Python 3.6.X` installed.
-    + If you haven't got a `Python 3.6.X` version on your system, you can download one from [here](https://www.python.org/).
++ Make sure you have any version of `Python 3.5.X, 3.6.X` installed.
+    + If you **haven't got** any of the supported `Python` versions (mentioned above), you can download one from [here](https://www.python.org/).
 + Clone or download this repository locally.
 + Create a `Python 3.6.X` virtual environment (to isolate the game's package dependencies) and **activate** it.
 
