@@ -57,7 +57,7 @@ In order to get started you need to go through these simple steps:
 + Make sure you have any version of `Python 3.5.X, 3.6.X` installed.
     + If you **haven't got** any of the supported `Python` versions (mentioned above), you can download one from [here](https://www.python.org/).
 + Clone or download this repository locally.
-+ Create a `Python 3.6.X` virtual environment (to isolate the game's package dependencies) and **activate** it.
++ (OPTIONAL) Create a `Python` virtual environment (to isolate the game's package dependencies) and **activate** it.
 
 ### Step 2: Change directory into the projct root (everything you do will be done from here)
 
