@@ -20,12 +20,17 @@ embed, img, object, video {
     overflow: auto;
 }
 
-.footer {
+.drawer, .hamburger-menu {
+  min-height: 100%;
+  align-items: center;
+}
+
+.footer, .header {
     min-height: 60px;
     background-color: #fafbfc;
 }
 
-.footer .fab, .fas {
+.footer .fab {
     color: #212529;
 }
 
@@ -111,8 +116,43 @@ embed, img, object, video {
     .droopy-title {
         font-size: 5.21vw;
     }
-    .fab, .fas {
+
+    .footer .fab {
         font-size: 2em;
+    }
+}
+
+@media only screen and (max-width: 575px) {
+    .backdrop {
+        background-color: rgba(9, 30, 66, 0.54);
+        bottom: 0;
+        left: 0;
+        opacity: 1;
+        position: fixed;
+        right: 0;
+        top: 0;
+        z-index: 1;
+    }
+
+    .drawer {
+        background-color: #fafbfc;
+        flex-direction: column;
+        position: absolute;
+        transition: transform 0.3s ease;
+        transform: translate(-265px);
+        width: 250px;
+        z-index: 2;
+    }
+
+    .drawer .drawer-item {
+        color: #343a40;
+        padding: 1rem 1.5rem;
+        text-align: left;
+        border-bottom: 1px solid #dee2e6!important
+    }
+
+    .open {
+        transform: translate(-15px);
     }
 }
 
@@ -160,8 +200,11 @@ embed, img, object, video {
         float: left;
         width: 230.5px;
     }
-}
 
+    .hamburger-menu {
+        display: None;
+    }
+}
 
 /* media queries with multiple characteristics in descending order */
 
