@@ -118,7 +118,7 @@ embed, img, object, video {
     }
 
     .footer .fab {
-        font-size: 2em;
+        margin: 0 2px;
     }
 }
 
