@@ -1,8 +1,6 @@
 # Mind games
 
-Encapsulates o series of interactive games with the purpose of increasing one's mood.
-
-### :iphone: :computer: friendly
+Encapsulates o series of interactive games with the purpose of increasing one's mood. **:iphone: :computer: friendly**
 
 <table>
   <tr>
