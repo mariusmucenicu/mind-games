@@ -4,8 +4,12 @@ Test bin.webapp functionality.
 Classes:
 ========
     TestIndex: Test the requests going under /index
+    TestAbout: Test the requests going under /about
     TestGrade: Test the requests going under /grade
+    TestLegal: Test the requests going under /legal
     TestPlay: Test the requests going under /play
+    TestPublicity: Test the requests going under /publicity
+    TestRankings: Test the requests going under /rankings
     TestResult: Test the requests going under /result
 """
 
@@ -69,6 +73,21 @@ class TestIndex(unittest.TestCase):
         response.mustcontain(*match_items)
 
 
+class TestAbout(unittest.TestCase):
+    def setUp(self):
+        self.testApp = fixture.TestApp(webapp.app.wsgifunc())
+
+    def test_about(self):
+        response = self.testApp.get('/about')
+        tools.assert_equals(response.status, 200)
+        match_items = (
+            'About',
+            '/about',  # tests the href in the header of the layouts base template
+            'coming_soon',
+        )
+        response.mustcontain(*match_items)
+
+
 class TestGrade(unittest.TestCase):
     def setUp(self):
         self.testApp = fixture.TestApp(webapp.app.wsgifunc())
@@ -87,6 +106,21 @@ class TestGrade(unittest.TestCase):
             'Warm up',
             'Numbers are my thing',
             'God blessed my genes'
+        )
+        response.mustcontain(*match_items)
+
+
+class TestLegal(unittest.TestCase):
+    def setUp(self):
+        self.testApp = fixture.TestApp(webapp.app.wsgifunc())
+
+    def test_legal(self):
+        response = self.testApp.get('/legal')
+        tools.assert_equals(response.status, 200)
+        match_items = (
+            'Legal',
+            '/legal',
+            'coming_soon',
         )
         response.mustcontain(*match_items)
 
@@ -117,6 +151,36 @@ class TestPlay(unittest.TestCase):
             'footer',
             'play-form-text',
             'play-form-btn',
+        )
+        response.mustcontain(*match_items)
+
+
+class TestPublicity(unittest.TestCase):
+    def setUp(self):
+        self.testApp = fixture.TestApp(webapp.app.wsgifunc())
+
+    def test_get_publicity_page(self):
+        response = self.testApp.get('/publicity')
+        tools.assert_equals(response.status, 200)
+        match_items = (
+            'Publicity',
+            '/publicity',
+            'coming_soon',
+        )
+        response.mustcontain(*match_items)
+
+
+class TestRankings(unittest.TestCase):
+    def setUp(self):
+        self.testApp = fixture.TestApp(webapp.app.wsgifunc())
+
+    def test_get_publicity_page(self):
+        response = self.testApp.get('/rankings')
+        tools.assert_equals(response.status, 200)
+        match_items = (
+            'Rankings',
+            '/rankings',
+            'coming_soon',
         )
         response.mustcontain(*match_items)
 
