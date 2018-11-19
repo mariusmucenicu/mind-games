@@ -4,8 +4,12 @@ Handle incoming requests, after being dispatched to the appropriate view by web.
 Classes:
 ========
     Index: Get the homepage.
+    About: Get the about page.
     Grade: Get the grade (difficulty levels) page.
+    Legal: Get the legal page (this page comprises legal information e.g GDPR, terms of use, etc).
     Play: Start the game.
+    Publicity: Get the publicity page (this page contains credits, ads, funding, etc).
+    Rankings: Get the rankings page.
     Result: Return result based on user input.
     RequestHandler: Store configurations for views.
 
@@ -68,7 +72,7 @@ class RequestHandler:
         self.session.kill()
 
 
-class Index(RequestHandler):
+class Index:
     """
     Methods:
     ========
@@ -79,7 +83,18 @@ class Index(RequestHandler):
         return settings.base_render.index()
 
 
-class Grade(RequestHandler):
+class About:
+    """
+    Methods:
+    ========
+        GET()
+    """
+
+    def GET(self):
+        return settings.base_render.about()
+
+
+class Grade:
     """
     Methods:
     ========
@@ -90,7 +105,18 @@ class Grade(RequestHandler):
         return settings.base_render.grade()
 
 
-class Play(RequestHandler):
+class Legal:
+    """
+    Methods:
+    ========
+        GET()
+    """
+
+    def GET(self):
+        return settings.base_render.legal()
+
+
+class Play:
     """
     Methods:
     ========
@@ -107,6 +133,28 @@ class Play(RequestHandler):
                 raise web.internalerror()
             else:
                 return settings.base_render.play(data)
+
+
+class Publicity:
+    """
+    Methods:
+    ========
+        GET()
+    """
+
+    def GET(self):
+        return settings.base_render.publicity()
+
+
+class Rankings:
+    """
+    Methods:
+    ========
+        GET()
+    """
+
+    def GET(self):
+        return settings.base_render.rankings()
 
 
 class Result(RequestHandler):
