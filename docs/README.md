@@ -87,7 +87,7 @@ Before opening a pull request please make sure you read the project's [Code styl
 
 ### Bug reports
 When [reporting a bug](https://github.com/mariusmucenicu/mind-games/issues) please include:
-- Your device name and version, e.g: `Samsung Galaxy S9, G960F` or `MacBook Pro (Retina, Mid 2015)`.
+- Your device name and version, e.g `Samsung Galaxy S9, G960F` or `MacBook Pro (Retina, Mid 2015)`.
 - Your operating system name and version, e.g `macOS Mojave, Version 10.14.1`.
 - Your client name and version, e.g `Google Chrome, Version 70.0.3538.77`.
 - Detailed steps to reproduce the bug and any other details that might be helpful in troubleshooting.
