@@ -20,6 +20,10 @@ embed, img, object, video {
   overflow: auto;
 }
 
+.crlf {
+  display: none;
+}
+
 .drawer, .hamburger-menu {
   min-height: 100%;
   align-items: center;
@@ -160,6 +164,16 @@ embed, img, object, video {
   }
 }
 
+@media only screen and (max-width: 415px) {
+  .crlf {
+    display: initial;
+  }
+
+  .interval-example {
+    padding-left: 30px;
+  }
+}
+
 @media only screen and (max-width: 360px) {
   .droopy-title {
     font-size: 1rem;
@@ -179,11 +193,11 @@ embed, img, object, video {
 }
 
 @media only screen and (max-width: 300px) {
-  .interval-question {
+  .fluid-title {
     font-size: 1.5rem;
   }
 
-  .interval-numeric {
+  .fluid-subtitle {
     font-size: 1.256rem;
   }
 }
@@ -225,11 +239,11 @@ embed, img, object, video {
 }
 
 @media only screen and (min-width: 301px) and (max-width: 500px) {
-  .interval-question {
+  .fluid-title {
     font-size: 8vw;
   }
 
-  .interval-numeric {
+  .fluid-subtitle {
     font-size: 6.7vw;
   }
 }

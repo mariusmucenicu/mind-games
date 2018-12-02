@@ -1,52 +1,59 @@
 $var title: Index
 
-<div class="col-12">
+<div class="col-12 my-3 pt-3 d-flex flex-column justify-content-center">
+
   <div class="row">
     <div class="col-12 text-center">
-      <h1>Welcome to the fascinating world of arithmetic</h1>
+      <h1 class="fluid-title">Welcome to the fascinating world of arithmetic</h1>
       <hr>
-      <h2>This game aims to mimic the behavior of an abacus</h2>
+      <h2 class="fluid-subtitle">This game aims to mimic the behavior of an abacus</h2>
     </div>
   </div>
+
   <div class="row">
-    <div class="col-12 my-3">
-      <p>The <strong>rules</strong> are pretty simple:</p>
+    <div class="col-12 mt-3 py-3">
+      The <strong>rules</strong> are pretty simple:
       <ul>
         <li>You will be given a series of numeric intervals</li>
         <li>For each interval you have to type in how many numbers are in that interval</li>
       </ul>
-      <p>The intervals are of many different types but that's a whole nother story.<br>
-         In this version of the game you will be using the following types of intervals:</p>
+      In this version of the game you will be using the following types of intervals:
       <ul>
         <li>
-          the <strong>open interval</strong>: For example,
-              <strong>(0,9)</strong> has <strong>8</strong> numbers.
+          The <strong>open interval</strong>: <br class="crlf">
+          <span class="interval-example">
+            e.g <strong>(0,9)</strong> has <strong>8</strong> numbers</span>
         </li>
         <li>
-          the <strong>closed interval</strong>: For example,
-              <strong>[0,9]</strong> has <strong>10</strong> numbers.
+          The <strong>half-open interval</strong>: <br class="crlf">
+          <span class="interval-example">
+            e.g <strong>(0,9]</strong> has <strong>9</strong> numbers</span>
         </li>
         <li>
-          the <strong>half-open interval</strong>: For example,
-              <strong>(0,9]</strong> has <strong>9</strong> numbers.
+          The <strong>closed interval</strong>: <br class="crlf">
+          <span class="interval-example">
+            e.g <strong>[0,9]</strong> has <strong>10</strong> numbers</span>
         </li>
       </ul>
     </div>
   </div>
+
   <div class="row">
-    <div class="col-12 col-md-6 mb-3">
+    <div class="col-12 col-md-6 my-2">
       <a href="/grade" class="btn btn-success btn-block">Let's do it!</a>
     </div>
-    <div class="col-12 col-md-6 mb-3">
+    <div class="col-12 col-md-6 my-2">
       <a href="https://google.com/" class="btn btn-dark btn-block">Nah bruh. I'm outta here!</a>
     </div>
   </div>
+
   <div class="row no-gutters">
-    <div class="col-11"></div>
-    <div class="col-1 secret-message">
+    <div class="col-11 mt-2"></div>
+    <div class="col-1 mt-2 secret-message">
       <p class="label success new-label">
         <span>...Shh</span>
       </p>
     </div>
   </div>
+
 </div>
