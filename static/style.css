@@ -66,6 +66,10 @@ embed, img, object, video {
   background-color: #46a546;
 }
 
+.levels__hr--col {
+  display: none;
+}
+
 .person {
   color: red;
 }
@@ -157,6 +161,14 @@ embed, img, object, video {
     padding: 1rem 1.5rem;
     text-align: left;
     border-bottom: 1px solid #dee2e6!important
+  }
+
+  .levels__hr--row {
+    display: none;
+  }
+
+  .levels__hr--col {
+    display: block;
   }
 
   .open {
