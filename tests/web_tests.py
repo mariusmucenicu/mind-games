@@ -106,7 +106,8 @@ class TestGrade(unittest.TestCase):
             'Numberphile',
             'Warm up',
             'Numbers are my thing',
-            'God blessed my genes'
+            'God blessed my genes',
+            'd-flex flex-column justify-content-center',
         )
         response.mustcontain(*match_items)
 
