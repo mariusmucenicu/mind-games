@@ -212,8 +212,8 @@ class TestResult(unittest.TestCase):
             'Correct!',
             'Next question',
             "I'm done for today",
-            'btn-success',
-            'btn',
+            'gif_success.webp',
+            'd-flex flex-column justify-content-center',
         )
         response.mustcontain(*match_items)
 
