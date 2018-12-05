@@ -1,7 +1,8 @@
 $def with (data)
 $var title: Play
 
-<div class="col-12">
+<div class="col-12 d-flex flex-column justify-content-center">
+
   <div class="row">
     <div class="col-12 text-center interval-data">
       <h1 class="fluid-title"><span>How many integers are within this interval ?</span></h1>
@@ -12,27 +13,26 @@ $var title: Play
          <span class="interval-limit">$data['stop_representation']</span><!--
       --><span>$data['right_glyph']</span>
       </h1>
-    </div>
-  </div>
-  <div class="row">
-    <div class="col-12">
       <hr/>
     </div>
   </div>
+
   <div class="row">
-    <div class="col-12 text-center my-3">
+    <div class="col-12 text-center my-3 pt-3">
       <form id="user-answer" action="/result" method="POST" autocomplete="off">
         <input id="hit-it-form" class="play-form-text" type="text" onkeyup="checkEmptyForm()">
         <input type="hidden" id="metadata" value="$data">
       </form>
     </div>
   </div>
+
   <div class="row">
-    <div class="col-12 text-center my-3">
+    <div class="col-12 text-center my-2">
       <button id="hit-it-btn" type="submit" class="btn btn-basic btn-sm play-form-btn"
               form="user-answer" onclick="processFormData(this.id);" disabled>Hit it</button>
       <button id="feeling-lucky-btn" type="submit" class="btn btn-basic btn-sm play-form-btn"
               form="user-answer" onclick="processFormData(this.id)">I'm feeling lucky</button>
     </div>
   </div>
+
 </div>
