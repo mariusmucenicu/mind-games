@@ -153,6 +153,7 @@ class TestPlay(unittest.TestCase):
             'footer',
             'play-form-text',
             'play-form-btn',
+            'd-flex flex-column justify-content-center',
         )
         response.mustcontain(*match_items)
 
