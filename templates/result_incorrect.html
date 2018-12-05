@@ -1,29 +1,24 @@
 $def with (data)
 $var title: Failure
 
-<div class="col-12">
+<div class="col-12 my-3 pt-3 d-flex flex-column justify-content-center">
+
   <div class="row">
       <div class="col-12 text-center">
         <h1 class="result-incorrect text-uppercase">Incorrect!</h1>
+        <hr>
       </div>
   </div>
-  <div class="row">
-    <div class="col-12">
-      <hr>
-    </div>
-  </div>
+
   <div class="row">
     <div class="col-12" align="center">
       <img src="/static/images/gif_incorrect.webp" class="img-fluid img-results" alt="math-gif">
-    </div>
-  </div>
-  <div class="row">
-    <div class="col-12">
       <hr>
     </div>
   </div>
+
   <div class="row">
-    <div class="col-12">
+    <div class="col-12 my-2">
       <div class="table-responsive table-results mx-auto">
         <table class="table table-sm table-bordered text-center">
           <tr>
@@ -51,6 +46,7 @@ $var title: Failure
       </div>
     </div>
   </div>
+
   <div class="row">
     <div class="col-12 col-sm-6 mb-3">
       <form action="/play" method="POST">
@@ -63,4 +59,5 @@ $var title: Failure
          class="btn btn-answer-quit btn-block btn-danger">I'm done for today</a>
     </div>
   </div>
+
 </div>
