@@ -29,6 +29,10 @@ embed, img, object, video {
   align-items: center;
 }
 
+.fa-search {
+  color: white;
+}
+
 .footer, .header {
   min-height: 60px;
   background-color: #fafbfc;
@@ -36,6 +40,51 @@ embed, img, object, video {
 
 .footer .fab {
   color: #212529;
+}
+
+.form-play__button {
+  color: #757575;
+  background-color: #f8f8f8;
+  border: 1px solid #c6c6c6;
+  height: 36px;
+  width: 126.719px;
+}
+
+.form-play__button--glass {
+  background-color: #28a745;
+  border: 1px solid #24963e;
+  border-radius: 0 20px 20px 0;
+  color: white;
+  height: 44px;
+  width: 44px;
+  margin: 0 0 0 -1px;
+}
+
+.form-play__button--hidden {
+  display: none;
+}
+
+.form-play__input {
+  box-shadow: 0 2px 2px 0 rgba(0,0,0,0.16), 0 0 0 1px rgba(0,0,0,0.08);
+  border-radius: 2px;
+  border-style: none;
+  height: 44px;
+  max-width: 450px;
+  outline: none;
+  padding: 6px 44px 6px 12px;
+  padding-right: 44px;
+}
+
+.form-play__span--times {
+  color: #28a745;
+  cursor: pointer;
+  display: none;
+  height: 44px;
+  line-height: 44px;
+  pointer-events: auto;
+  position: absolute;
+  right: 0;
+  width: 44px;
 }
 
 .img-status-code {
@@ -74,25 +123,6 @@ embed, img, object, video {
   color: red;
 }
 
-.play-form-btn {
-  color: #757575;
-  background-color: #f8f8f8;
-  border: 1px solid #c6c6c6;
-  height: 36px;
-  width: 126.719px;
-  margin: 0 3px;
-}
-
-.play-form-text {
-  box-shadow: 0 3px 8px 0 rgba(0,0,0,0.2),0 0 0 1px rgba(0,0,0,0.08);
-  border-radius: 2px;
-  border-style: none;
-  height: 44px;
-  max-width: 450px;
-  text-align: center;
-  width: 100%;
-}
-
 .result-incorrect {
   color: #dc3545;
 }
@@ -106,7 +136,7 @@ embed, img, object, video {
 }
 
 .secret-message p.new-label:hover:after {
-  content: 'Marius Mucenicu had something to do with this website.';
+  content: "Marius Mucenicu had something to do with this website.";
 }
 
 .table-results {
@@ -161,6 +191,14 @@ embed, img, object, video {
     padding: 1rem 1.5rem;
     text-align: left;
     border-bottom: 1px solid #dee2e6!important
+  }
+
+  .form-play__input {
+    border-top-left-radius: 20px;
+    border-bottom-left-radius: 20px;
+    border: 1px solid #c6c6c6;
+    box-shadow: none;
+    flex: 1;
   }
 
   .levels__hr--row {
@@ -225,10 +263,19 @@ embed, img, object, video {
     width: 230.5px;
   }
 
+  .form-play__span--times {
+    color: #757575;
+  }
+
+  .form-play__input:focus, .form-play__input:hover {
+    box-shadow: 0 3px 8px 0 rgba(0,0,0,0.2),0 0 0 1px rgba(0,0,0,0.08);
+  }
+
   .hamburger-menu {
-    display: None;
+    display: none;
   }
 }
+
 
 /* media queries with multiple characteristics in descending order */
 

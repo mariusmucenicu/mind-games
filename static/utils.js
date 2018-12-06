@@ -19,13 +19,15 @@ function generateRandomNumber(upperBound, leftGlyph='(', rightGlyph=']', lowerBo
 }
 
 
-function processFormData(btnId) {
-  var userAnswerForm = document.getElementById('user-answer');
-  var metaData = userAnswerForm.elements.metadata.value;
-  var sendData = userAnswerForm.elements['hit-it-form'];
+function processFormData(btn) {
+  var playForm = document.getElementById('play-form');
+  var metaData = playForm.elements.metadata.value;
+  var sendData = playForm.elements['play-form__input'];
+
+  playForm.style.visibility = 'hidden';
   metaData = JSON.parse(metaData.replace(/'/g, '"'));
 
-  if (btnId === 'feeling-lucky-btn') {
+  if (btn.name === 'roulette') {
     var leftGlyph = metaData.left_glyph;
     var rightGlyph = metaData.right_glyph;
     var upperBound = metaData.stop_internal - metaData.start_internal;
@@ -35,18 +37,44 @@ function processFormData(btnId) {
     metaData.answer = Number(sendData.value);
   }
 
-  sendData.type = 'hidden';
-  sendData.name = 'data';
   sendData.name = 'data';
   sendData.value = JSON.stringify(metaData);
 }
 
 
-function checkEmptyForm() {
-  if (document.getElementById('hit-it-form').value) {
-    document.getElementById('hit-it-btn').disabled = false;
-  } else {
-    document.getElementById('hit-it-btn').disabled = true;
+function toggleBulkDisabled(items, state) {
+  for (i = 0; i < items.length; i++) {
+    items[i].disabled = state;
+  }
+}
+
+
+function checkEmptyInput(formInput) {
+  var playFormButtons = document.querySelectorAll('.form-play__button--toggle');
+  var timesGlyph = document.querySelector('.form-play__span--times');
+
+  if (formInput.value) {
+    timesGlyph.style.display = 'block';
+    toggleBulkDisabled(playFormButtons, false);
+  }
+  else {
+    timesGlyph.style.display = 'none';
+    toggleBulkDisabled(playFormButtons, true);
+  }
+  
+}
+
+
+function clearFormField(clearSearchElement) {
+  var playFormButtons = document.querySelectorAll('.form-play__button--toggle');
+  var playForm = document.getElementById('play-form');
+  var playFormInput = playForm.elements['play-form__input'];
+
+  if (playFormInput.value) {
+    playFormInput.value = '';
+    playFormInput.focus();
+    clearSearchElement.style.display = 'none';
+    toggleBulkDisabled(playFormButtons, true);
   }
 }
 
@@ -58,16 +86,16 @@ function fetchGameLevel(btn) {
 
 
 function fetchNavItems(){
-  var drawerBackdrop = document.querySelector("#drawer-backdrop");
-  var drawer = document.querySelector(".drawer");
+  var drawerBackdrop = document.querySelector('#drawer-backdrop');
+  var drawer = document.querySelector('.drawer');
   return [drawer, drawerBackdrop];
 }
 
 
 function openDrawer() {
   let [drawer, drawerBackdrop] = fetchNavItems();
-  drawer.classList.add("open");
-  drawerBackdrop.classList.add("backdrop");
+  drawer.classList.add('open');
+  drawerBackdrop.classList.add('backdrop');
 }
 
 
