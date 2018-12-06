@@ -101,11 +101,11 @@ embed, img, object, video {
   color: #28a745;
 }
 
-.secret-message:hover p.new-label span {
+.secret-message p.new-label:hover span {
   display: none;
 }
 
-.secret-message:hover p.new-label:after {
+.secret-message p.new-label:hover:after {
   content: 'Marius Mucenicu had something to do with this website.';
 }
 
@@ -211,12 +211,6 @@ embed, img, object, video {
 
   .fluid-subtitle {
     font-size: 1.256rem;
-  }
-}
-
-@media only screen and (min-width:361px) {
-  .secret-message {
-    white-space: nowrap;
   }
 }
 
