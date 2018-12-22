@@ -20,10 +20,6 @@ embed, img, object, video {
   overflow: auto;
 }
 
-.crlf {
-  display: none;
-}
-
 .drawer, .hamburger-menu {
   min-height: 100%;
   align-items: center;
@@ -58,10 +54,6 @@ embed, img, object, video {
   height: 44px;
   width: 44px;
   margin: 0 0 0 -1px;
-}
-
-.form-play__button--hidden {
-  display: none;
 }
 
 .form-play__input {
@@ -113,10 +105,6 @@ embed, img, object, video {
 
 .label.success {
   background-color: #46a546;
-}
-
-.levels__hr--col {
-  display: none;
 }
 
 .person {
@@ -201,26 +189,8 @@ embed, img, object, video {
     flex: 1;
   }
 
-  .levels__hr--row {
-    display: none;
-  }
-
-  .levels__hr--col {
-    display: block;
-  }
-
   .open {
     transform: translate(-15px);
-  }
-}
-
-@media only screen and (max-width: 415px) {
-  .crlf {
-    display: initial;
-  }
-
-  .interval-example {
-    padding-left: 30px;
   }
 }
 
@@ -269,10 +239,6 @@ embed, img, object, video {
 
   .form-play__input:focus, .form-play__input:hover {
     box-shadow: 0 3px 8px 0 rgba(0,0,0,0.2),0 0 0 1px rgba(0,0,0,0.08);
-  }
-
-  .hamburger-menu {
-    display: none;
   }
 }
 
