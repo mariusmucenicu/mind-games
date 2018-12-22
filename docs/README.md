@@ -4,7 +4,7 @@ Encapsulates o series of interactive games with the purpose of increasing one's 
 
 <table>
   <tr>
-    <th rowspan="3">Tests</th>
+    <th rowspan="3">State</th>
     <th>Branch</th>
     <th>Status</th>
   </tr>
