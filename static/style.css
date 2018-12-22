@@ -169,7 +169,7 @@ embed, img, object, video {
     flex-direction: column;
     position: absolute;
     transition: transform 0.3s ease;
-    transform: translate(-265px);
+    transform: translate(-250px);
     width: 250px;
     z-index: 2;
   }
@@ -190,7 +190,7 @@ embed, img, object, video {
   }
 
   .open {
-    transform: translate(-15px);
+    transform: translate(0);
   }
 }
 
