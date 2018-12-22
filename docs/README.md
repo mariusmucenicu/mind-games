@@ -111,6 +111,7 @@ Don't believe me? skim read throught the sources.
 
 #### HTML/CSS
 + This project follows [Google's HTML/CSS Style Guide](https://google.github.io/styleguide/htmlcssguide.html) enforced with [W3C's HTML/CSS Style Guide](https://www.w3schools.com/html/html5_syntax.asp).
++ This project follows the [BEM](http://getbem.com/) naming convention.
 
 #### JavaScript
 + This project follows [Google's JavaScript Style Guide](https://google.github.io/styleguide/jsguide.html) enforced with [W3C's JavaScript Style Guide](https://www.w3schools.com/js/js_conventions.asp).
