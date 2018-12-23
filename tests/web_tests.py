@@ -3,14 +3,14 @@ Test bin.webapp functionality.
 
 Classes:
 ========
-    TestIndex: Test the requests going under /index
-    TestAbout: Test the requests going under /about
-    TestGrade: Test the requests going under /grade
-    TestLegal: Test the requests going under /legal
-    TestPlay: Test the requests going under /play
-    TestPublicity: Test the requests going under /publicity
-    TestRankings: Test the requests going under /rankings
-    TestResult: Test the requests going under /result
+    TestIndexPage: Test the requests going under /index
+    TestAboutPage: Test the requests going under /about
+    TestGradePage: Test the requests going under /grade
+    TestLegalPage: Test the requests going under /legal
+    TestPlayPage: Test the requests going under /play
+    TestPublicityPage: Test the requests going under /publicity
+    TestRankingsPage: Test the requests going under /rankings
+    TestResultPage: Test the requests going under /result
 """
 
 # Standard library
@@ -40,11 +40,11 @@ def __debug_writer(self, value):  # pylint: disable=unused-argument
 lint.ErrorWrapper.write = __debug_writer
 
 
-class TestIndex(unittest.TestCase):
+class TestIndexPage(unittest.TestCase):
     def setUp(self):
         self.testApp = fixture.TestApp(webapp.app.wsgifunc())
 
-    def test_index(self):
+    def test_get_index_page(self):
         response = self.testApp.get('/')
         tools.assert_equals(response.status, 200)
         match_items = (
@@ -74,11 +74,11 @@ class TestIndex(unittest.TestCase):
         response.mustcontain(*match_items)
 
 
-class TestAbout(unittest.TestCase):
+class TestAboutPage(unittest.TestCase):
     def setUp(self):
         self.testApp = fixture.TestApp(webapp.app.wsgifunc())
 
-    def test_about(self):
+    def test_get_about_page(self):
         response = self.testApp.get('/about')
         tools.assert_equals(response.status, 200)
         match_items = (
@@ -89,11 +89,11 @@ class TestAbout(unittest.TestCase):
         response.mustcontain(*match_items)
 
 
-class TestGrade(unittest.TestCase):
+class TestGradePage(unittest.TestCase):
     def setUp(self):
         self.testApp = fixture.TestApp(webapp.app.wsgifunc())
 
-    def test_grade(self):
+    def test_get_grade_page(self):
         response = self.testApp.get('/grade')
         tools.assert_equals(response.status, 200)
         match_items = (
@@ -112,11 +112,11 @@ class TestGrade(unittest.TestCase):
         response.mustcontain(*match_items)
 
 
-class TestLegal(unittest.TestCase):
+class TestLegalPage(unittest.TestCase):
     def setUp(self):
         self.testApp = fixture.TestApp(webapp.app.wsgifunc())
 
-    def test_legal(self):
+    def test_get_legal_page(self):
         response = self.testApp.get('/legal')
         tools.assert_equals(response.status, 200)
         match_items = (
@@ -127,7 +127,7 @@ class TestLegal(unittest.TestCase):
         response.mustcontain(*match_items)
 
 
-class TestPlay(unittest.TestCase):
+class TestPlayPage(unittest.TestCase):
     def setUp(self):
         self.testApp = fixture.TestApp(webapp.app.wsgifunc())
 
@@ -167,7 +167,7 @@ class TestPlay(unittest.TestCase):
         response.mustcontain(*match_items)
 
 
-class TestPublicity(unittest.TestCase):
+class TestPublicityPage(unittest.TestCase):
     def setUp(self):
         self.testApp = fixture.TestApp(webapp.app.wsgifunc())
 
@@ -182,11 +182,11 @@ class TestPublicity(unittest.TestCase):
         response.mustcontain(*match_items)
 
 
-class TestRankings(unittest.TestCase):
+class TestRankingsPage(unittest.TestCase):
     def setUp(self):
         self.testApp = fixture.TestApp(webapp.app.wsgifunc())
 
-    def test_get_publicity_page(self):
+    def test_get_rankings_page(self):
         response = self.testApp.get('/rankings')
         tools.assert_equals(response.status, 200)
         match_items = (
@@ -197,11 +197,11 @@ class TestRankings(unittest.TestCase):
         response.mustcontain(*match_items)
 
 
-class TestResult(unittest.TestCase):
+class TestResultPage(unittest.TestCase):
     def setUp(self):
         self.testApp = fixture.TestApp(webapp.app.wsgifunc())
 
-    def test_result_correct(self):
+    def test_post_result_correct_answer(self):
         post_data = {
             'left_glyph': '[',
             'right_glyph': ')',
@@ -226,7 +226,7 @@ class TestResult(unittest.TestCase):
         )
         response.mustcontain(*match_items)
 
-    def test_result_correct_repr(self):
+    def test_post_result_correct_representation(self):
         # the answer is incorrect to check the representation of large numbers in groups of 3
         # by rendering the results_incorrect.html
         post_data = {
@@ -260,7 +260,7 @@ class TestResult(unittest.TestCase):
     def test_result_get_not_allowed(self):
         tools.assert_raises(fixture.AppError, self.testApp.get, '/result')  # this is a 405 raise
 
-    def test_result_incorrect(self):
+    def test_post_result_incorrect_answer(self):
         post_data = {
             'left_glyph': '[',
             'right_glyph': ')',
