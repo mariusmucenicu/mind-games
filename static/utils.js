@@ -85,7 +85,7 @@ function fetchGameLevel(btn) {
 }
 
 
-function fetchNavItems(){
+function fetchNavItems() {
   var drawerBackdrop = document.querySelector('#drawer-backdrop');
   var drawer = document.querySelector('.drawer');
   return [drawer, drawerBackdrop];
