@@ -80,45 +80,8 @@ For the versions available, see the [tags on this repository](https://github.com
 - New minor versions are feature releases; they get released roughly every 3 months.
 - New patch versions are bugfix releases; they get released roughly every month.
 
-## Contributing
+## How can I contribute?
 Contributions are welcome, and they are greatly appreciated! Every little bit helps, and credit will always be given.  
-Performance-wise, this is just a fun project, however one should not wait like seconds between requests and responses.  
-Before opening a pull request please make sure you read the project's [Code style guidelines](https://github.com/mariusmucenicu/mind-games#code-style-guidelines).
 
-### Bug reports
-When [reporting a bug](https://github.com/mariusmucenicu/mind-games/issues) please include:
-- Your device name and version, e.g `Samsung Galaxy S9, G960F` or `MacBook Pro (Retina, Mid 2015)`.
-- Your operating system name and version, e.g `macOS Mojave, Version 10.14.1`.
-- Your client name and version, e.g `Google Chrome, Version 70.0.3538.77`.
-- Detailed steps to reproduce the bug and any other details that might be helpful in troubleshooting.
-
-### Feature requests
-When [proposing a feature](https://github.com/mariusmucenicu/mind-games/issues):
-- Explain in detail how it would work.
-- Keep the scope as narrow as possible, to make it easier to implement.
-
-## Code style guidelines
-
-### Git style guide
-+ This project follows [Udacity's Git Commit Message Style Guide](https://udacity.github.io/git-styleguide/).
-+ This project uses `git rebase` (instead of `git merge`) as the main method for integrating changes into master.
-
-### Back-end style guide
-+ This project follows [PEP8](https://www.python.org/dev/peps/pep-0008/) **very strictly** enforced with [Google's Python Style Guide](https://github.com/google/styleguide/blob/gh-pages/pyguide.md).  
-Don't believe me? skim read throught the sources.
-
-### Front-end style guide
-
-#### HTML/CSS
-+ This project follows [Google's HTML/CSS Style Guide](https://google.github.io/styleguide/htmlcssguide.html) enforced with [W3C's HTML/CSS Style Guide](https://www.w3schools.com/html/html5_syntax.asp).
-+ This project follows the [BEM](http://getbem.com/) naming convention.
-
-#### JavaScript
-+ This project follows [Google's JavaScript Style Guide](https://google.github.io/styleguide/jsguide.html) enforced with [W3C's JavaScript Style Guide](https://www.w3schools.com/js/js_conventions.asp).
-
-In order for your changes to be **pulled into master** do the following:
-1. Read the style guides above.
-2. Read the style guides above **again**.
-3. Repeat 1 & 2 until everything is flawless.
-
-
+- **Performance-wise**, this is just a fun project, however one should not wait like seconds between requests and responses.  
+- Before filing an **issue** or submitting a **pull request** please make sure you read the [project's contribution guidelines](https://github.com/mariusmucenicu/mind-games/blob/master/docs/CONTRIBUTING.md).
