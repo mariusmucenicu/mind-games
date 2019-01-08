@@ -82,5 +82,6 @@ For the versions available, see the [tags on this repository](https://github.com
 ## How can I contribute?
 Contributions are welcome, and they are greatly appreciated! Every little bit helps, and credit will always be given.  
 
-- **Performance-wise**, this is just a fun project, however one should not wait like seconds between requests and responses.  
 - Before filing an **issue** or submitting a **pull request** please make sure you read the [project's contribution guidelines](https://github.com/mariusmucenicu/mind-games/blob/master/docs/CONTRIBUTING.md).
+- **Performance-wise**:
+    - This is just a fun project, however, one shouldn't wait like seconds between requests and responses.  
