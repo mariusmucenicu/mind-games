@@ -48,6 +48,7 @@ Encapsulates o series of interactive games with the purpose of increasing one's 
 ## Contents
 + [Development](https://github.com/mariusmucenicu/mind-games#development)
 + [Versioning](https://github.com/mariusmucenicu/mind-games#versioning)
++ [Code of conduct](https://github.com/mariusmucenicu/mind-games#code-of-conduct)
 + [Contributing](https://github.com/mariusmucenicu/mind-games#how-can-i-contribute)
 
 ## Development
@@ -78,6 +79,9 @@ For the versions available, see the [tags on this repository](https://github.com
 - New major versions are exceptional and are planned very long in advance.
 - New minor versions are feature releases; they get released roughly every 3 months.
 - New patch versions are bugfix releases; they get released roughly every month.
+
+## Code of conduct
+This project adheres to the Contributor Covenant [code of conduct](https://github.com/mariusmucenicu/mind-games/blob/master/docs/CODE_OF_CONDUCT.md). By participating, you are expected to uphold this code.
 
 ## How can I contribute?
 Contributions are welcome, and they are greatly appreciated! Every little bit helps, and credit will always be given.  
