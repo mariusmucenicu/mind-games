@@ -48,8 +48,7 @@ Encapsulates o series of interactive games with the purpose of increasing one's 
 ## Contents
 + [Development](https://github.com/mariusmucenicu/mind-games#development)
 + [Versioning](https://github.com/mariusmucenicu/mind-games#versioning)
-+ [Contributing](https://github.com/mariusmucenicu/mind-games#contributing)
-+ [Code style guidelines](https://github.com/mariusmucenicu/mind-games#code-style-guidelines)
++ [Contributing](https://github.com/mariusmucenicu/mind-games#how-can-i-contribute)
 
 ## Development
 In order to get started you need to go through these simple steps:
