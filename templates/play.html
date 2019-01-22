@@ -1,7 +1,7 @@
 $def with (data)
 $var title: Play
 
-<div class="col-12 my-4 pt-2 d-flex flex-column justify-content-center">
+<div class="col-12 my-4 d-flex flex-column justify-content-center">
 
   <div class="row">
     <div class="col-12 text-center interval-data">
@@ -13,12 +13,11 @@ $var title: Play
          <span class="interval-limit">$data["stop_representation"]</span><!--
       --><span>$data["right_glyph"]</span>
       </h1>
-      <hr/>
     </div>
   </div>
 
   <div class="row">
-    <div class="col-12 text-center mt-3">
+    <div class="col-12 text-center mt-3 mt-sm-4">
       <form id="play-form" class="form-play d-flex flex-wrap justify-content-center mx-auto"
             action="/result" method="POST" autocomplete="off">
         <input class="form-play__input text-center w-100" type="text" name="play-form__input"
@@ -40,11 +39,6 @@ $var title: Play
                   onclick="processFormData(this)">I'm feeling lucky</button>
         </div>
       </form>
-    </div>
-  </div>
-
-  <div class="row">
-    <div class="col-12 text-center my-2">
     </div>
   </div>
 
