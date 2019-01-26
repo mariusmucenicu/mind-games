@@ -120,9 +120,29 @@ class TestLegalPage(unittest.TestCase):
         response = self.testApp.get('/legal')
         tools.assert_equals(response.status, 200)
         match_items = (
-            'Legal',
-            '/legal',
-            'coming_soon',
+            'border-stretch',
+            'contents',
+            'contents__item',
+            'contents__link',
+            'legal__terms_conditions',
+            'legal__liability',
+            'legal__litigation',
+            'legal__privacy_policy',
+            'legal__data_security',
+            'legal__do_not_track',
+            'legal__cookie_policy',
+            'legal__cookie_types',
+            'legal__cookie_usage',
+            'legal__cookie_ctrl',
+            'legal__cookie_info',
+            'legal__additional_info',
+            'legal__history',
+            'legal__license',
+            'legal__useful_links',
+            'fa-chevron-circle-up',
+            'marius_mucenicu@yahoo.com',
+            'mariusmucenicu',
+            'Marius Mucenicu',
         )
         response.mustcontain(*match_items)
 
