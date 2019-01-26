@@ -13,11 +13,39 @@ embed, img, object, video {
   max-width: 100%;
 }
 
+.border-silver {
+  border-color: rgba(151,151,151,0.5) !important;
+}
+
+.border-stretch {
+  margin-left: -30px;
+  margin-right: -30px;
+}
+
+.contents {
+  counter-reset: contents;
+  list-style-type: none;
+}
+
+.contents__link {
+  margin: 0px -30px;
+  padding-left: 30px;
+}
+
+.contents__link::before {
+  counter-increment: contents;
+  content: counters(contents, ".") " ";
+}
+
+.contents__link--counter::before {
+  counter-increment: contents;
+  content: counter(contents) ". ";
+}
+
 .container-fluid {
   background-color: rgb(255,255,255);
-  height: 100%;
+  min-height: 100%;
   max-width: 960px;
-  overflow: auto;
 }
 
 .drawer, .hamburger-menu {
@@ -107,6 +135,10 @@ embed, img, object, video {
   background-color: #46a546;
 }
 
+.legal__link--no-decoration:hover {
+  text-decoration: none;
+}
+
 .person {
   color: red;
 }
@@ -123,7 +155,8 @@ embed, img, object, video {
   display: none;
 }
 
-.secret-message p.new-label:hover:after {
+
+.secret-message p.new-label:hover::after {
   content: "Marius Mucenicu had something to do with this website.";
 }
 
@@ -143,6 +176,10 @@ embed, img, object, video {
 /* media queries with a single characteristic in descending order */
 
 @media only screen and (max-width: 767px) {
+  .contents.border-right {
+    border-right: 0!important;
+  }
+
   .droopy-title {
     font-size: 5.21vw;
   }
@@ -219,6 +256,12 @@ embed, img, object, video {
 
   .fluid-subtitle {
     font-size: 1.256rem;
+  }
+}
+
+@media only screen and (min-width: 768px) {
+  .contents__link {
+    margin-right: 0px;
   }
 }
 
