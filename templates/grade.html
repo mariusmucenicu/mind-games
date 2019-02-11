@@ -5,17 +5,17 @@ $var title: Grade
   <div class="row">
     <div class="col-12 text-center">
       <h1 class="fluid-title">Please choose one of the following difficulties</h1>
-      <hr>
     </div>
   </div>
 
   <div class="row">
-    <div class="col-12 pt-2" align="center">
+    <div class="col-12 mt-3 mb-2 my-md-4 mt-md-2" align="center">
       <form id="levels" action="/play" method="post" class="form-levels">
         <fieldset>
           <div class="row">
-            <div class="col-12 col-sm-4">
-              <h2 class="fluid-subtitle">Easy</h2>
+
+            <div class="col-12 col-md-4">
+              <h2>Easy</h2>
               <div class="radio">
                 <label><input type="radio" name="level" value="0">Are you even trying?</label>
               </div>
@@ -28,11 +28,11 @@ $var title: Grade
               <div class="radio">
                 <label><input type="radio" name="level" value="3">Easy</label>
               </div>
-            <hr class="d-block d-sm-none">
+            <hr class="d-block d-md-none">
             </div>
 
-            <div class="col-12 col-sm-4">
-              <h2 class="fluid-subtitle">Medium</h2>
+            <div class="col-12 col-md-4">
+              <h2>Medium</h2>
               <div class="radio">
                 <label><input type="radio" name="level" value="4">Steady</label>
               </div>
@@ -45,10 +45,11 @@ $var title: Grade
               <div class="radio">
                 <label><input type="radio" name="level" value="7">Numbers are my thing</label>
               </div>
-              <hr class="d-block d-sm-none">
+              <hr class="d-block d-md-none">
             </div>
-            <div class="col-12 col-sm-4">
-              <h2 class="fluid-subtitle">Hard</h2>
+
+            <div class="col-12 col-md-4">
+              <h2>Hard</h2>
               <div class="radio">
                 <label><input type="radio" name="level" value="8">Math fanboy</label>
               </div>
@@ -61,21 +62,20 @@ $var title: Grade
               <div class="radio">
                 <label><input type="radio" name="level" value="11">God blessed my genes</label>
               </div>
-              <hr class="d-block d-sm-none">
             </div>
+
           </div>
         </fieldset>
       </form>
-    <hr class="d-none d-sm-block">
     </div>
   </div>
 
   <div class="row">
-    <div class="col-12 col-md-6 my-2">
+    <div class="col-12 col-md-6 mt-2 mb-2">
       <button form="levels" type="submit"
               class="btn btn-success btn-lg btn-block">Use selected</button>
     </div>
-    <div class="col-12 col-md-6 my-2">
+    <div class="col-12 col-md-6 mt-2 mb-5 mb-md-2">
       <button form="levels" type="submit" name="level" class="btn btn-warning btn-lg btn-block"
               onclick=fetchGameLevel(this)>Just pick one for me</button>
     </div>
