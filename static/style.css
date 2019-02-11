@@ -201,6 +201,11 @@ embed, img, object, video {
     z-index: 1;
   }
 
+  .btn-answer-next, .btn-answer-quit {
+    margin: 0 auto;
+    max-width: 491px;
+  }
+
   .drawer {
     background-color: #fafbfc;
     flex-direction: column;

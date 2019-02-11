@@ -6,24 +6,23 @@ $var title: Success
   <div class="row">
     <div class="col-12 text-center text-uppercase">
       <h1 class="result-correct">Correct!</h1>
-      <hr>
     </div>
   </div>
 
   <div class="row">
-    <div class="col-12 mt-2 mb-3" align="center">
+    <div class="col-12 my-4" align="center">
       <img src="/static/images/gif_success.webp" class="img-fluid img-results" alt="math-gif">
     </div>
   </div>
 
   <div class="row">
-    <div class="col-12 col-sm-6 my-2">
+    <div class="col-12 col-sm-6 mt-2 mb-2 mb-sm-5">
       <form action="/play" method="POST">
         <button class="btn btn-answer-next btn-block btn-success" type="submit"
                 name="level" value="$data['game_level']">Next question</button>
       </form>
     </div>
-    <div class="col-12 col-sm-6 my-2">
+    <div class="col-12 col-sm-6 mt-2 mb-5">
       <a href="https://www.google.com/"
          class="btn btn-answer-quit btn-block btn-success">I'm done for today</a>
     </div>
