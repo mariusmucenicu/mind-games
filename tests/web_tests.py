@@ -5,11 +5,11 @@ Classes:
 ========
     TestIndexPage: Test the requests going under /index
     TestAboutPage: Test the requests going under /about
+    TestFundraisingPage: Test the requests going under /fundraising
     TestGradePage: Test the requests going under /grade
+    TestLadderPage: Test the requests going under /ladder
     TestLegalPage: Test the requests going under /legal
     TestPlayPage: Test the requests going under /play
-    TestPublicityPage: Test the requests going under /publicity
-    TestRankingsPage: Test the requests going under /rankings
     TestResultPage: Test the requests going under /result
 """
 
@@ -89,6 +89,21 @@ class TestAboutPage(unittest.TestCase):
         response.mustcontain(*match_items)
 
 
+class TestFundraisingPage(unittest.TestCase):
+    def setUp(self):
+        self.testApp = fixture.TestApp(webapp.app.wsgifunc())
+
+    def test_get_fundraising_page(self):
+        response = self.testApp.get('/fundraising')
+        tools.assert_equals(response.status, 200)
+        match_items = (
+            'Fundraising',
+            '/fundraising',
+            'coming_soon.jpg',
+        )
+        response.mustcontain(*match_items)
+
+
 class TestGradePage(unittest.TestCase):
     def setUp(self):
         self.testApp = fixture.TestApp(webapp.app.wsgifunc())
@@ -108,6 +123,21 @@ class TestGradePage(unittest.TestCase):
             'Numbers are my thing',
             'God blessed my genes',
             'd-flex flex-column justify-content-center',
+        )
+        response.mustcontain(*match_items)
+
+
+class TestLadderPage(unittest.TestCase):
+    def setUp(self):
+        self.testApp = fixture.TestApp(webapp.app.wsgifunc())
+
+    def test_get_ladder_page(self):
+        response = self.testApp.get('/ladder')
+        tools.assert_equals(response.status, 200)
+        match_items = (
+            'Ladder',
+            '/ladder',
+            'coming_soon.jpg',
         )
         response.mustcontain(*match_items)
 
@@ -183,36 +213,6 @@ class TestPlayPage(unittest.TestCase):
             'form-play__button',
             'form-play__button--glass',
             'form-play__button--toggle',
-        )
-        response.mustcontain(*match_items)
-
-
-class TestPublicityPage(unittest.TestCase):
-    def setUp(self):
-        self.testApp = fixture.TestApp(webapp.app.wsgifunc())
-
-    def test_get_publicity_page(self):
-        response = self.testApp.get('/publicity')
-        tools.assert_equals(response.status, 200)
-        match_items = (
-            'Publicity',
-            '/publicity',
-            'coming_soon',
-        )
-        response.mustcontain(*match_items)
-
-
-class TestRankingsPage(unittest.TestCase):
-    def setUp(self):
-        self.testApp = fixture.TestApp(webapp.app.wsgifunc())
-
-    def test_get_rankings_page(self):
-        response = self.testApp.get('/rankings')
-        tools.assert_equals(response.status, 200)
-        match_items = (
-            'Rankings',
-            '/rankings',
-            'coming_soon',
         )
         response.mustcontain(*match_items)
 
