@@ -5,11 +5,11 @@ Classes:
 ========
     Index: Get the homepage.
     About: Get the about page.
+    FundRaising: Get the fundraising page (contains credits to donors or supporters of any kind).
     Grade: Get the grade (difficulty levels) page.
+    Ladder: Get the ladder page.
     Legal: Get the legal page (this page comprises legal information e.g GDPR, terms of use, etc).
     Play: Start the game.
-    Publicity: Get the publicity page (this page contains credits, ads, funding, etc).
-    Rankings: Get the rankings page.
     Result: Return result based on user input.
     RequestHandler: Store configurations for views.
 
@@ -94,6 +94,17 @@ class About:
         return settings.base_render.about()
 
 
+class FundRaising:
+    """
+    Methods:
+    ========
+        GET()
+    """
+
+    def GET(self):
+        return settings.base_render.fundraising()
+
+
 class Grade:
     """
     Methods:
@@ -103,6 +114,17 @@ class Grade:
 
     def GET(self):
         return settings.base_render.grade()
+
+
+class Ladder:
+    """
+    Methods:
+    ========
+        GET()
+    """
+
+    def GET(self):
+        return settings.base_render.ladder()
 
 
 class Legal:
@@ -133,28 +155,6 @@ class Play:
                 raise web.internalerror()
             else:
                 return settings.base_render.play(data)
-
-
-class Publicity:
-    """
-    Methods:
-    ========
-        GET()
-    """
-
-    def GET(self):
-        return settings.base_render.publicity()
-
-
-class Rankings:
-    """
-    Methods:
-    ========
-        GET()
-    """
-
-    def GET(self):
-        return settings.base_render.rankings()
 
 
 class Result(RequestHandler):

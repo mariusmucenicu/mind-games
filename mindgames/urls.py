@@ -17,10 +17,10 @@ from mindgames import views
 URLS = (
     '/', views.Index,
     '/about', views.About,
+    '/fundraising', views.FundRaising,
     '/grade', views.Grade,
+    '/ladder', views.Ladder,
     '/legal', views.Legal,
     '/play', views.Play,
-    '/publicity', views.Publicity,
-    '/rankings', views.Rankings,
     '/result', views.Result,
 )
