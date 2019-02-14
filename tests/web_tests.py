@@ -241,7 +241,6 @@ class TestResultPage(unittest.TestCase):
             'Correct!',
             'Next question',
             "I'm done for today",
-            'gif_success.webp',
             'd-flex flex-column justify-content-center',
         )
         response.mustcontain(*match_items)
@@ -304,7 +303,6 @@ class TestResultPage(unittest.TestCase):
             'Interval',
             'Your answer',
             'Correct answer',
-            'gif_incorrect.webp',
         )
         response.mustcontain(*match_items)
 
