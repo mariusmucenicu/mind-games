@@ -5,6 +5,8 @@ Classes:
 ========
     TestIndexPage: Test the requests going under /index
     TestAboutPage: Test the requests going under /about
+    TestCustomInternalErrorPage: Test the requests that the server failed to fulfil
+    TestCustomNotFoundPage: Test the requests that are not mapped to any url
     TestFundraisingPage: Test the requests going under /fundraising
     TestGradePage: Test the requests going under /grade
     TestLadderPage: Test the requests going under /ladder
@@ -89,6 +91,25 @@ class TestAboutPage(unittest.TestCase):
         response.mustcontain(*match_items)
 
 
+class TestCustomNotFoundPage(unittest.TestCase):
+    def setUp(self):
+        self.testApp = fixture.TestApp(webapp.app.wsgifunc())
+
+    def test_get_custom_not_found_page(self):
+        response = self.testApp.get('/bogus', status=404)  # non-existent page
+        match_items = (
+            'Oops! It looks like',
+            "Looks like you followed a bad path. If you think it's the author's fault",
+            'Below you will find two helpful links. You know, just in case.',
+            'Home page',
+            "Nah bruh. I'm outta here!",
+            'type="image/webp"',
+            'detective_slim.webp',
+            'detective.jpg',
+        )
+        response.mustcontain(*match_items)
+
+
 class TestFundraisingPage(unittest.TestCase):
     def setUp(self):
         self.testApp = fixture.TestApp(webapp.app.wsgifunc())
@@ -123,6 +144,38 @@ class TestGradePage(unittest.TestCase):
             'Numbers are my thing',
             'God blessed my genes',
             'd-flex flex-column justify-content-center',
+        )
+        response.mustcontain(*match_items)
+
+
+class TestCustomInternalErrorPage(unittest.TestCase):
+    def setUp(self):
+        self.testApp = fixture.TestApp(webapp.app.wsgifunc())
+
+    def test_yield_custom_internal_error_page(self):
+        post_data = {
+            'left_glyph': '[',
+            'right_glyph': ')',
+            'start_internal': 0,
+            'stop_internal': 99,
+            'start_representation': '0',
+            'stop_representation': '99',
+            'answer': 'bogus',  # only integers allowed
+            'game_level': 0,
+        }
+        post_params = {
+            'data': json.dumps(post_data),
+        }
+        response = self.testApp.post('/result', params=post_params, status=500)
+        match_items = (
+            'Oops! It looks like',
+            "Try that again, and if it still doesn't work",
+            'Below you will find two helpful links. You know, just in case.',
+            'Home page',
+            "Nah bruh. I'm outta here!",
+            'type="image/webp"',
+            'dinosaur_slim.webp',
+            'dinosaur.jpg',
         )
         response.mustcontain(*match_items)
 
