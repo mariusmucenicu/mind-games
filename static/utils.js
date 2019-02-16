@@ -104,3 +104,10 @@ function closeDrawer() {
   drawer.classList.remove('open');
   drawerBackdrop.classList.remove('backdrop');
 }
+
+
+function scrollToElement(targetID) {
+  let targetElement = document.getElementById(targetID);
+  let scrollIntoViewOptions = {behavior: 'smooth', block: 'start'};
+  targetElement.scrollIntoView(scrollIntoViewOptions);
+}
