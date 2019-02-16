@@ -30,6 +30,13 @@ embed, img, object, video {
 .contents__link {
   margin: 0px -30px;
   padding-left: 30px;
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+}
+
+.contents__link:hover {
+  color: #ffc107;
+  cursor: pointer;
 }
 
 .contents__link::before {

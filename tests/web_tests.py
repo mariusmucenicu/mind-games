@@ -217,15 +217,16 @@ class TestLegalPage(unittest.TestCase):
             'legal__cookie_types',
             'legal__cookie_usage',
             'legal__cookie_ctrl',
-            'legal__cookie_info',
+            'legal__cookie_further_reading',
             'legal__additional_info',
-            'legal__history',
+            'legal__history_of_software',
             'legal__license',
             'legal__useful_links',
             'fa-chevron-circle-up',
             'marius_mucenicu@yahoo.com',
             'mariusmucenicu',
             'Marius Mucenicu',
+            'scrollToElement',
         )
         response.mustcontain(*match_items)
 
