@@ -28,8 +28,8 @@ import json
 import web
 
 # Project specific
-from mindgames import number_distance
-from mindgames import settings
+from knowlift import number_distance
+from knowlift import settings
 
 logger = logging.getLogger(__name__)
 

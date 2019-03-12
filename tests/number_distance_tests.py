@@ -1,20 +1,20 @@
 """
-Test mindgames.number_distance functionality.
+Test knowlift.number_distance functionality.
 
 Functions:
 ==========
-    test_calculate_statistics: Test mindgames.number_distance.calculate_statistics functionality.
-    test_change_game_level: Test mindgames.number_distance.change_game_level functionality.
-    test_fetch_game_level: Test mindgames.number_distance.fetch_game_level functionality.
-    test_generate_results: Test mindgames.number_distance.generate_results functionality.
-    test_prettify_number: Test mindgames.number_distance.prettify_number functionality.
+    test_calculate_statistics: Test knowlift.number_distance.calculate_statistics functionality.
+    test_change_game_level: Test knowlift.number_distance.change_game_level functionality.
+    test_fetch_game_level: Test knowlift.number_distance.fetch_game_level functionality.
+    test_generate_results: Test knowlift.number_distance.generate_results functionality.
+    test_prettify_number: Test knowlift.number_distance.prettify_number functionality.
 """
 
 # Third-party
 from nose import tools
 
 # Project specific
-from mindgames import number_distance
+from knowlift import number_distance
 
 
 def test_calculate_statistics():

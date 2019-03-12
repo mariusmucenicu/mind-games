@@ -1,10 +1,10 @@
 """
-Test mindgames.lexicon functionality.
+Test knowlift.lexicon functionality.
 
 Classes:
 ========
-    AsciiTest: Test mindgames.lexicon.check_ascii functionality.
-    LexiconTest: Test mindgames.lexion.Lexicon functionality.
+    AsciiTest: Test knowlift.lexicon.check_ascii functionality.
+    LexiconTest: Test knowlift.lexion.Lexicon functionality.
 
 Miscellaneous objects:
 ======================
@@ -17,7 +17,7 @@ Miscellaneous objects:
 import unittest
 
 # Project specific
-from mindgames import lexicon
+from knowlift import lexicon
 
 
 class AsciiTest(unittest.TestCase):

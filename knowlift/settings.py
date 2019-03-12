@@ -77,7 +77,7 @@ def _check_table(cursor, table):
 
 def check_database():
     """Check the database for its core tables, columns in order for the game to work properly."""
-    connection = sqlite3.connect('mindgames.db')  # connects to an existing db or creates one
+    connection = sqlite3.connect('knowlift.db')  # connects to an existing db or creates one
     cursor = connection.cursor()
 
     try:

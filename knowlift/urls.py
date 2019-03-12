@@ -12,7 +12,7 @@ Miscellaneous objects:
         over time.
 """
 
-from mindgames import views
+from knowlift import views
 
 URLS = (
     '/', views.Index,
