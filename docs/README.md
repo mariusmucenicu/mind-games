@@ -39,8 +39,8 @@ Encapsulates o series of interactive games with the purpose of increasing one's 
   <tr>
     <th>Progress</th>
     <td colspan="2" align="center">
-      <a href="https://github.com/mariusmucenicu/knowlift/compare/0.1.0...master">
-        <img src="https://img.shields.io/github/commits-since/mariusmucenicu/knowlift/0.1.0.svg"></a>
+      <a href="https://github.com/mariusmucenicu/knowlift/compare/0.2.0...master">
+        <img src="https://img.shields.io/github/commits-since/mariusmucenicu/knowlift/0.2.0.svg"></a>
     </td>
   </tr>
 </table>
@@ -49,7 +49,7 @@ Encapsulates o series of interactive games with the purpose of increasing one's 
 + [Development](https://github.com/mariusmucenicu/knowlift#development)
 + [Versioning](https://github.com/mariusmucenicu/knowlift#versioning)
 + [Code of conduct](https://github.com/mariusmucenicu/knowlift#code-of-conduct)
-+ [Contributing](https://github.com/mariusmucenicu/knowlift#how-can-i-contribute)
++ [How can I contribute?](https://github.com/mariusmucenicu/knowlift#how-can-i-contribute)
 
 ## Development
 In order to get started you need to go through these simple steps:
