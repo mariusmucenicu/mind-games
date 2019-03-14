@@ -5,15 +5,18 @@ __pycache__/
 *.py[cod]
 *$py.class
 
+
 # ============
 # C extensions
 # ============
 *.so
 
+
 # ===
 # DBs
 # ===
 *.db
+
 
 # ========================
 # Distribution / packaging
@@ -36,6 +39,7 @@ wheels/
 *.egg
 MANIFEST
 
+
 # ============
 # Environments
 # ============
@@ -47,11 +51,13 @@ ENV/
 env.bak/
 venv.bak/
 
+
 # ====================================================
 # Front-end files (allow only minified for frameworks)
 # ====================================================
 /static/bootstrap/**/bootstrap.*
 !/static/bootstrap/**/bootstrap.min.*
+
 
 # ==============
 # Installer logs
@@ -59,25 +65,30 @@ venv.bak/
 pip-log.txt
 pip-delete-this-directory.txt
 
+
 # ====================
 # Mkdocs documentation
 # ====================
 /site
+
 
 # ===========
 # OS specific
 # ===========
 .DS_Store
 
+
 # ==============================
 # Project specific configuration
 # ==============================
 .idea
 
+
 # =====
 # PyEnv
 # =====
 .python-version
+
 
 # ===========
 # PyInstaller
@@ -87,16 +98,19 @@ pip-delete-this-directory.txt
 *.manifest
 *.spec
 
+
 # ====================
 # Sphinx documentation
 # ====================
 docs/_build/
+
 
 # ============
 # Translations
 # ============
 *.mo
 *.pot
+
 
 # ============================
 # Unit test / coverage reports
