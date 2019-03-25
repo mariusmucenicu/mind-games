@@ -5,8 +5,6 @@ Modules:
 ========
     lexicon: Handle building sentences from a given lexicon.
     number_distance: Handle mathematical intervals scenarios.
-    settings: Store generic parameters.
-    urls: Map URLs to views.
     views: Handle HTTP requests.
 
 Notes:

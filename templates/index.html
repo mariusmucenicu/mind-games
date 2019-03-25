@@ -1,54 +1,50 @@
-$var title: Index
+{% extends 'layout.html' %}
 
-<div class="col-12 my-3 pt-3 d-flex flex-column justify-content-center">
+{% block title %}Knowlift{% endblock %}
 
-  <div class="row">
-    <div class="col-12 text-center">
-      <h1 class="fluid-title">Welcome to the fascinating world of arithmetic</h1>
-      <h2 class="fluid-subtitle">This game aims to mimic the behavior of an abacus</h2>
+{% block content %}
+  <div class="col-12 my-3 pt-3 d-flex flex-column justify-content-center">
+
+    <div class="row">
+      <div class="col-12 text-center">
+        <h1 class="fluid-title">Welcome to the fascinating world of arithmetic</h1>
+        <h2 class="fluid-subtitle">This game aims to mimic the behavior of an abacus</h2>
+      </div>
     </div>
+
+    <div class="row">
+      <div class="col-12 mt-3 py-3">
+        The <strong>rules</strong> are pretty simple:
+        <ul>
+          <li>You will be given a series of numeric intervals.</li>
+          <li>For each interval you have to type in how many numbers are in that interval.</li>
+        </ul>
+        In this version of the game you will be using the following types of intervals:
+        <ul>
+          <li>The <strong>open interval</strong>: <br class="d-block d-sm-none">
+            <span class="pl-4 pl-sm-0">e.g <strong>(0,9)</strong> has <strong>8</strong>
+              numbers.</span></li>
+          <li>The <strong>half-open interval</strong>: <br class="d-block d-sm-none">
+            <span class="pl-4 pl-sm-0">e.g <strong>(0,9]</strong> has <strong>9</strong>
+              numbers.</span></li>
+          <li>The <strong>closed interval</strong>: <br class="d-block d-sm-none">
+            <span class="pl-4 pl-sm-0">e.g <strong>[0,9]</strong> has <strong>10</strong>
+              numbers.</span></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-12 col-md-6 my-2">
+        <a href="/grade" class="btn btn-success btn-block">Let's do it!</a>
+      </div>
+      <div class="col-12 col-md-6 my-2">
+        <a href="https://google.com/" class="btn btn-danger btn-block">Nah bruh. I'm outta here!</a>
+      </div>
+      <div class="col-12 my-4 secret-message">
+        <p class="label success new-label"><span>...Shh</span></p>
+      </div>
+    </div>
+
   </div>
-
-  <div class="row">
-    <div class="col-12 mt-3 py-3">
-      The <strong>rules</strong> are pretty simple:
-      <ul>
-        <li>You will be given a series of numeric intervals</li>
-        <li>For each interval you have to type in how many numbers are in that interval</li>
-      </ul>
-      In this version of the game you will be using the following types of intervals:
-      <ul>
-        <li>
-          The <strong>open interval</strong>: <br class="d-block d-sm-none">
-          <span class="pl-4 pl-sm-0">
-            e.g <strong>(0,9)</strong> has <strong>8</strong> numbers</span>
-        </li>
-        <li>
-          The <strong>half-open interval</strong>: <br class="d-block d-sm-none">
-          <span class="pl-4 pl-sm-0">
-            e.g <strong>(0,9]</strong> has <strong>9</strong> numbers</span>
-        </li>
-        <li>
-          The <strong>closed interval</strong>: <br class="d-block d-sm-none">
-          <span class="pl-4 pl-sm-0">
-            e.g <strong>[0,9]</strong> has <strong>10</strong> numbers</span>
-        </li>
-      </ul>
-    </div>
-  </div>
-
-  <div class="row">
-    <div class="col-12 col-md-6 my-2">
-      <a href="/grade" class="btn btn-success btn-block">Let's do it!</a>
-    </div>
-    <div class="col-12 col-md-6 my-2">
-      <a href="https://google.com/" class="btn btn-danger btn-block">Nah bruh. I'm outta here!</a>
-    </div>
-    <div class="col-12 my-4 secret-message">
-      <p class="label success new-label">
-        <span>...Shh</span>
-      </p>
-    </div>
-  </div>
-
-</div>
+{% endblock %}

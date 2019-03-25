@@ -1,102 +1,108 @@
-$var title: Grade
+{% extends 'layout.html' %}
 
-<div class="col-12 my-4 pt-2 d-flex flex-column justify-content-center">
+{% block title %}Grade | Knowlift{% endblock %}
 
-  <div class="row">
-    <div class="col-12 text-center">
-      <h1 class="fluid-title">Please choose one of the following difficulties</h1>
+{% block content %}
+  <div class="col-12 my-4 pt-2 d-flex flex-column justify-content-center">
+
+    <div class="row">
+      <div class="col-12 text-center">
+        <h1 class="fluid-title">Please choose one of the following difficulties</h1>
+      </div>
     </div>
-  </div>
 
-  <div class="row">
-    <div class="col-12 mt-3 mb-2 my-md-4 mt-md-2">
-      <form id="levels" action="/play" method="post">
-        <fieldset>
-          <div class="row">
+    <div class="row">
+      <div class="col-12 mt-3 mb-2 my-md-4 mt-md-2">
 
-            <div class="col-12 col-md-4 text-center">
-              <div class="d-inline-block text-left">
-                <h2 class="mb-3">Easy</h2>
-                <div>
-                  <input type="radio" name="level" value="0">
-                  <label>Are you even trying?</label>
+        <form id="levels" action="/play" method="post">
+          <fieldset>
+            <div class="row">
+
+              <div class="col-12 col-md-4 text-center">
+                <div class="d-inline-block text-left">
+                  <h2 class="mb-3">Easy</h2>
+                  <div>
+                    <input type="radio" name="level" value="0">
+                    <label>Are you even trying?</label>
+                  </div>
+                  <div>
+                    <input type="radio" name="level" value="1">
+                    <label>Warm up</label>
+                  </div>
+                  <div>
+                    <input type="radio" name="level" value="2">
+                    <label>Very Easy</label>
+                  </div>
+                  <div>
+                    <input type="radio" name="level" value="3">
+                    <label>Easy</label>
+                  </div>
                 </div>
-                <div>
-                  <input type="radio" name="level" value="1">
-                  <label>Warm up</label>
+                <hr class="d-block d-md-none">
+              </div>
+
+              <div class="col-12 col-md-4 text-center">
+                <div class="d-inline-block text-left">
+                  <h2 class="mb-3">Medium</h2>
+                  <div>
+                    <input type="radio" name="level" value="4">
+                    <label>Steady</label>
+                  </div>
+                  <div>
+                    <input type="radio" name="level" value="5">
+                    <label>I got this</label>
+                  </div>
+                  <div>
+                    <input type="radio" name="level" value="6">
+                    <label>I'm not fooling around</label>
+                  </div>
+                  <div>
+                    <input type="radio" name="level" value="7">
+                    <label>Numbers are my thing</label>
+                  </div>
                 </div>
-                <div>
-                  <input type="radio" name="level" value="2">
-                  <label>Very Easy</label>
-                </div>
-                <div>
-                  <input type="radio" name="level" value="3">
-                  <label>Easy</label>
+                <hr class="d-block d-md-none">
+              </div>
+
+              <div class="col-12 col-md-4 text-center">
+                <div class="d-inline-block text-left">
+                  <h2 class="mb-3">Hard</h2>
+                  <div>
+                    <input type="radio" name="level" value="8">
+                    <label>Math fanboy</label>
+                  </div>
+                  <div>
+                    <input type="radio" name="level" value="9">
+                    <label>You asked for it</label>
+                  </div>
+                  <div>
+                    <input type="radio" name="level" value="10">
+                    <label>Numberphile</label>
+                  </div>
+                  <div>
+                    <input type="radio" name="level" value="11">
+                    <label>God blessed my genes</label>
+                  </div>
                 </div>
               </div>
-              <hr class="d-block d-md-none">
-            </div>
 
-            <div class="col-12 col-md-4 text-center">
-              <div class="d-inline-block text-left">
-                <h2 class="mb-3">Medium</h2>
-                <div>
-                  <input type="radio" name="level" value="4">
-                  <label>Steady</label>
-                </div>
-                <div>
-                  <input type="radio" name="level" value="5">
-                  <label>I got this</label>
-                </div>
-                <div>
-                  <input type="radio" name="level" value="6">
-                  <label>I'm not fooling around</label>
-                </div>
-                <div>
-                  <input type="radio" name="level" value="7">
-                  <label>Numbers are my thing</label>
-                </div>
-              </div>
-              <hr class="d-block d-md-none">
             </div>
+          </fieldset>
+        </form>
 
-            <div class="col-12 col-md-4 text-center">
-              <div class="d-inline-block text-left">
-                <h2 class="mb-3">Hard</h2>
-                <div>
-                  <input type="radio" name="level" value="8">
-                  <label>Math fanboy</label>
-                </div>
-                <div>
-                  <input type="radio" name="level" value="9">
-                  <label>You asked for it</label>
-                </div>
-                <div>
-                  <input type="radio" name="level" value="10">
-                  <label>Numberphile</label>
-                </div>
-                <div>
-                  <input type="radio" name="level" value="11">
-                  <label>God blessed my genes</label>
-                </div>
-              </div>
-            </div>
-
-          </div>
-        </fieldset>
-      </form>
+      </div>
     </div>
+
+    <div class="row">
+      <div class="col-12 col-md-6 mt-2 mb-2">
+        <button form="levels" type="submit" class="btn btn-success btn-lg btn-block">
+          Use selected</button>
+      </div>
+      <div class="col-12 col-md-6 mt-2 mb-5 mb-md-2">
+        <button form="levels" type="submit" name="level" class="btn btn-warning btn-lg btn-block"
+                onclick=fetchGameLevel(this)>Just pick one for me</button>
+      </div>
+    </div>
+
   </div>
-
-  <div class="row">
-    <div class="col-12 col-md-6 mt-2 mb-2">
-      <button form="levels" type="submit"
-              class="btn btn-success btn-lg btn-block">Use selected</button>
-    </div>
-    <div class="col-12 col-md-6 mt-2 mb-5 mb-md-2">
-      <button form="levels" type="submit" name="level" class="btn btn-warning btn-lg btn-block"
-              onclick=fetchGameLevel(this)>Just pick one for me</button>
-    </div>
-  </div>
-
-</div>
+{% endblock %}

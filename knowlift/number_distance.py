@@ -24,7 +24,7 @@ Functions:
     change_game_level: Increment/decrement the degree of difficulty based on statistics.
     fetch_game_level: Return a game level from a series of game levels, based on user preference.
     generate_interval: Generate an interval within a range of two values (the lower/upper bound).
-    generate_results: Compare the user's result with the expected result for a given question.
+    generate_result: Compare the user's result with the expected result for a given question.
     play: Entry point for the game.
     prettify_number: Split large numbers into groups of three digits to aid readability.
     validate_form_data: Ensure the data passed in through the form matches an expected format.
@@ -122,7 +122,7 @@ def fetch_game_level(user_input):
     """
     try:
         game_level = int(user_input.strip())
-    except ValueError as ex:
+    except (AttributeError, ValueError) as ex:
         logger.exception(ex)
         return None
 
@@ -166,7 +166,7 @@ def generate_interval(game_level):
         return data
 
 
-def generate_results(data):
+def generate_result(data):
     """
     Generate results based on a mathematical interval as well as a user's answer.
 

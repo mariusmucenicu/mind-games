@@ -1,45 +1,47 @@
-$def with (data)
-$var title: Play
+{% extends 'layout.html' %}
 
-<div class="col-12 my-4 d-flex flex-column justify-content-center">
+{% block title %}Play | Knowlift{% endblock %}
 
-  <div class="row">
-    <div class="col-12 text-center interval-data">
-      <h1 class="fluid-title"><span>How many integers are within this interval ?</span></h1>
-      <h1 class="fluid-subtitle">
-         <span>$data["left_glyph"]</span><!-- the comments are used to remove in-line whitespace
-      --><span class="interval-limit">$data["start_representation"]</span><!--
-      --><span>,</span>
-         <span class="interval-limit">$data["stop_representation"]</span><!--
-      --><span>$data["right_glyph"]</span>
-      </h1>
+{% block content %}
+  {% set left_glyph, lower_bound = data.left_glyph, data.start_representation %}
+  {% set right_glyph, upper_bound = data.right_glyph, data.stop_representation %}
+  <div class="col-12 my-4 d-flex flex-column justify-content-center">
+
+    <div class="row">
+      <div class="col-12 text-center interval-data">
+        <h1 class="fluid-title">How many integers are within this interval ?</h1>
+        <h1 class="fluid-subtitle">
+          {{left_glyph }}<span class="text-success">{{ lower_bound }}</span>,
+          <span class="text-success">{{ upper_bound }}</span>{{ right_glyph }}
+        </h1>
+      </div>
     </div>
-  </div>
 
-  <div class="row">
-    <div class="col-12 text-center mt-3 mt-sm-4">
-      <form id="play-form" class="form-play d-flex flex-wrap justify-content-center mx-auto"
-            action="/result" method="POST" autocomplete="off">
-        <input class="form-play__input text-center w-100" type="text" name="play-form__input"
-               onkeyup="checkEmptyInput(this)">
-        <input id="metadata" class="form-play__input" type="hidden" value="$data">
-        <div class="position-relative">
-          <span id="clearSearch" class="form-play__span--times" onclick="clearFormField(this)">
-            <i class="fas fa-times"></i></span>
-        </div>
-        <button class="form-play__button form-play__button--toggle form-play__button--glass
-                       d-sm-none"
-                type="submit" onclick="processFormData(this)" disabled>
-          <i class="fas fa-search"></i></button>
-        <div class="col-12 my-4">
-          <button class="btn btn-sm form-play__button form-play__button--toggle d-none
-                         d-sm-inline-block mx-1"
-                  type="submit" onclick="processFormData(this)" disabled>Hit it</button>
-          <button class="btn btn-sm form-play__button mx-1" type="submit" name="roulette"
-                  onclick="processFormData(this)">I'm feeling lucky</button>
-        </div>
-      </form>
+    <div class="row">
+      <div class="col-12 text-center mt-3 mt-sm-4">
+        <form id="play-form" class="form-play d-flex flex-wrap justify-content-center mx-auto"
+              action="/result" method="POST" autocomplete="off">
+          <input class="form-play__input text-center w-100" type="text" name="play-form__input"
+                 onkeyup="checkEmptyInput(this)">
+          <input id="metadata" class="form-play__input" type="hidden" value="{{ data }}">
+          <div class="position-relative">
+            <span id="clearSearch" class="form-play__span--times" onclick="clearFormField(this)">
+              <i class="fas fa-times"></i></span>
+          </div>
+          <button class="form-play__button form-play__button--toggle
+                         form-play__button--glass d-sm-none"
+                  type="submit"
+                  onclick="processFormData(this)" disabled><i class="fas fa-search"></i></button>
+          <div class="col-12 my-4">
+            <button class="btn btn-sm form-play__button form-play__button--toggle d-none
+                           d-sm-inline-block mx-1"
+                    type="submit" onclick="processFormData(this)" disabled>Hit it</button>
+            <button class="btn btn-sm form-play__button mx-1" type="submit" name="roulette"
+                    onclick="processFormData(this)">I'm feeling lucky</button>
+          </div>
+        </form>
+      </div>
     </div>
-  </div>
 
-</div>
+  </div>
+{% endblock %}
