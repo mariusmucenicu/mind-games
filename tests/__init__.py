@@ -3,9 +3,9 @@ Main package for all knowlift tests.
 
 Modules:
 ========
-    lexicon_tests: Test knowlift.lexicon functionality.
-    number_distance_tests: Test knowlift.number_distance functionality.
-    web_tests: Test bin.webapp functionality.
+    test_lexicon: Test knowlift.lexicon functionality.
+    test_number_distance: Test knowlift.number_distance functionality.
+    test_web: Test bin.webapp functionality.
 
 Miscellaneous objects:
 ======================
