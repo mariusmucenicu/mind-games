@@ -39,8 +39,8 @@ Encapsulates o series of interactive games with the purpose of increasing one's 
   <tr>
     <th>Progress</th>
     <td colspan="2" align="center">
-      <a href="https://github.com/mariusmucenicu/knowlift/compare/0.2.0...master">
-        <img src="https://img.shields.io/github/commits-since/mariusmucenicu/knowlift/0.2.0.svg"></a>
+      <a href="https://github.com/mariusmucenicu/knowlift/compare/1.0.0...master">
+        <img src="https://img.shields.io/github/commits-since/mariusmucenicu/knowlift/1.0.0.svg"></a>
     </td>
   </tr>
 </table>
@@ -52,10 +52,10 @@ Encapsulates o series of interactive games with the purpose of increasing one's 
 + [How can I contribute?](https://github.com/mariusmucenicu/knowlift#how-can-i-contribute)
 
 ## Development
-In order to get started you need to go through these simple steps:
+In order to get the project started locally, you need to go through these simple steps:
 
 ### Step 1: Prerequisites
-+ Make sure you have any version of `Python 3.5.X, 3.6.X` installed.
++ Make sure you have any version of `Python 3.6.X, 3.7.X` installed.
     + If you **haven't got** any of the supported `Python` versions (mentioned above), you can download one from [here](https://www.python.org/).
 + Clone or download this repository locally.
 + (OPTIONAL) Create a `Python` virtual environment (to isolate the game's package dependencies) and **activate** it.
@@ -66,11 +66,26 @@ In order to get started you need to go through these simple steps:
 ```pip install -r requirements.txt```
 
 ### Step 4: Running the tests
-```nosetests``` (This command should show absolutely no errors.)
+```python -m unittest discover``` (This command should show absolutely no errors)
 
 ### Step 5: Running the game
-+ ```python -m bin.webapp```
-+ Open your favourite browser and punch in: http://localhost:8080/
+#### On Windows:
++ Command Prompt:
+    + ```set FLASK_APP=core.py```
+    + ```set FLASK_ENV=development``` (this activates the debugger and automatic reloader)
+    + ```flask run```
+
++ PowerShell:
+    + ```$env:FLASK_APP = "core.py"```
+    + ```$env:FLASK_ENV = "development"``` (this activates the debugger and automatic reloader)
+    + ```flask run```
+
+#### On Unix:
++ ```export FLASK_APP=core.py```
++ ```export FLASK_ENV=development``` (this activates the debugger and automatic reloader)
++ ```flask run```
+
+Now open your favourite browser and punch in: http://localhost:5000/ or http://127.0.0.1:5000/
 
 ## Versioning
 This project adheres to [SemVer](http://semver.org/) for versioning.
@@ -78,7 +93,7 @@ For the versions available, see the [tags on this repository](https://github.com
 
 - New major versions are exceptional and are planned very long in advance.
 - New minor versions are feature releases; they get released roughly every 3 months.
-- New patch versions are bugfix releases; they get released roughly every month.
+- New patch versions are bug fix releases; they get released roughly every month.
 
 ## Code of conduct
 This project adheres to the Contributor Covenant [code of conduct](https://github.com/mariusmucenicu/knowlift/blob/master/docs/CODE_OF_CONDUCT.md). By participating, you are expected to uphold this code.
