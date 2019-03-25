@@ -1,18 +1,14 @@
+dist: xenial
 language: python
-matrix:
-    include:
-        - python: "3.5"
-        - python: "3.6"
-        - python: "3.7"
-          dist: xenial    # required for Python 3.7 (travis-ci/travis-ci#9069)
-          sudo: required  # required for Python 3.7 (travis-ci/travis-ci#9069)
-    allow_failures:       # TODO(Marius): Remove allow_failures once web.py does a release
-        - python: "3.7"
+python:
+    - "3.6"
+    - "3.7"
 before_script:
+    - pylint knowlift tests --exit-zero
     - flake8 --statistics
 install:
     - pip install -r requirements.txt
 script:
-    - nosetests --with-coverage
+    - coverage run -m unittest discover
 after_success:
     - codecov
