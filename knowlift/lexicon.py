@@ -58,7 +58,7 @@ class Lexicon:
     Methods:
     ========
         scan_text()
-        split_alnum()
+        split_alphanum()
         validate()
     """
 
@@ -122,7 +122,7 @@ class Lexicon:
                 checked_words.update(word_set)
         return True
 
-    def split_alnum(self, raw_string):
+    def split_alphanum(self, raw_string):
         """
         Parses a raw string and remove any non alphanumeric characters out of it.
 
@@ -172,7 +172,7 @@ class Lexicon:
         assert check_ascii(raw_string), 'invalid characters'
 
         processed_words = []
-        words = self.split_alnum(raw_string)
+        words = self.split_alphanum(raw_string)
 
         for word in words:
             processed = False
