@@ -1,10 +1,7 @@
-$def with (content)
-
 <!DOCTYPE html>
 <html>
-
   <head>
-    <title>$content.title</title>
+    <title>{% block title %}{% endblock %}</title>
      <!-- note that modern browsers figure out the encoding by themselves -->
     <meta charset="UTF-8">
     <meta name="author" content="Marius Mucenicu">
@@ -21,7 +18,7 @@ $def with (content)
 
   <body>
     <div class="container-fluid d-flex flex-column">
-      <div id="drawer-backdrop" class="row" onclick="closeDrawer();"></div>
+      <div id="drawer-backdrop" class="row" onclick="closeDrawer()"></div>
 
       <div class="row header border-bottom border-silver">
         <div class="col-12">
@@ -30,19 +27,17 @@ $def with (content)
               <a class="font-weight-bold text-dark" href="/">KNOWLIFT</a>
             </div>
             <div class="col-3 text-right">
-              <i class="fas fa-bars fa-2x" onclick="openDrawer();"></i>
+              <i class="fas fa-bars fa-2x" onclick="openDrawer()"></i>
             </div>
           </div>
           <div class="row drawer text-center">
             <div class="col-12 col-md-4">
               <div class="row">
                 <div class="col-12 col-md-6 drawer-item">
-                  <a href="/about"
-                     class="font-weight-bold text-dark d-block d-md-inline">About</a>
+                  <a href="/about" class="font-weight-bold text-dark d-block d-md-inline">About</a>
                 </div>
                 <div class="col-12 col-md-6 drawer-item">
-                  <a href="/legal"
-                     class="font-weight-bold text-dark d-block d-md-inline">Legal</a>
+                  <a href="/legal" class="font-weight-bold text-dark d-block d-md-inline">Legal</a>
                 </div>
               </div>
             </div>
@@ -56,7 +51,7 @@ $def with (content)
                      class="font-weight-bold text-dark d-block d-md-inline">Ladder</a>
                 </div>
                 <div class="col-12 col-md-6 drawer-item">
-                  <a href="/fundraising"
+                  <a href="/funding"
                      class="font-weight-bold text-danger d-block d-md-inline">&hearts; Donate</a>
                 </div>
               </div>
@@ -66,16 +61,15 @@ $def with (content)
       </div>
 
       <div class="row content flex-grow-1 flex-shrink-0">
-        $:content
+        {% block content %}{% endblock %}
       </div>
 
       <div class="row footer flex-shrink-0">
         <div class="col-12 col-md-4 mb-2 border-top border-silver text-center">
-          &copy; 2018-2019 Knowlift <br>
-          A pit stop for your brain.
+          &copy; 2018-2019 Knowlift<br>A pit stop for your brain.
         </div>
         <div class="col-12 col-md-4 mb-2 border-top border-silver text-center">
-          Version 0.2.0 <br> Made with:
+          Version 1.0.0<br>Made with:
           <a class="text-dark" href="https://www.w3.org/TR/html/">
             <i class="fab fa-html5 fa-lg fa-fw"></i></a>
           <a class="text-dark" href="https://www.w3.org/TR/CSS/">
@@ -86,7 +80,7 @@ $def with (content)
             <i class="fab fa-lg fa-python fa-fw"></i></a>
         </div>
         <div class="col-12 col-md-4 mb-2 border-top border-silver text-center">
-          Connect with the author: <br>
+          Connect with the author:<br>
           <a class="text-dark" href="https://twitter.com/hasugamer">
             <i class="fab fa-twitter fa-lg fa-fw"></i></a>
           <a class="text-dark" href="https://www.instagram.com/mmarius90/">
@@ -100,5 +94,4 @@ $def with (content)
 
     </div>
   </body>
-
 </html>

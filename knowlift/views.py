@@ -1,17 +1,18 @@
 """
-Handle incoming requests, after being dispatched to the appropriate view by web.py.
+Handle incoming requests.
 
-Classes:
-========
-    Index: Get the homepage.
-    About: Get the about page.
-    FundRaising: Get the fundraising page (contains credits to donors or supporters of any kind).
-    Grade: Get the grade (difficulty levels) page.
-    Ladder: Get the ladder page.
-    Legal: Get the legal page (this page comprises legal information e.g GDPR, terms of use, etc).
-    Play: Start the game.
-    Result: Return result based on user input.
-    RequestHandler: Store configurations for views.
+Functions:
+==========
+    index: Get the homepage.
+    internal_server_error: Get the custom internal server error page.
+    about: Get the about page.
+    funding: Get the funding page (this page contains credits to donors or supporters of any kind).
+    grade: Get the grade page (this page contains all the difficulty levels).
+    ladder: Get the ladder page.
+    legal: Get the legal page (this page comprises legal information e.g GDPR, terms of use, etc).
+    page_not_found: Get the custom not found page.
+    play: Return a mathematical interval based on a particular difficulty level.
+    result: Return a result based on the user's input.
 
 Miscellaneous objects:
 ======================
@@ -25,154 +26,86 @@ import logging
 import json
 
 # Third-party
-import web
+import flask
 
 # Project specific
 from knowlift import number_distance
-from knowlift import settings
 
 logger = logging.getLogger(__name__)
 
 
-class RequestHandler:
-    def __init__(self):
-        self.session = web.config.get('_session') or {}
-
-    def _update_user_statistics(self, game_metadata):
-        if not self.session:
-            return
-        elif game_metadata['outcome']:
-            self.session['correct_answers'] += 1
-        else:
-            self.session['incorrect_answers'] += 1
-
-        self.session['total_answers'] += 1
-        last_average = self.session['correct_answers'] + self.session['incorrect_answers']
-
-        if last_average == self.session['average']:
-            self._change_game_level(game_metadata)
-            self._reset_user_statistics()
-        else:
-            logger.debug('Skipping reset statistics')
-
-    def _reset_user_statistics(self):
-        self.session['correct_answers'] = 0
-        self.session['incorrect_answers'] = 0
-
-    def _change_game_level(self, game_metadata):
-        correct_answers = self.session['correct_answers']
-        incorrect_answers = self.session['incorrect_answers']
-        current_game_level = game_metadata['game_level']
-        new_game_level = number_distance.change_game_level(
-            correct_answers, incorrect_answers, current_game_level
-        )
-        game_metadata['game_level'] = new_game_level
-
-    def clear_session(self):
-        self.session.kill()
+def index():
+    return flask.render_template('index.html')
 
 
-class Index:
+def about():
+    return flask.render_template('about.html')
+
+
+def funding():
+    return flask.render_template('funding.html')
+
+
+def grade():
+    return flask.render_template('grade.html')
+
+
+def ladder():
+    return flask.render_template('ladder.html')
+
+
+def legal():
+    return flask.render_template('legal.html')
+
+
+def page_not_found(e):
+    return flask.render_template('404.html'), e.code
+
+
+def internal_server_error(e):
+    return flask.render_template('500.html'), e.code
+
+
+def play():
     """
-    Methods:
-    ========
-        GET()
+    Build a mathematical interval from a difficulty level. The difficulty level is represented by an
+        integer which in turn is mapped to a tuple that contains the interval's limits.
+
+    :return: A template containing either the interval in the form of a question or a custom error.
+    :rtype: str
     """
 
-    def GET(self):
-        return settings.base_render.index()
+    # TODO(Marius): raise the custom 500 instead of returning the template and log details about it.
+    level = flask.request.form.get('level')
+    data = number_distance.play(level)
+    if not data:
+        return flask.render_template('500.html')
+    else:
+        return flask.render_template('play.html', data=data)
 
 
-class About:
+def result():
     """
-    Methods:
-    ========
-        GET()
-    """
+    Produce a result based on the user's input. Besides the user's answer, the input contains
+        meta-data about the mathematical interval as well as the current game level. This is used
+        both for validation purposes as well as for building further questions based on the same
+        degree of difficulty.
 
-    def GET(self):
-        return settings.base_render.about()
-
-
-class FundRaising:
-    """
-    Methods:
-    ========
-        GET()
+    :return: A template containing either the appropriate result_data page or a custom error.
+    :rtype: str
     """
 
-    def GET(self):
-        return settings.base_render.fundraising()
+    # TODO(Marius): raise the custom 500 instead of returning the template and log details about it.
+    raw_data = flask.request.form.get('data')
+    if not raw_data:
+        data = {}
+    else:
+        data = json.loads(raw_data)
 
-
-class Grade:
-    """
-    Methods:
-    ========
-        GET()
-    """
-
-    def GET(self):
-        return settings.base_render.grade()
-
-
-class Ladder:
-    """
-    Methods:
-    ========
-        GET()
-    """
-
-    def GET(self):
-        return settings.base_render.ladder()
-
-
-class Legal:
-    """
-    Methods:
-    ========
-        GET()
-    """
-
-    def GET(self):
-        return settings.base_render.legal()
-
-
-class Play:
-    """
-    Methods:
-    ========
-        POST()
-    """
-
-    def POST(self):
-        level = web.input().get('level')
-        if not level:
-            raise web.seeother('/grade')
-        else:
-            data = number_distance.play(level)
-            if not data:
-                raise web.internalerror()
-            else:
-                return settings.base_render.play(data)
-
-
-class Result(RequestHandler):
-    """
-    Methods:
-    ========
-        POST()
-    """
-
-    def POST(self):
-        data_to_dict = json.loads(web.input().get('data'))
-        result_data = number_distance.generate_results(data_to_dict)
-
-        if not result_data:
-            raise web.internalerror()
-        elif result_data['outcome']:
-            self._update_user_statistics(result_data)
-            return settings.base_render.result_correct(result_data)
-        else:
-            self._update_user_statistics(result_data)
-            return settings.base_render.result_incorrect(result_data)
+    result_data = number_distance.generate_result(data)
+    if not result_data:
+        return flask.render_template('500.html')
+    elif result_data['outcome']:
+        return flask.render_template('result_correct.html', data=result_data)
+    else:
+        return flask.render_template('result_incorrect.html', data=result_data)

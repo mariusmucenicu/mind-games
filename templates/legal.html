@@ -1,402 +1,359 @@
-$var title: Legal
+{% extends 'layout.html' %}
 
-<div class="col-12 d-flex align-items-center justify-content-center">
-  <div class="row w-100">
+{% block title %}Legal | Knowlift{% endblock %}
 
-    <div class="col-12 col-md-4">
-      <h2 class="d-md-none mt-4 pb-2">Contents</h2>
-      <ol class="contents border-right contents--border-silver pt-md-4 pl-0 h-100">
-        <li class="contents__item">
-          <div class="contents__link border-bottom border-silver contents__link--counter d-block
-                      font-weight-bold"
-               onclick="scrollToElement('legal__terms_conditions')">
-            Terms and Conditions
-          </div>
-          <ol class="contents p-0">
-            <li>
-              <div class="contents__link border-bottom border-silver d-block font-weight-bold pl-5"
-                   onclick="scrollToElement('legal__liability')">
-                Liability
-              </div>
-            </li>
-            <li>
-              <div class="contents__link border-bottom border-silver d-block font-weight-bold pl-5"
-                   onclick="scrollToElement('legal__litigation')">
-                Litigation
-              </div>
-            </li>
-          </ol>
-        </li>
-        <li class="contents__item">
-          <div class="contents__link border-bottom border-silver contents__link--counter d-block
-                      font-weight-bold"
-               onclick="scrollToElement('legal__privacy_policy')">
-             Privacy Policy
-          </div>
-          <ol class="contents p-0">
-            <li>
-              <div class="contents__link border-bottom border-silver d-block font-weight-bold pl-5"
-                   onclick="scrollToElement('legal__data_security')">
-                Security of data
-              </div>
-            </li>
-            <li>
-              <div class="contents__link border-bottom border-silver d-block font-weight-bold pl-5"
-                   onclick="scrollToElement('legal__do_not_track')">
-                Do Not Track
-              </div>
-            </li>
-          </ol>
-        </li>
-        <li class="contents__item">
-          <div class="contents__link border-bottom border-silver contents__link--counter
-                      d-block font-weight-bold"
-               onclick="scrollToElement('legal__cookie_policy')">
-            Cookie Policy
-          </div>
-          <ol class="contents p-0">
-            <li>
-              <div class="contents__link border-bottom border-silver d-block font-weight-bold pl-5"
-                   onclick="scrollToElement('legal__cookie_types')">
-                Types of Cookies
-              </div>
-            </li>
-            <li>
-              <div class="contents__link border-bottom border-silver d-block font-weight-bold pl-5"
-                   onclick="scrollToElement('legal__cookie_usage')">
-                Cookies that we use
-              </div>
-            </li>
-            <li>
-              <div class="contents__link border-bottom border-silver d-block font-weight-bold pl-5"
-                   onclick="scrollToElement('legal__cookie_ctrl')">
-                Controlling Cookies
-              </div>
-            </li>
-            <li>
-              <div class="contents__link border-bottom border-silver d-block font-weight-bold pl-5"
-                   onclick="scrollToElement('legal__cookie_further_reading')">
-                Further reading
-              </div>
-            </li>
-          </ol>
-        </li>
-        <li class="contents__item">
-          <div class="contents__link contents__link--counter border-bottom border-silver
-                      d-block font-weight-bold"
-               onclick="scrollToElement('legal__additional_info')">
-            Additional information
-          </div>
-          <ol class="contents p-0">
-            <li>
-              <div class="contents__link border-bottom border-silver d-block font-weight-bold pl-5"
-                   onclick="scrollToElement('legal__history_of_software')">
-                History of software
-              </div>
-            </li>
-            <li>
-              <div class="contents__link border-bottom border-silver d-block font-weight-bold pl-5"
-                   onclick="scrollToElement('legal__license')">
-                License
-              </div>
-            </li>
-            <li>
-              <div class="contents__link border-bottom border-silver d-block font-weight-bold pl-5"
-                   onclick="scrollToElement('legal__useful_links')">
-                Useful links
-              </div>
-            </li>
-          </ol>
-        </li>
-      </ol>
-    </div>
+{% block content %}
+  <div class="col-12 d-flex align-items-center justify-content-center">
+    <div class="row w-100">
 
-    <div class="col-12 col-md-8">
-      <section class="row my-4">
-        <div class="col-12">
-          <div id="legal__terms_conditions"></div>
-          <div class="my-4 d-md-none">
-            <a class="font-weight-bold text-warning legal__link legal__link--no-decoration"
-               href="#">
-              <i class="fas fa-lg fa-chevron-circle-up"></i>
-              <span class="pl-2">Return to top</span>
-            </a>
-          </div>
-          <h2 class="fluid-subtitle">1. Terms and Conditions</h2>
-          <p class="text-justify">Please note that by accessing and using <strong>Knowlift</strong>
-            ("<strong>Knowlift</strong>", "<strong>our</strong>", "<strong>we</strong>",
-            "<strong>us</strong>", "<strong>web application</strong>"), you consent unconditionally
-            to these <strong>Terms and Conditions</strong> and to our
-            <strong>Privacy Policy</strong> and <strong>Cookie Policy</strong>.</p>
-          <p class="text-justify">The contents of this page may be updated periodically and any
-            amendments will be posted on this page. Changes are effective immediately after being
-            published. You are advised to review this page periodically for any changes.</p>
-          <p class="text-justify">We will never change our policies and practices to make them less
-            protective of personal information collected in the past without your prior consent.</p>
-          <p class="text-justify mb-4">If you have any questions about the practices of this web
-            application, your dealings with this web application or any suggestions of how this web
-            application can be improved, please
-            <a href="mailto:marius_mucenicu@yahoo.com"><strong>contact the author</strong></a>.</p>
-          <h3 class="fluid-subtitle" id="legal__liability">1.1 Liability</h3>
-          <p class="text-justify"><strong>Knowlift</strong> is not responsible for any injury,
-            loss, claim, or any direct, indirect, incidental, punitive, special, or consequential
-            damages of any kind, including but without limitation to: loss of profits, loss of
-            revenue, loss of savings, loss of data or any similar damages arising from your use of
-            this web application or any information found on it.</p>
-          <p class="text-justify mb-4">Every effort is made to keep the web application up and
-            running smoothly. However, <strong>Knowlift</strong>, takes no responsibility for, and
-            will not be liable for the web application being temporarily unavailable due to
-            technical issues beyond our control.</p>
-          <h3 class="fluid-subtitle" id="legal__litigation">1.2 Litigation</h3>
-          <p class="text-justify">For any conflict that might arise between
-            <strong>Knowlift</strong> and its users we will seek to resolve promptly and amicably.
-            If, however, this is not possible, the litigation will be settled by a court of law in
-            the jurisdiction of <strong>Knowlift</strong>.</p>
-        </div>
-      </section>
+      <div class="col-12 col-md-4">
+        <h2 class="d-md-none mt-4 pb-2">Contents</h2>
+        <ol class="contents border-right contents--border-silver pt-md-4 pl-0 h-100">
+          <li class="contents__item">
+            <a class="contents__link contents__link--counter border-bottom border-silver d-block"
+               onclick="scrollToElement('legal__terms_conditions')">Terms and Conditions</a>
+            <ol class="contents p-0">
+              <li><a class="contents__link border-bottom border-silver pl-5 d-block"
+                     onclick="scrollToElement('legal__liability')">Liability</a></li>
+              <li><a class="contents__link border-bottom border-silver d-block pl-5"
+                     onclick="scrollToElement('legal__litigation')">Litigation</a></li>
+            </ol>
+          </li>
+          <li class="contents__item">
+            <a class="contents__link contents__link--counter border-bottom border-silver d-block"
+               onclick="scrollToElement('legal__privacy_policy')">Privacy Policy</a>
+            <ol class="contents p-0">
+              <li><a class="contents__link border-bottom border-silver d-block pl-5"
+                     onclick="scrollToElement('legal__data_security')">Security of data</a></li>
+              <li><a class="contents__link border-bottom border-silver d-block pl-5"
+                     onclick="scrollToElement('legal__do_not_track')">Do Not Track</a></li>
+            </ol>
+          </li>
+          <li class="contents__item">
+            <a class="contents__link contents__link--counter border-bottom border-silver d-block"
+               onclick="scrollToElement('legal__cookie_policy')">Cookie Policy</a>
+            <ol class="contents p-0">
+              <li><a class="contents__link border-bottom border-silver d-block pl-5"
+                     onclick="scrollToElement('legal__cookie_types')">Types of Cookies</a></li>
+              <li><a class="contents__link border-bottom border-silver d-block pl-5"
+                     onclick="scrollToElement('legal__cookie_usage')">Cookies that we use</a></li>
+              <li><a class="contents__link border-bottom border-silver d-block pl-5"
+                     onclick="scrollToElement('legal__cookie_ctrl')">Controlling Cookies</a></li>
+              <li><a class="contents__link border-bottom border-silver d-block pl-5"
+                     onclick="scrollToElement('legal__cookie_extra_info')">Further reading</a></li>
+            </ol>
+          </li>
+          <li class="contents__item">
+            <a class="contents__link contents__link--counter border-bottom border-silver d-block"
+               onclick="scrollToElement('legal__additional_info')">Additional information</a>
+            <ol class="contents p-0">
+              <li><a class="contents__link border-bottom border-silver d-block pl-5"
+                     onclick="scrollToElement('legal__app_history')">History of software</a></li>
+              <li><a class="contents__link border-bottom border-silver d-block  pl-5"
+                     onclick="scrollToElement('legal__license')">License</a></li>
+              <li><a class="contents__link border-bottom border-silver d-block pl-5"
+                     onclick="scrollToElement('legal__useful_links')">Useful links</a></li>
+            </ol>
+          </li>
+        </ol>
+      </div>
 
-      <hr class="border-top border-silver border-stretch">
+      <div class="col-12 col-md-8">
 
-      <section class="row my-4">
-        <div class="col-12">
-          <div id="legal__privacy_policy"></div>
-          <div class="my-4">
-            <a class="font-weight-bold text-warning legal__link legal__link--no-decoration"
-               href="#">
-              <i class="fas fa-lg fa-chevron-circle-up"></i>
-              <span class="pl-2">Return to top</span>
-            </a>
+        <section class="row my-4">
+          <div class="col-12">
+            <div id="legal__terms_conditions"></div>
+            <div class="my-4 d-md-none">
+              <a href="#" class="text-warning legal__link legal__link--no-decoration">
+                <i class="fas fa-lg fa-chevron-circle-up"></i>
+                <span class="pl-2">Return to top</span></a>
+            </div>
+            <h2 class="fluid-subtitle">1. Terms and Conditions</h2>
+            <p class="text-justify">Please note that by accessing and using
+              <strong>Knowlift</strong> ("<strong>Knowlift</strong>", "<strong>our</strong>",
+              "<strong>we</strong>", "<strong>us</strong>", "<strong>web application</strong>"),
+              you consent unconditionally to these <strong>Terms and Conditions</strong> and to our
+              <strong>Privacy Policy</strong> and <strong>Cookie Policy</strong>.</p>
+            <p class="text-justify">The contents of this page may be updated periodically and any
+              amendments will be posted on this page. Changes are effective immediately after being
+              published. You are advised to review this page periodically for any changes.</p>
+            <p class="text-justify">We will never change our policies and practices to make them
+              less protective of personal information collected in the past without your prior
+              consent.</p>
+            <p class="text-justify mb-4">If you have any questions about the practices of this web
+              application, your dealings with this web application or any suggestions of how this
+              web application can be improved, please <a href="mailto:marius_mucenicu@yahoo.com">
+              <strong>contact the author</strong></a>.</p>
+            <h3 class="fluid-subtitle" id="legal__liability">1.1 Liability</h3>
+            <p class="text-justify"><strong>Knowlift</strong> is not responsible for any injury,
+              loss, claim, or any direct, indirect, incidental, punitive, special, or consequential
+              damages of any kind, including but without limitation to: loss of profits, loss of
+              revenue, loss of savings, loss of data or any similar damages arising from your use of
+              this web application or any information found on it.</p>
+            <p class="text-justify mb-4">Every effort is made to keep the web application up and
+              running smoothly. However, <strong>Knowlift</strong>, takes no responsibility for, and
+              will not be liable for the web application being temporarily unavailable due to
+              technical issues beyond our control.</p>
+            <h3 class="fluid-subtitle" id="legal__litigation">1.2 Litigation</h3>
+            <p class="text-justify">For any conflict that might arise between
+              <strong>Knowlift</strong> and its users we will seek to resolve promptly and amicably.
+              If, however, this is not possible, the litigation will be settled by a court of law in
+              the jurisdiction of <strong>Knowlift</strong>.</p>
           </div>
-          <h2 class="fluid-subtitle">2. Privacy Policy</h2>
-          <p class="text-justify">This Privacy Policy covers the information we collect, store and
-            use when you use our web application.</p>
-          <p class="text-justify"><strong>Knowlift</strong> collects the minimum amount of
-            information necessary in order to provide you with the full application experience.
-            Besides this, we also receive some standard information about the environment of a user,
-            information which is part of the
-            <a class="font-weight-bold"
-               href="https://en.wikipedia.org/wiki/Hypertext_Transfer_Protocol">HTTP protocol</a>,
-            the protocol which sits at the foundation of data communication on the
-            <a class="font-weight-bold"
-               href="https://en.wikipedia.org/wiki/World_Wide_Web">World Wide Web</a>. This
-            information includes, but is not limited to: the type of device you're using and your
-            <a class="font-weight-bold"
-               href="https://en.wikipedia.org/wiki/IP_address">IP address</a>.</p>
-          <p class="text-justify">We do not sell, rent or provide outside access to any data we
-            collect and store. Any data that a user provides via accessing our web application is
-            solely owned by us.</p>
-          <p class="text-justify mb-4">We do not ask, nor there is no functionality embedded
-            into this web application for you to share any additional information with us like your
-            email address, phone number, address book contacts, credit card information, etc.</p>
-          <h3 class="fluid-subtitle" id="legal__data_security">2.1 Security of data</h3>
-          <p class="text-justify">All information you provide to us is stored on secure servers.
-            However, remember that even large companies are subject to cyberattacks and espionage.
-            See <a class="font-weight-bold"
-                   href="https://en.wikipedia.org/wiki/List_of_cyberattacks">this link</a> for more
-            information.</p>
-          <p class="text-justify mb-4">Although we make every effort to protect the personal
-            information which you provide to us, the transmission of data over the Internet is not
-            completely secure. As such, you acknowledge and accept that we cannot guarantee the
-            security of your information transmitted to this web application and that any such
-            transmission is at your own risk. Once we have received your information, we will use
-            strict procedures and security features to prevent unauthorized access.</p>
-          <h3 class="fluid-subtitle" id="legal__do_not_track">2.2 What is Do Not Track?</h3>
-          <p class="text-justify">
-            <a href="https://en.wikipedia.org/wiki/Do_Not_Track"><strong>Do Not Track</strong></a>
-            is a web browser setting that requests that a website/web application disables its
-            tracking of an individual user. When you choose to turn on the DNT setting in your
-            browser, your browser sends a special signal (known as a DNT header) to websites/web
-            applications you encounter while browsing to stop tracking your activity.</p>
-          <p class="text-justify">Note that the
-            <a href="https://www.w3.org/"><strong>W3C (World Wide Web Consortium)</strong></a> has
-            been working with industry groups, Internet browsers, technology companies, and
-            regulators to develop a DNT technology standard. While some progress has been made on
-            this issue, it has been slow, and to date no standard has been adopted. Without an
-            industry standard for DNT, users cannot know how any given company abides by a DNT
-            signal they receive from browser headers.</p>
-          <div class="mb-3">
-            <a class="font-weight-bold" href="https://allaboutdnt.com/">
-              Read more and adjust your settings</a>.
-          </div>
-        </div>
-      </section>
+        </section>
 
-      <hr class="border-top border-silver border-stretch">
+        <hr class="border-top border-silver border-stretch">
 
-      <section class="row my-4">
-        <div class="col-12">
-          <div id="legal__cookie_policy"></div>
-          <div class="my-4">
-            <a class="font-weight-bold text-warning legal__link legal__link--no-decoration"
-               href="#">
-              <i class="fas fa-lg fa-chevron-circle-up"></i>
-              <span class="pl-2">Return to top</span>
-            </a>
+        <section class="row my-4">
+          <div class="col-12">
+            <div id="legal__privacy_policy"></div>
+            <div class="my-4">
+              <a href="#" class="text-warning legal__link legal__link--no-decoration">
+                <i class="fas fa-lg fa-chevron-circle-up"></i>
+                <span class="pl-2">Return to top</span></a>
+            </div>
+            <h2 class="fluid-subtitle">2. Privacy Policy</h2>
+            <p class="text-justify">This Privacy Policy covers the information we collect, store and
+              use when you use our web application.</p>
+            <p class="text-justify"><strong>Knowlift</strong> collects the minimum amount of
+              information necessary in order to provide you with the full application experience.
+              Besides this, we also receive some standard information about the environment of a
+              user, information which is part of the
+              <a class="font-weight-bold"
+                 href="https://en.wikipedia.org/wiki/Hypertext_Transfer_Protocol">HTTP protocol</a>,
+              the protocol which sits at the foundation of data communication on the
+              <a class="font-weight-bold" href="https://en.wikipedia.org/wiki/World_Wide_Web">World
+                Wide Web</a>. This information includes, but is not limited to: the type of device
+              you're using and your
+              <a class="font-weight-bold"
+                 href="https://en.wikipedia.org/wiki/IP_address">IP address</a>.</p>
+            <p class="text-justify">We do not sell, rent or provide outside access to any data we
+              collect and store. Any data that a user provides via accessing our web application is
+              solely owned by us.</p>
+            <p class="text-justify mb-4">We do not ask, nor there is no functionality embedded into
+              this web application for you to share any additional information with us like your
+              email address, phone number, address book contacts, credit card information, etc.</p>
+            <h3 class="fluid-subtitle" id="legal__data_security">2.1 Security of data</h3>
+            <p class="text-justify">All information you provide to us is stored on secure servers.
+              However, remember that even large companies are subject to cyberattacks and espionage.
+              See
+              <a class="font-weight-bold" href="https://en.wikipedia.org/wiki/List_of_cyberattacks">
+                this link</a> for more information.</p>
+            <p class="text-justify mb-4">Although we make every effort to protect the personal
+              information which you provide to us, the transmission of data over the Internet is not
+              completely secure. As such, you acknowledge and accept that we cannot guarantee the
+              security of your information transmitted to this web application and that any such
+              transmission is at your own risk. Once we have received your information, we will use
+              strict procedures and security features to prevent unauthorized access.</p>
+            <h3 class="fluid-subtitle" id="legal__do_not_track">2.2 What is Do Not Track?</h3>
+            <p class="text-justify"><a href="https://en.wikipedia.org/wiki/Do_Not_Track">
+              <strong>Do Not Track</strong></a> is a web browser setting that requests that a
+              website/web application disables its tracking of an individual user. When you choose
+              to turn on the DNT setting in your browser, your browser sends a special signal (known
+              as a DNT header) to websites/web applications you encounter while browsing to stop
+              tracking your activity.</p>
+            <p class="text-justify">Note that the
+              <a href="https://www.w3.org/"><strong>W3C (World Wide Web Consortium)</strong></a> has
+              been working with industry groups, Internet browsers, technology companies, and
+              regulators to develop a DNT technology standard. While some progress has been made on
+              this issue, it has been slow, and to date no standard has been adopted. Without an
+              industry standard for DNT, users cannot know how any given company abides by a DNT
+              signal they receive from browser headers.</p>
+            <div class="mb-3">
+              <a class="font-weight-bold" href="https://allaboutdnt.com/">Read more and adjust your
+                settings</a>.
+            </div>
           </div>
-          <h2 class="fluid-subtitle">3. Cookie policy</h2>
-          <p class="text-justify mb-4">A
-            <a href="https://en.wikipedia.org/wiki/HTTP_cookie"><strong>Cookie</strong></a> is a
-            small piece of data that a server sends to the user's web browser. The browser may store
-            it and send it back with the next request to the same server. This is used to maintain
-            state information for the stateless
-            <a class="font-weight-bold"
-               href="https://en.wikipedia.org/wiki/Hypertext_Transfer_Protocol">HTTP protocol</a> as
-            you navigate through different pages on a website or return to the website at a later
-            time.</p>
-          <h3 class="fluid-subtitle" id="legal__cookie_types">3.1 Types of Cookies</h3>
-          <div class="mb-2"><strong>Persistent Cookies vs Session Cookies</strong></div>
-          <p class="text-justify"><i>Session Cookies</i> are stored in your main memory (RAM).<br>
-            <i>Persistent Cookies</i> are stored on your secondary memory (HDD/SSD).</p>
-          <p class="text-justify"><i>Session Cookies</i> last as long as your browsing session.<br>
-            <i>Persistent Cookies</i> stay on your computer or mobile device until they expire or
-            are deleted.</p>
-          <p class="text-justify">The location on your HDD/SSD (in the case of
-            <i>persistent Cookies</i>) disk varies depending on your browser. They can either be in
-            separate text files, or they can be in a single file (usually an
-            <a class="font-weight-bold" href="https://en.wikipedia.org/wiki/SQLite">SQLite</a>
-            database, which is a light database used by browsers for local storage), in which case a
-            Cookie is just a row in a table in that database. In order to find out the exact
-            location on your machine where <i>persistent Cookies</i> are stored you need to consult
-            the documentation that your browser manufacturer provides.</p>
-          <div class="mb-2 fluid"><strong>First-Party and Third-Party Cookies</strong></div>
-          <p class="text-justify"><i>First-party Cookies</i> are Cookies that are associated with
-            the host domain.<br><i>Third-party Cookies</i> are Cookies from any other domain.</p>
-          <p class="text-justify"><strong>Example:</strong><br> Let's say you visit
-            <i>www.<strong>example.com</strong></i> by typing the URL in your browser's address bar
-            and <i>blog.<strong>example.com</strong></i>, <i><strong>example2.tv</strong></i>,
-            <i><strong>example3.ro</strong></i> all have banner ads on this page.</p>
-          <p class="text-justify">If all of these sites set Cookies, then the Cookies from
-            <i>www.<strong>example.com</strong></i> and <i>blog.<strong>example.com</strong></i> are
-            <i>first-party Cookies</i>, and the Cookies from <i><strong>example2.tv</strong></i>,
-            <i><strong>example3.ro</strong></i> are <i>third-party Cookies</i> (psst.. that's
-            how sites can track you even after you leave them).</p>
-          <p class="text-justify mb-4"><i>Third-party Cookies</i> are often blocked and deleted
-            through browser settings and security settings such as
-            <a href="https://en.wikipedia.org/wiki/Same-origin_policy"
-               class="font-weight-bold">same origin policy</a>.
-            Blocking <i>third-party Cookies</i> does not create login issues on websites (which can
-            be the case by blocking <i>first-party Cookies</i>) and may result in seeing fewer ads
-            on the web.</p>
-          <h3 class="fluid-subtitle" id="legal__cookie_usage">3.2 Cookies that we use</h3>
-          <p class="text-justify">We only store <i>session Cookies</i>, i.e Cookies that
-            are stored in your memory and are deleted after you stop browsing.</p>
-          <p class="text-justify">We <strong>DO NOT</strong> store <i>persistent Cookies</i>
-            (neither placed by us, nor by any third-party for any kind of service such as
-            advertising or analytics).</p>
-          <p class="text-justify">We use <i>session Cookies</i> in order to enable certain features,
-            such as automatically changing the game level based on your gaming record (number of
-            correct/incorrect answers).</p>
-          <p class="text-justify mb-4">
-            <a href="http://ec.europa.eu/ipg/basics/legal/cookies/index_en.htm"
-               class="font-weight-bold">The law</a> states that we can store Cookies on your device
-            if they are strictly necessary for the operation of this site. Any other Cookies (those
-            that are not critical for the functioning of the website such as those used for
-            analytics or advertising) require consent.</p>
-          <h3 class="fluid-subtitle" id="legal__cookie_ctrl">3.3 Controlling Cookies</h3>
-          <p class="text-justify">Most
-            <a class="font-weight-bold"
-               href="https://en.wikipedia.org/wiki/List_of_web_browsers">browsers</a> allow you to
-            control Cookies through their settings preferences. However, if you limit the ability of
-            websites to set Cookies, you may worsen your overall user experience.</p>
-          <p class="text-justify">For instance, you could set your browser to block
-            Cookies from certain domains only, or from all domains entirely. If you were to block
-            Cookies coming from this domain, the browser will not accept the session Cookie and
-            therefore you will not benefit from the entire game experience. Find out how to manage
-            cookies on popular browsers:</p>
-          <ul>
+        </section>
+
+        <hr class="border-top border-silver border-stretch">
+
+        <section class="row my-4">
+          <div class="col-12">
+            <div id="legal__cookie_policy"></div>
+            <div class="my-4">
+              <a href="#" class="text-warning legal__link legal__link--no-decoration">
+                <i class="fas fa-lg fa-chevron-circle-up"></i>
+                <span class="pl-2">Return to top</span></a>
+            </div>
+            <h2 class="fluid-subtitle">3. Cookie policy</h2>
+            <p class="text-justify mb-4">A <a href="https://en.wikipedia.org/wiki/HTTP_cookie">
+              <strong>Cookie</strong></a> is a small piece of data that a server sends to the user's
+              web browser. The browser may store it and send it back with the next request to the
+              same server. This is used to maintain state information for the stateless
+              <a class="font-weight-bold"
+                 href="https://en.wikipedia.org/wiki/Hypertext_Transfer_Protocol">HTTP protocol</a>
+              as you navigate through different pages on a website or return to the website at a
+              later time.</p>
+            <h3 class="fluid-subtitle" id="legal__cookie_types">3.1 Types of Cookies</h3>
+            <div class="mb-2">
+              <strong>Persistent Cookies vs Session Cookies</strong>
+            </div>
+            <p class="text-justify"><i>Session Cookies</i> are stored in your
+              <a href="https://en.wikipedia.org/wiki/Computer_data_storage#Primary_storage">
+                <strong>main memory</strong></a>.<br><i>Persistent Cookies</i> are stored on your
+              <a href="https://en.wikipedia.org/wiki/Computer_data_storage#Secondary_storage">
+                <strong>secondary memory</strong></a>.</p>
+            <p class="text-justify"><i>Session Cookies</i> last as long as your browsing
+              <a href="https://en.wikipedia.org/wiki/Session_(computer_science)"
+                 class="font-weight-bold">session</a>.<br><i>Persistent Cookies</i> stay on
+              your computer or mobile device until they expire or are deleted.</p>
+            <p class="text-justify">The location of Cookies on your drive (in the case of
+              <i>Persistent Cookies</i>) varies depending on your browser. They can either be in
+              separate text files, or they can be in a single file (usually an
+              <a class="font-weight-bold" href="https://en.wikipedia.org/wiki/SQLite">SQLite</a>
+              database, which is a light database used by browsers for local storage), in which case
+              a Cookie is just a row in a table in that database. In order to find out the exact
+              location on your machine where <i>persistent Cookies</i> are stored you need to
+              consult the documentation that your browser manufacturer provides.</p>
+            <div class="mb-2 fluid">
+              <strong>First-Party and Third-Party Cookies</strong>
+            </div>
+            <p class="text-justify"><i>First-party Cookies</i> are Cookies that are associated with
+              the host domain.<br><i>Third-party Cookies</i> are Cookies from any other domain.</p>
+            <p class="text-justify"><strong>Example:</strong><br> Let's say you visit
+              <i>www.<strong>example.com</strong></i> by typing the URL in your browser's address
+              bar and <i>blog.<strong>example.com</strong></i>, <i><strong>example2.tv</strong></i>,
+              <i><strong>example3.ro</strong></i> all have banner ads on this page.</p>
+            <p class="text-justify">If all of these sites set Cookies, then the Cookies from
+              <i>www.<strong>example.com</strong></i> and <i>blog.<strong>example.com</strong></i>
+              are <i>first-party Cookies</i>, and the Cookies from
+              <i><strong>example2.tv</strong></i>, <i><strong>example3.ro</strong></i> are
+              <i>third-party Cookies</i>.</p>
+            <p class="text-justify mb-4"><i>Third-party Cookies</i> are often blocked and deleted
+              through browser settings and security settings such as
+              <a href="https://en.wikipedia.org/wiki/Same-origin_policy"
+                 class="font-weight-bold">same origin policy</a>. Blocking
+              <i>third-party Cookies</i> does not create login issues on websites (which can be the
+              case by blocking <i>first-party Cookies</i>) and may result in seeing fewer ads on the
+              web.</p>
+            <h3 class="fluid-subtitle" id="legal__cookie_usage">3.2 Cookies that we use</h3>
+            <p class="text-justify">We only store <i>session Cookies</i>, i.e Cookies that are
+              stored in your main memory and are deleted after you stop browsing.</p>
+            <p class="text-justify">We <strong>DO NOT</strong> store <i>persistent Cookies</i>
+              (neither placed by us, nor by any third-party for any kind of service such as
+              advertising or analytics).</p>
+            <p class="text-justify">We use <i>session Cookies</i> in order to enable certain
+              features, such as automatically changing the game level based on your gaming record
+              (number of correct/incorrect answers).</p>
+            <p class="text-justify mb-4">
+              <a href="http://ec.europa.eu/ipg/basics/legal/cookies/index_en.htm"
+                 class="font-weight-bold">The law</a> states that we can store Cookies on your
+              device if they are strictly necessary for the operation of this site. Any other
+              Cookies (those that are not critical for the functioning of the website such as those
+              used for analytics or advertising) require consent.</p>
+            <h3 class="fluid-subtitle" id="legal__cookie_ctrl">3.3 Controlling Cookies</h3>
+            <p class="text-justify">Most
+              <a class="font-weight-bold" href="https://en.wikipedia.org/wiki/List_of_web_browsers">
+                browsers</a> allow you to control Cookies through their settings preferences.
+              However, if you limit the ability of websites to set Cookies, you may worsen your
+              overall user experience.</p>
+            <p class="text-justify">For instance, you could set your browser to block Cookies from
+              certain domains only, or from all domains entirely. If you were to block Cookies
+              coming from this domain, the browser will not accept the session Cookie and therefore
+              you will not benefit from the entire game experience. Find out how to manage cookies
+              on popular browsers:</p>
+            <ul>
               <li>
-                <a class="font-weight-bold"
-                   href="https://support.google.com/chrome/answer/95647?hl=en">Google Chrome</a>
+                <a class="font-weight-bold" href="https://support.google.com/chrome/answer/95647?hl=en">
+                  Google Chrome</a>
               </li>
               <li>
-                <a class="font-weight-bold"
-                   href="https://support.mozilla.org/en-US/kb/cookies-information-websites-store-on-your-computer">Mozilla Firefox</a>
+                <a class="font-weight-bold" href="https://support.mozilla.org/en-US/kb/cookies-information-websites-store-on-your-computer">
+                  Mozilla Firefox</a>
               </li>
               <li>
-                <a class="font-weight-bold"
-                   href="https://support.microsoft.com/en-us/help/260971/description-of-cookies">Internet Explorer</a>
+                <a class="font-weight-bold" href="https://support.microsoft.com/en-us/help/260971/description-of-cookies">
+                  Internet Explorer</a>
               </li>
               <li>
-                <a class="font-weight-bold"
-                   href="https://privacy.microsoft.com/en-us/windows-10-microsoft-edge-and-privacy">Microsoft Edge</a>
+                <a class="font-weight-bold" href="https://privacy.microsoft.com/en-us/windows-10-microsoft-edge-and-privacy">
+                  Microsoft Edge</a>
               </li>
               <li>
-                <a class="font-weight-bold"
-                   href="https://support.apple.com/en-gb/guide/safari/manage-cookies-and-website-data-sfri11471/mac">Apple Safari</a>
+                <a class="font-weight-bold" href="https://support.apple.com/en-gb/guide/safari/manage-cookies-and-website-data-sfri11471/mac">
+                  Apple Safari</a>
               </li>
-          </ul>
-          <p class="text-justify mb-4">To find information regarding how other browsers let you
-            manage Cookies, consult the documentation that your browser manufacturer provides.</p>
-          <h3 class="fluid-subtitle" id="legal__cookie_further_reading">3.4 Further Reading</h3>
-          <p class="text-justify">To find out more about Cookies click on the links below:</p>
-          <ul>
-              <li><a class="font-weight-bold"
-                     href="https://tools.ietf.org/html/rfc6265">HTTP State Management Mechanism</a></li>
-              <li><a class="font-weight-bold"
-                     href="http://www.allaboutcookies.org/">allaboutCookies</a></li>
-              <li><a class="font-weight-bold"
-                     href="http://www.whatarecookies.com/">Computer Cookies Explained</a></li>
-              <li><a class="font-weight-bold"
-                     href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Cookies">HTTP Cookies</a></li>
-          </ul>
-        </div>
-      </section>
-
-      <hr class="border-top border-silver border-stretch">
-
-      <section class="row my-4">
-        <div class="col-12 mb-3">
-          <div id="legal__additional_info"></div>
-          <div class="my-4">
-            <a class="font-weight-bold text-warning legal__link legal__link--no-decoration"
-               href="#">
-              <i class="fas fa-lg fa-chevron-circle-up"></i>
-              <span class="pl-2">Return to top</span>
-            </a>
+            </ul>
+            <p class="text-justify mb-4">To find information regarding how other browsers let you
+              manage Cookies, consult the documentation that your browser manufacturer provides.</p>
+            <h3 class="fluid-subtitle" id="legal__cookie_extra_info">3.4 Further Reading</h3>
+            <p class="text-justify">To find out more about Cookies click on the links below:</p>
+            <ul>
+              <li>
+                <a class="font-weight-bold" href="https://tools.ietf.org/html/rfc6265">
+                  HTTP State Management Mechanism</a>
+              </li>
+              <li>
+                <a class="font-weight-bold" href="http://www.allaboutcookies.org/">
+                  allaboutCookies</a>
+              </li>
+              <li>
+                <a class="font-weight-bold" href="http://www.whatarecookies.com/">
+                  Computer Cookies Explained</a>
+              </li>
+              <li>
+                <a class="font-weight-bold" href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Cookies">
+                  HTTP Cookies</a>
+              </li>
+            </ul>
           </div>
-          <h2 class="fluid-subtitle">4. Additional Information</h2>
-          <p class="text-justify"><u>Date of last revision: 2019.03.12</u></p>
-          <p class="text-justify mb-4">Through this web application you are able to link to other
-            websites/web applications, which are not under the control of
-            <strong>Knowlift</strong>. If you click on a third party link, you will be directed to
-            that third party's site. We strongly advise you to review the
-            <strong>Terms and Conditions</strong> and <strong>Privacy Policy</strong> of every site
-            you visit. We have no control over the nature, content, accuracy of information,
-            practices and availability of those sites/web applications.</p>
-          <h3 class="fluid-subtitle" id="legal__history_of_software">4.1 History of software</h3>
-          <p class="text-justify mb-4"><strong>Knowlift</strong> was started in 2018 by
-            <a class="font-weight-bold"
-               href="https://www.linkedin.com/in/mariusmucenicu/">Marius Mucenicu</a>, a graduate of
-            the
-            <a href="https://www.utcluj.ro/en/"
-               class="font-weight-bold">Technical University of Cluj-Napoca, Romania</a>. It started
-            as an initiative to help beat boredom while sharpening you brain and your technical
-            thinking.</p>
-          <h3 class="fluid-subtitle" id="legal__license">4.2 License</h3>
-          <p class="text-justify mb-4">This web application is free software: you can redistribute
-            it and/or modify it under the terms of the
-            <a href="https://en.wikipedia.org/wiki/GNU_General_Public_License"
-               class="font-weight-bold">GNU General Public License</a> as published by the
-            <a href="https://en.wikipedia.org/wiki/Free_Software_Foundation"
-               class="font-weight-bold">Free Software Foundation</a>, either version 3 of the
-            License, or (at your option) any later version. This web application is distributed in
-            the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied
-            warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
-            <a href="https://www.gnu.org/licenses/gpl-3.0.en.html"
-               class="font-weight-bold">GNU General Public License</a> for more details.</p>
-          <h3 class="fluid-subtitle" id="legal__useful_links">4.3 Useful links:</h3>
-          <ul>
-            <li>
-              <a href="https://eur-lex.europa.eu/legal-content/EN/TXT/?qid=1462439808430&uri=CELEX:32016R0679"
-                 class="font-weight-bold">The EU law on the handling of personal data (GDPR)</a>
-            </li>
-            <li>
-              <a href="https://ec.europa.eu/info/law/law-topic/data-protection_en"
-                 class="font-weight-bold">Rules for the protection of personal data inside and outside the EU</a>
-            </li>
-          </ul>
-        </div>
-      </section>
+        </section>
+
+        <hr class="border-top border-silver border-stretch">
+
+        <section class="row my-4">
+          <div class="col-12 mb-3">
+            <div id="legal__additional_info"></div>
+            <div class="my-4">
+              <a href="#" class="text-warning legal__link legal__link--no-decoration">
+                <i class="fas fa-lg fa-chevron-circle-up"></i>
+                <span class="pl-2">Return to top</span></a>
+            </div>
+            <h2 class="fluid-subtitle">4. Additional Information</h2>
+            <p class="text-justify"><u>Date of last revision: 2019.03.24</u></p>
+            <p class="text-justify mb-4">Through this web application you are able to link to other
+              websites/web applications, which are not under the control of
+              <strong>Knowlift</strong>. If you click on a third party link, you will be directed to
+              that third party's site. We strongly advise you to review the
+              <strong>Terms and Conditions</strong> and <strong>Privacy Policy</strong> of every
+              site you visit. We have no control over the nature, content, accuracy of information,
+              practices and availability of those sites/web applications.</p>
+            <h3 class="fluid-subtitle" id="legal__app_history">4.1 History of software</h3>
+            <p class="text-justify mb-4"><strong>Knowlift</strong> was started in 2018 by
+              <a class="font-weight-bold" href="https://www.linkedin.com/in/mariusmucenicu/">
+                Marius Mucenicu</a>, a graduate of the
+              <a href="https://www.utcluj.ro/en/" class="font-weight-bold">
+                Technical University of Cluj-Napoca, Romania</a>. It started as an initiative to
+              help beat boredom while sharpening your brain and your technical thinking.</p>
+            <h3 class="fluid-subtitle" id="legal__license">4.2 License</h3>
+            <p class="text-justify mb-4">This web application is free software: you can redistribute
+              it and/or modify it under the terms of the
+              <a href="https://en.wikipedia.org/wiki/GNU_General_Public_License"
+                 class="font-weight-bold">GNU General Public License</a> as published by the
+              <a href="https://en.wikipedia.org/wiki/Free_Software_Foundation"
+                 class="font-weight-bold">Free Software Foundation</a>, either version 3 of the
+              License, or (at your option) any later version. This web application is distributed in
+              the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied
+              warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+              <a href="https://www.gnu.org/licenses/gpl-3.0.en.html"
+                 class="font-weight-bold">GNU General Public License</a> for more details.</p>
+            <h3 class="fluid-subtitle" id="legal__useful_links">4.3 Useful links:</h3>
+            <ul>
+              <li>
+                <a href="https://eur-lex.europa.eu/legal-content/EN/TXT/?qid=1462439808430&uri=CELEX:32016R0679"
+                   class="font-weight-bold">The EU law on the handling of personal data (GDPR)</a>
+              </li>
+              <li>
+                <a href="https://ec.europa.eu/info/law/law-topic/data-protection_en"
+                   class="font-weight-bold">Data protection inside and outside the EU</a>
+              </li>
+            </ul>
+          </div>
+        </section>
+
+      </div>
+
     </div>
   </div>
-</div>
+{% endblock %}

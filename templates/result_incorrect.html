@@ -1,62 +1,65 @@
-$def with (data)
-$var title: Failure
+{% extends 'layout.html' %}
 
-<div class="col-12 my-3 pt-3 d-flex flex-column justify-content-center">
+{% block title %}Incorrect | Knowlift{% endblock %}
 
-  <div class="row">
-      <div class="col-12 text-center">
-        <h1 class="result-incorrect text-uppercase">Incorrect!</h1>
-      </div>
-  </div>
+{% block content %}
+  {% set left_glyph, lower_bound = data.left_glyph, data.start_representation %}
+  {% set right_glyph, upper_bound = data.right_glyph, data.stop_representation %}
+  {% set user_answer, cpu_answer = data.answer_representation, data.cpu_representation %}
+  <div class="col-12 my-3 pt-3 d-flex flex-column justify-content-center">
 
-  <div class="row">
-    <div class="col-12 my-4" align="center">
-      <img src="https://media.giphy.com/media/ohdY5OaQmUmVW/giphy.gif"
-           class="img-fluid img-results" alt="math-gif">
+    <div class="row">
+        <div class="col-12 text-center">
+          <h1 class="result-incorrect text-uppercase">Incorrect!</h1>
+        </div>
     </div>
-  </div>
 
-  <div class="row">
-    <div class="col-12 my-2">
-      <div class="table-responsive table-results mx-auto">
-        <table class="table table-sm table-bordered text-center">
-          <tr>
-            <th class="table-active">Interval</th>
-          </tr>
-          <tr>
-            <td>$data['left_glyph']$data['start_representation'],
-                $data['stop_representation']$data['right_glyph']</td>
-          </tr>
-          <tr>
-            <th class="table-danger">Your answer</th>
-          </tr>
-          <tr>
-            <td>$data['answer_representation']</td>
-          </tr>
-          <tr>
+    <div class="row">
+      <div class="col-12 my-4" align="center">
+        <img src="https://media.giphy.com/media/ohdY5OaQmUmVW/giphy.gif"
+             class="img-fluid img-results" alt="Hangover math &#x1f60e">
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-12 my-2">
+        <div class="table-responsive table-results mx-auto">
+          <table class="table table-sm table-bordered text-center">
+            <tr>
+              <th class="table-active">Interval</th>
+            </tr>
+            <tr>
+              <td>{{ left_glyph }}{{ lower_bound }}, {{ upper_bound }}{{ right_glyph }}</td>
+            </tr>
+            <tr>
+              <th class="table-danger">Your answer</th>
+            </tr>
+            <tr>
+              <td>{{ user_answer }}</td>
+            </tr>
             <tr>
               <th class="table-success">Correct answer</th>
             </tr>
-          </tr>
-          <tr>
-            <td>$data['cpu_representation']</td>
-          </tr>
-        </table>
+            <tr>
+              <td>{{ cpu_answer }}</td>
+            </tr>
+          </table>
+        </div>
       </div>
     </div>
-  </div>
 
-  <div class="row">
-    <div class="col-12 col-sm-6 mt-2 mb-2 mb-sm-5">
-      <form action="/play" method="POST">
-        <button class="btn btn-answer-next btn-block btn-success" type="submit"
-                name="level" value="$data['game_level']">Next question</button>
-      </form>
+    <div class="row">
+      <div class="col-12 col-sm-6 mt-2 mb-2 mb-sm-5">
+        <form action="/play" method="POST">
+          <button class="btn btn-answer-next btn-block btn-success" type="submit"
+                  name="level" value="{{ data.game_level }}">Next question</button>
+        </form>
+      </div>
+      <div class="col-12 col-sm-6 mt-2 mb-5">
+        <a href="https://www.google.com/" class="btn btn-answer-quit btn-block btn-danger">
+          I'm done for today</a>
+      </div>
     </div>
-    <div class="col-12 col-sm-6 mt-2 mb-5">
-      <a href="https://www.google.com/"
-         class="btn btn-answer-quit btn-block btn-danger">I'm done for today</a>
-    </div>
-  </div>
 
-</div>
+  </div>
+{% endblock %}

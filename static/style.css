@@ -35,7 +35,7 @@ embed, img, object, video {
 }
 
 .contents__link:hover {
-  color: #ffc107;
+  color: #0056b3 !important;
   cursor: pointer;
 }
 
@@ -119,10 +119,6 @@ embed, img, object, video {
   width: 491px;
 }
 
-.interval-limit {
-  color: #28a745;
-}
-
 .label {
   padding: 1px 3px 2px;
   font-size: 9.75px;
@@ -140,10 +136,6 @@ embed, img, object, video {
 
 .legal__link--no-decoration:hover {
   text-decoration: none;
-}
-
-.person {
-  color: red;
 }
 
 .result-incorrect {
