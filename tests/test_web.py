@@ -276,7 +276,7 @@ class TestPlayPage(unittest.TestCase):
         response = self.client.post('/play', data=data)
         response_body = response.get_data(as_text=True)
         expected_items = (
-            'Hit it',
+            'Submit answer',
             "I'm feeling lucky",
             'How many integers are within this interval ?',
             'd-flex flex-column justify-content-center',
