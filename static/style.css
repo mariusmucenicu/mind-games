@@ -73,8 +73,6 @@ embed, img, object, video {
   color: #757575;
   background-color: #f8f8f8;
   border: 1px solid #c6c6c6;
-  height: 36px;
-  width: 126.719px;
 }
 
 .form-play__button--glass {
@@ -95,7 +93,6 @@ embed, img, object, video {
   max-width: 450px;
   outline: none;
   padding: 6px 44px 6px 12px;
-  padding-right: 44px;
 }
 
 .form-play__span--times {
