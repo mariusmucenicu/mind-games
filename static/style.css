@@ -60,19 +60,15 @@ embed, img, object, video {
   align-items: center;
 }
 
-.fa-search {
-  color: white;
-}
-
 .footer, .header {
   min-height: 60px;
   background-color: #fafbfc;
 }
 
 .form-play__button {
-  color: #757575;
-  background-color: #f8f8f8;
-  border: 1px solid #c6c6c6;
+  color: #5F6368;
+  background-color: #f2f2f2;
+  border: 1px solid #f2f2f2;
 }
 
 .form-play__button--glass {
@@ -273,12 +269,22 @@ embed, img, object, video {
     width: 230.5px;
   }
 
-  .form-play__span--times {
+  .form-play__button:hover:enabled {
+    box-shadow: 0 1px 1px rgba(0,0,0,0.1);
+    border: 1px solid #c6c6c6;
+    background-image: linear-gradient(to top, #f5f5f5, #f1f1f1);
+  }
+
+  .form-play__button--toggle:hover:disabled {
     color: #757575;
   }
 
   .form-play__input:focus, .form-play__input:hover {
     box-shadow: 0 3px 8px 0 rgba(0,0,0,0.2),0 0 0 1px rgba(0,0,0,0.08);
+  }
+
+  .form-play__span--times {
+    color: #757575;
   }
 }
 
