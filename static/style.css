@@ -254,7 +254,24 @@ embed, img, object, video {
 
 @media only screen and (min-width: 768px) {
   .contents__link {
-    margin-right: 0px;
+    margin-right: 0;
+  }
+
+  .drawer__link--animated-border::after {
+    content: "";
+    display: block;
+    border-bottom: 2px solid;
+    border-color: inherit;
+    transform: scaleX(0);
+    transition: transform 300ms ease;
+  }
+
+  .drawer__link--animated-border:hover::after {
+    transform: scaleX(1);
+  }
+
+  .drawer__link--no-decoration:hover {
+    text-decoration: none;
   }
 }
 
