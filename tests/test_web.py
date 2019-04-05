@@ -7,7 +7,6 @@ Classes:
     TestAboutPage: Test the requests going under /about
     TestCustomInternalErrorPage: Test the requests that the server failed to fulfil
     TestCustomNotFoundPage: Test the requests that are not mapped to any URL
-    TestFundingPage: Test the requests going under /funding
     TestGradePage: Test the requests going under /grade
     TestLadderPage: Test the requests going under /ladder
     TestLegalPage: Test the requests going under /legal
@@ -139,24 +138,6 @@ class TestCustomNotFoundPage(unittest.TestCase):
         )
         expected_items_in_body = check_membership(response_body, *expected_items)
         self.assertEqual(response.status_code, 404)
-        self.assertTrue(expected_items_in_body)
-
-
-class TestFundingPage(unittest.TestCase):
-
-    def setUp(self):
-        self.client = core.app.test_client()
-
-    def test_get_fundraising_page(self):
-        response = self.client.get('/funding')
-        response_body = response.get_data(as_text=True)
-        expected_items = (
-            'funding',
-            '/funding',
-            'coming_soon.jpg',
-        )
-        expected_items_in_body = check_membership(response_body, *expected_items)
-        self.assertEqual(response.status_code, 200)
         self.assertTrue(expected_items_in_body)
 
 

@@ -6,7 +6,6 @@ Functions:
     index: Get the homepage.
     internal_server_error: Get the custom internal server error page.
     about: Get the about page.
-    funding: Get the funding page (this page contains credits to donors or supporters of any kind).
     grade: Get the grade page (this page contains all the difficulty levels).
     ladder: Get the ladder page.
     legal: Get the legal page (this page comprises legal information e.g GDPR, terms of use, etc).
@@ -40,10 +39,6 @@ def index():
 
 def about():
     return flask.render_template('about.html')
-
-
-def funding():
-    return flask.render_template('funding.html')
 
 
 def grade():

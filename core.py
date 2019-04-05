@@ -30,7 +30,6 @@ app = flask.Flask(__name__)
 
 app.add_url_rule('/', 'index', views.index)
 app.add_url_rule('/about', 'about', views.about)
-app.add_url_rule('/funding', 'funding', views.funding)
 app.add_url_rule('/grade', 'grade', views.grade)
 app.add_url_rule('/ladder', 'ladder', views.ladder)
 app.add_url_rule('/legal', 'legal', views.legal)
