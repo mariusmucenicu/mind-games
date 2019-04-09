@@ -55,20 +55,28 @@ Encapsulates o series of interactive games with the purpose of increasing one's 
 In order to get the project started locally, you need to go through these simple steps:
 
 ### Step 1: Prerequisites
-+ Make sure you have any version of `Python 3.6.X, 3.7.X` installed.
-    + If you **haven't got** any of the supported `Python` versions (mentioned above), you can download one from [here](https://www.python.org/).
++ Make sure you have any version of **Python 3.6.X**, **3.7.X** installed.
+    + If you **haven't got** any of the supported **Python** versions (mentioned above), you can download one from [here](https://www.python.org/).
 + Clone or download this repository locally.
-+ (OPTIONAL) Create a `Python` virtual environment (to isolate the game's package dependencies) and **activate** it.
++ [OPTIONAL]: Create a **Python** virtual environment (to isolate the game's package dependencies) and **activate** it.
 
-### Step 2: Change directory into the projct root (everything you do will be done from here)
+### Step 2: Change directory into the project root (everything you do will be done from here)
 
-### Step 3: Install package dependencies
+### Step 3: Change project settings [OPTIONAL]
++ The project starts with a default configuration found in **knowlift/default_settings.py**
+     + NOTE: This should be sufficient to run the application & the tests.
++ To alter the default configuration:
+     + Make a copy of **knowlift/default_settings.py** and rename it to **knowlift/settings.py**
+     + Override any values in the new file (**knowlift/settings.py**) as necessary.
+     + Check **knowlift/default_settings.py**'s docstring for additional information.
+
+### Step 4: Install package dependencies
 ```pip install -r requirements.txt```
 
-### Step 4: Running the tests
+### Step 5: Running the tests
 ```python -m unittest discover``` (This command should show absolutely no errors)
 
-### Step 5: Running the game
+### Step 6: Running the game
 #### On Windows:
 + Command Prompt:
     + ```set FLASK_APP=core.py```
