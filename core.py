@@ -14,17 +14,12 @@ Miscellaneous objects:
 
 __author__ = 'Marius Mucenicu <marius_mucenicu@yahoo.com>'
 
-# Standard library
-import logging
-
 # Third-party
 import flask
 
 # Project specific
+from knowlift import db
 from knowlift import views
-
-logging.basicConfig(level=logging.INFO)
-logger = logging.getLogger(__name__)
 
 app = flask.Flask(__name__)
 
@@ -38,3 +33,8 @@ app.add_url_rule('/result', 'result', views.result, methods=['POST'])
 
 app.register_error_handler(404, views.page_not_found)
 app.register_error_handler(500, views.internal_server_error)
+
+app.teardown_appcontext(db.close_connection)
+
+app.config.from_object('knowlift.default_settings')
+app.config.from_pyfile('knowlift/settings.py', silent=True)
