@@ -1,5 +1,15 @@
 """
-Test bin.webapp functionality.
+Test web related functionality (views, templates, overall interaction, etc.)
+
+CONSTANTS:
+==========
+    HTTP_CLIENT: A Python class that acts as a dummy Web browser, allowing you to test your views.
+    TEST_APPLICATION: A Python class which implements a WSGI application and acts as a central obj.
+    TEST_CONFIG: The full path to the default configuration.
+
+Functions:
+==========
+    check_membership: Check if all the elements of a given array are found in a target string.
 
 Classes:
 ========
@@ -16,10 +26,17 @@ Classes:
 
 # Standard library
 import json
+import os
 import unittest
 
 # Project specific
-import core
+import knowlift
+
+from knowlift import default_settings
+
+TEST_CONFIG = os.path.join(default_settings.BASE_DIR, 'knowlift', 'default_settings.py')
+TEST_APPLICATION = knowlift.create_app(TEST_CONFIG)
+HTTP_CLIENT = TEST_APPLICATION.test_client()
 
 
 def check_membership(text, *strings):
@@ -30,12 +47,14 @@ def check_membership(text, *strings):
 
 
 class TestIndexPage(unittest.TestCase):
-
-    def setUp(self):
-        self.client = core.app.test_client()
+    """
+    Methods:
+    ========
+        test_get_index_page()
+    """
 
     def test_get_index_page(self):
-        response = self.client.get('/')
+        response = HTTP_CLIENT.get('/')
         response_body = response.get_data(as_text=True)
         expected_items = (
             'Welcome to the fascinating world of arithmetic',
@@ -67,12 +86,14 @@ class TestIndexPage(unittest.TestCase):
 
 
 class TestAboutPage(unittest.TestCase):
-
-    def setUp(self):
-        self.client = core.app.test_client()
+    """
+    Methods:
+    ========
+        test_get_about_page()
+    """
 
     def test_get_about_page(self):
-        response = self.client.get('/about')
+        response = HTTP_CLIENT.get('/about')
         response_body = response.get_data(as_text=True)
         expected_items = (
             'About',
@@ -85,9 +106,13 @@ class TestAboutPage(unittest.TestCase):
 
 
 class TestCustomInternalErrorPage(unittest.TestCase):
+    """
+    Methods:
+    ========
+        test_yield_custom_internal_error_page()
+    """
 
     def setUp(self):
-        self.client = core.app.test_client()
         self.payload = {
             'left_glyph': '[',
             'right_glyph': ')',
@@ -101,7 +126,7 @@ class TestCustomInternalErrorPage(unittest.TestCase):
 
     def test_yield_custom_internal_error_page(self):
         data = {'data': json.dumps(self.payload)}
-        response = self.client.post('/result', data=data)
+        response = HTTP_CLIENT.post('/result', data=data)
         response_body = response.get_data(as_text=True)
         expected_items = (
             'Oops! It looks like',
@@ -119,12 +144,14 @@ class TestCustomInternalErrorPage(unittest.TestCase):
 
 
 class TestCustomNotFoundPage(unittest.TestCase):
-
-    def setUp(self):
-        self.client = core.app.test_client()
+    """
+    Methods:
+    ========
+        test_get_custom_not_found_page()
+    """
 
     def test_get_custom_not_found_page(self):
-        response = self.client.get('/bogus')
+        response = HTTP_CLIENT.get('/bogus')
         response_body = response.get_data(as_text=True)
         expected_items = (
             'Oops! It looks like',
@@ -142,12 +169,14 @@ class TestCustomNotFoundPage(unittest.TestCase):
 
 
 class TestGradePage(unittest.TestCase):
-
-    def setUp(self):
-        self.client = core.app.test_client()
+    """
+    Methods:
+    ========
+        test_get_grade_page()
+    """
 
     def test_get_grade_page(self):
-        response = self.client.get('/grade')
+        response = HTTP_CLIENT.get('/grade')
         response_body = response.get_data(as_text=True)
         expected_items = (
             'Please choose one of the following difficulties',
@@ -168,12 +197,14 @@ class TestGradePage(unittest.TestCase):
 
 
 class TestLadderPage(unittest.TestCase):
-
-    def setUp(self):
-        self.client = core.app.test_client()
+    """
+    Methods:
+    ========
+        test_get_ladder_page()
+    """
 
     def test_get_ladder_page(self):
-        response = self.client.get('/ladder')
+        response = HTTP_CLIENT.get('/ladder')
         response_body = response.get_data(as_text=True)
         expected_items = (
             'Ladder',
@@ -186,12 +217,14 @@ class TestLadderPage(unittest.TestCase):
 
 
 class TestLegalPage(unittest.TestCase):
-
-    def setUp(self):
-        self.client = core.app.test_client()
+    """
+    Methods:
+    ========
+        test_get_legal_page()
+    """
 
     def test_get_legal_page(self):
-        response = self.client.get('/legal')
+        response = HTTP_CLIENT.get('/legal')
         response_body = response.get_data(as_text=True)
         expected_items = (
             'border-stretch',
@@ -225,18 +258,22 @@ class TestLegalPage(unittest.TestCase):
 
 
 class TestPlayPage(unittest.TestCase):
-
-    def setUp(self):
-        self.client = core.app.test_client()
+    """
+    Methods:
+    ========
+        test_get_not_allowed()
+        test_play_post_with_incorrect_values()
+        test_play_post_valid_data()
+    """
 
     def test_get_not_allowed(self):
-        response = self.client.get('/play')
+        response = HTTP_CLIENT.get('/play')
         self.assertEqual(response.status_code, 405)
 
     def test_play_post_with_incorrect_values(self):
         invalid_values = ('a', 12)
         for value in invalid_values:
-            response = self.client.post('/play', data={'level': value})
+            response = HTTP_CLIENT.post('/play', data={'level': value})
             response_body = response.get_data(as_text=True)
             expected_items = (
                 'Oops! It looks like',
@@ -254,7 +291,7 @@ class TestPlayPage(unittest.TestCase):
 
     def test_play_post_valid_data(self):
         data = {'level': 0}
-        response = self.client.post('/play', data=data)
+        response = HTTP_CLIENT.post('/play', data=data)
         response_body = response.get_data(as_text=True)
         expected_items = (
             'Submit answer',
@@ -282,9 +319,16 @@ class TestPlayPage(unittest.TestCase):
 
 
 class TestResultPage(unittest.TestCase):
+    """
+    Methods:
+    ========
+        test_post_result_correct_answer()
+        test_result_get_not_allowed()
+        test_post_result_incorrect_answer()
+        test_post_erroneous_data()
+    """
 
     def setUp(self):
-        self.client = core.app.test_client()
         self.post_data = {
             'left_glyph': '[',
             'right_glyph': ')',
@@ -298,7 +342,7 @@ class TestResultPage(unittest.TestCase):
 
     def test_post_result_correct_answer(self):
         data = {'data': json.dumps(self.post_data)}
-        response = self.client.post('/result', data=data)
+        response = HTTP_CLIENT.post('/result', data=data)
         response_body = response.get_data(as_text=True)
         expected_items = (
             'Correct!',
@@ -311,7 +355,7 @@ class TestResultPage(unittest.TestCase):
         self.assertTrue(expected_items_in_body)
 
     def test_result_get_not_allowed(self):
-        response = self.client.get('/result')
+        response = HTTP_CLIENT.get('/result')
         self.assertEqual(response.status_code, 405)
 
     def test_post_result_incorrect_answer(self):
@@ -323,7 +367,7 @@ class TestResultPage(unittest.TestCase):
         }
         self.post_data.update(incorrect_values)
         data = {'data': json.dumps(self.post_data)}
-        response = self.client.post('/result', data=data)
+        response = HTTP_CLIENT.post('/result', data=data)
         response_body = response.get_data(as_text=True)
         expected_items = (
             'Incorrect!',
@@ -350,7 +394,7 @@ class TestResultPage(unittest.TestCase):
         }
         self.post_data.update(erroneous_values)
         data = {'data': json.dumps(self.post_data)}
-        response = self.client.post('/result', data=data)
+        response = HTTP_CLIENT.post('/result', data=data)
         response_body = response.get_data(as_text=True)
         expected_items = (
             'Oops! It looks like',

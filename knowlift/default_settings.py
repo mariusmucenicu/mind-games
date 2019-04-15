@@ -10,18 +10,24 @@ CONSTANTS
 
 Notes
 =====
-    These settings need to be available when the application starts up.
-    The application loads the necessary configuration from 2 objects, as follows:
-        1. This module (which holds the default settings), and is added to the version control.
-        2. A module called settings.py (if it exists), which is not added to the version control.
+    TL;DR:
+    ------
+        * Make a copy of this file and rename it to settings.py in order to run the application.
 
-        The purpose of the settings.py is to hold environment specific settings, such as:
-            * production settings
-            * staging settings
-            * development settings
+    Long version:
+    -------------
+        * These settings are required to be available when the application starts up.
+        * The application loads the necessary configuration from a module called settings.py, which,
+            by default is not added to the version control system for security and customization
+            purposes.
 
-        The process of overriding any values found in this module, is a 2-step process, as follows:
-            1. A copy of this file should be made and renamed to settings.py
+            The purpose of the settings.py module is to hold environment specific settings, such as:
+                * production settings (these are the sensitive ones)
+                * staging settings
+                * development settings
+
+        In order to run the application or override any values found in this module, the drill is:
+            1. Make a copy of this file and rename it to settings.py
             2. Override the values as necessary (in settings.py)
 
 Miscellaneous objects:

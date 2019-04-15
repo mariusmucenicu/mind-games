@@ -62,16 +62,13 @@ In order to get the project started locally, you need to go through these simple
 
 ### Step 2: Change directory into the project root (everything you do will be done from here)
 
-### Step 3: Change project settings [OPTIONAL]
-+ The project starts with a default configuration found in **knowlift/default_settings.py**
-     + NOTE: This should be sufficient to run the application & the tests.
-+ To alter the default configuration:
-     + Make a copy of **knowlift/default_settings.py** and rename it to **knowlift/settings.py**
-     + Override any values in the new file (**knowlift/settings.py**) as necessary.
-     + Check **knowlift/default_settings.py**'s docstring for additional information.
-
-### Step 4: Install package dependencies
+### Step 3: Install package dependencies
 ```pip install -r requirements.txt```
+
+### Step 4: Configure project settings (this is required in order to run the application)
++ **TL;DR**
+     + Make a copy of **knowlift/default_settings.py** and rename it to **knowlift/settings.py**
++ For the long, detailed version check **knowlift/default_settings.py**'s docstring.
 
 ### Step 5: Running the tests
 ```python -m unittest discover``` (This command should show absolutely no errors)
@@ -79,17 +76,17 @@ In order to get the project started locally, you need to go through these simple
 ### Step 6: Running the game
 #### On Windows:
 + Command Prompt:
-    + ```set FLASK_APP=core.py```
+    + ```set FLASK_APP=wsgi.py```
     + ```set FLASK_ENV=development``` (this activates the debugger and automatic reloader)
     + ```flask run```
 
 + PowerShell:
-    + ```$env:FLASK_APP = "core.py"```
+    + ```$env:FLASK_APP = "wsgi.py"```
     + ```$env:FLASK_ENV = "development"``` (this activates the debugger and automatic reloader)
     + ```flask run```
 
 #### On Unix:
-+ ```export FLASK_APP=core.py```
++ ```export FLASK_APP=wsgi.py```
 + ```export FLASK_ENV=development``` (this activates the debugger and automatic reloader)
 + ```flask run```
 
@@ -99,9 +96,9 @@ Now open your favourite browser and punch in: http://localhost:5000/ or http://1
 This project adheres to [SemVer](http://semver.org/) for versioning.
 For the versions available, see the [tags on this repository](https://github.com/mariusmucenicu/knowlift/tags).
 
-- New major versions are exceptional and are planned very long in advance.
-- New minor versions are feature releases; they get released roughly every 3 months.
-- New patch versions are bug fix releases; they get released roughly every month.
+- New **major** versions are exceptional and are planned very long in advance.
+- New **minor** versions are feature releases; they get released roughly every 3 months.
+- New **patch** versions are bug fix releases; they get released roughly every month.
 
 ## Code of conduct
 This project adheres to the Contributor Covenant [code of conduct](https://github.com/mariusmucenicu/knowlift/blob/master/docs/CODE_OF_CONDUCT.md). By participating, you are expected to uphold this code.
