@@ -55,8 +55,8 @@ venv.bak/
 # ====================================================
 # Front-end files (allow only minified for frameworks)
 # ====================================================
-/static/bootstrap/**/bootstrap.*
-!/static/bootstrap/**/bootstrap.min.*
+knowlift/static/bootstrap/**/bootstrap.*
+!knowlift/static/bootstrap/**/bootstrap.min.*
 
 
 # ==============
