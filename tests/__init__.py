@@ -13,3 +13,9 @@ Miscellaneous objects:
         everything else is an implementation detail, and shouldn't be relied upon as it may change
         over time.
 """
+
+# Standard library
+import logging
+
+# TODO(Marius): Remove the level argument once you drop support for Python 3.6
+logging.disable(level=logging.CRITICAL)  # Keep the console clean during tests
