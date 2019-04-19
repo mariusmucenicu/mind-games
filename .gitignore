@@ -59,11 +59,12 @@ knowlift/static/bootstrap/**/bootstrap.*
 !knowlift/static/bootstrap/**/bootstrap.min.*
 
 
-# ==============
-# Installer logs
-# ==============
+# ====
+# Logs
+# ====
 pip-log.txt
 pip-delete-this-directory.txt
+*.log
 
 
 # ====================

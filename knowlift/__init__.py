@@ -26,6 +26,9 @@ Miscellaneous objects:
         over time.
 """
 
+# Standard Library
+from logging import config
+
 # Third-party
 import flask
 
@@ -57,6 +60,7 @@ def create_app(config_filename):
     app.register_error_handler(500, views.internal_server_error)
 
     app.teardown_appcontext(db.close_connection)
-
     app.config.from_pyfile(config_filename)
+
+    config.dictConfig(app.config['LOGGING_CONFIG'])
     return app

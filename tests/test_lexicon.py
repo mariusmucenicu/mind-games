@@ -197,7 +197,6 @@ class LexiconTest(unittest.TestCase):
             make_string(words, number): {make_string(words, number)}
             for number in range(32)
         }
-        print(valid_number_keys32)
         invalid_number_keys65 = {
             make_string(words, number): {make_string(words, number)}
             for number in range(65)
