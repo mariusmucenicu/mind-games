@@ -54,11 +54,14 @@ def legal():
 
 
 def page_not_found(e):
-    return flask.render_template('404.html'), e.code
+    e.description = f'The following URL: {flask.request.url} was not found on the server.'
+    logger.error(e)
+    return flask.render_template('404.html'), 404
 
 
 def internal_server_error(e):
-    return flask.render_template('500.html'), e.code
+    logger.error(e)
+    return flask.render_template('500.html'), 500
 
 
 def play():
@@ -70,11 +73,10 @@ def play():
     :rtype: str
     """
 
-    # TODO(Marius): raise the custom 500 instead of returning the template and log details about it.
     level = flask.request.form.get('level')
     data = number_distance.play(level)
     if not data:
-        return flask.render_template('500.html')
+        flask.abort(status=500, description=f'Unable to use: {level} as a game level.')
     else:
         return flask.render_template('play.html', data=data)
 
@@ -90,7 +92,6 @@ def result():
     :rtype: str
     """
 
-    # TODO(Marius): raise the custom 500 instead of returning the template and log details about it.
     raw_data = flask.request.form.get('data')
     if not raw_data:
         data = {}
@@ -99,7 +100,7 @@ def result():
 
     result_data = number_distance.generate_result(data)
     if not result_data:
-        return flask.render_template('500.html')
+        flask.abort(status=500, description=f'Unable to generate results from {raw_data}.')
     elif result_data['outcome']:
         return flask.render_template('result_correct.html', data=result_data)
     else:

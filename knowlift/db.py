@@ -40,7 +40,7 @@ def get_connection():
 def close_connection(exception):
     """Return the underlying DB API connection to the connection pool."""
     if exception:
-        logger.debug(exception)
+        logger.error(exception)
 
     db = getattr(flask.g, 'db', None)
     if db is not None:

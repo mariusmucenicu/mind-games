@@ -139,7 +139,7 @@ class TestCustomInternalErrorPage(unittest.TestCase):
             'dinosaur.jpg',
         )
         expected_items_in_body = check_membership(response_body, *expected_items)
-        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.status_code, 500)
         self.assertTrue(expected_items_in_body)
 
 
@@ -286,7 +286,7 @@ class TestPlayPage(unittest.TestCase):
                 'dinosaur.jpg',
             )
             expected_items_in_body = check_membership(response_body, *expected_items)
-            self.assertEqual(response.status_code, 200)
+            self.assertEqual(response.status_code, 500)
             self.assertTrue(expected_items_in_body)
 
     def test_play_post_valid_data(self):
@@ -407,5 +407,5 @@ class TestResultPage(unittest.TestCase):
             'dinosaur.jpg',
         )
         expected_items_in_body = check_membership(response_body, *expected_items)
-        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.status_code, 500)
         self.assertTrue(expected_items_in_body)
