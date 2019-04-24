@@ -123,7 +123,7 @@ def fetch_game_level(user_input):
     try:
         game_level = int(user_input.strip())
     except (AttributeError, ValueError) as ex:
-        logger.exception(ex)
+        logger.error(ex)
         return None
 
     if validate_game_levels(GAME_LEVELS) and 0 <= game_level < len(GAME_LEVELS):
@@ -300,7 +300,7 @@ def validate_form_data(form_data):
                 else:
                     int(form_data[number])
             except (TypeError, ValueError) as ex:
-                logger.exception(ex)
+                logger.error(ex)
                 return None
 
     lower_bound = internal_values[0]
