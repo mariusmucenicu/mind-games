@@ -84,7 +84,7 @@ LOGGING_CONFIG = {
     'version': 1,
     'formatters': {
         'default': {
-            'format': f'[%(asctime)s] %(levelname)s in %(module)s: %(message)s',
+            'format': f'[%(asctime)s] %(levelname)s in %(module)s, line %(lineno)d: %(message)s',
         }
     },
     'filters': {
