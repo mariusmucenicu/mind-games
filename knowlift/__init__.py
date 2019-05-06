@@ -16,8 +16,8 @@ Modules:
 Notes:
 ======
     This package is intended to bundle all of the core functionality of this application.
-    The default configuration stored in the default_settings module is intended for development
-        only and it's unsuitable for production. Check the module's docstring for more information.
+    The default configuration stored in default_settings.py is intended for development only and
+        it's unsuitable for production. Check the module's docstring for more information.
 
 Miscellaneous objects:
 ======================
