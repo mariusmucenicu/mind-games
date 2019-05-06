@@ -5,7 +5,6 @@ CONSTANTS:
 ==========
     HTTP_CLIENT: A Python class that acts as a dummy Web browser, allowing you to test your views.
     TEST_APPLICATION: A Python class which implements a WSGI application and acts as a central obj.
-    TEST_CONFIG: The full path to the default configuration.
 
 Functions:
 ==========
@@ -26,7 +25,6 @@ Classes:
 
 # Standard library
 import json
-import os
 import unittest
 
 # Project specific
@@ -34,8 +32,7 @@ import knowlift
 
 from knowlift import default_settings
 
-TEST_CONFIG = os.path.join(default_settings.BASE_DIR, 'knowlift', 'default_settings.py')
-TEST_APPLICATION = knowlift.create_app(TEST_CONFIG)
+TEST_APPLICATION = knowlift.create_app(default_settings.__file__)
 HTTP_CLIENT = TEST_APPLICATION.test_client()
 
 
