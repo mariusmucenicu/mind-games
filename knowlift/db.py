@@ -3,8 +3,10 @@ Store functionality that deals with the underlying database.
 
 Functions:
 ==========
-    get_connection: Get or create a single DB API connection.
     close_connection: Close the DB API connection.
+    get_connection: Get or create a single DB API connection.
+    init_db: Initialize the database.
+
 
 Miscellaneous objects:
 ======================
@@ -18,6 +20,9 @@ import logging
 
 # Third-party
 import flask
+
+# Project specific
+from knowlift import models
 
 logger = logging.getLogger(__name__)
 
@@ -47,3 +52,32 @@ def close_connection(exception):
         db.close()
     else:
         logger.debug('The database does not exist on the application context.')
+
+
+def init_db(engine):
+    """
+    Initialize the database.
+
+    Notes
+    =====
+    This procedure creates the tables associated to the metadata in knowlift.models.metadata. The
+        metadata (and hence the tables associated to it) are bound to an engine.
+
+    The engine should be thought of as something abstract (something that provides database
+        connectivity and behavior). Usually the engine is created via a URL (just a string, really)
+        that indicates a particular database dialect and connection argument. For instance, the
+        tests and production instantiate the engine via different URLs (as they use different dbs).
+
+    This procedure is safe to be called multiple times, as, by default, will not attept to recreate
+        tables already present in the target database.
+
+    :param engine: The home base for the actual database and its DBAPI.
+    :type engine: sqlalchemy.engine.base.Engine
+    """
+    models.metadata.create_all(bind=engine)
+    engine_metadata = (
+        f'Engine Name: "{engine.name}", '
+        f'Engine Driver: "{engine.driver}", '
+        f'Engine URL: "{engine.url}"'
+    )
+    logger.debug(f'{engine_metadata}')
