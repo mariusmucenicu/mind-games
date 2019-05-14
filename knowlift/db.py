@@ -20,6 +20,7 @@ import logging
 
 # Third-party
 import flask
+import sqlalchemy
 
 # Project specific
 from knowlift import models
@@ -54,30 +55,33 @@ def close_connection(exception):
         logger.debug('The database does not exist on the application context.')
 
 
-def init_db(engine):
+def init_db(app):
     """
     Initialize the database.
 
+    This procedure does the following:
+        - Creates all the tables bound to a metadata and their associated schema constructs.
+        - Creates the database engine & loads it in the flask config, where it's held globally for
+            the lifetime of the application.
+
     Notes
     =====
-    This procedure creates the tables associated to the metadata in knowlift.models.metadata. The
-        metadata (and hence the tables associated to it) are bound to an engine.
+        - models.metadata is a container object that keeps together many features of a database.
+        - The engine object created below is a mechanism that provides db connectivity and behavior.
 
-    The engine should be thought of as something abstract (something that provides database
-        connectivity and behavior). Usually the engine is created via a URL (just a string, really)
-        that indicates a particular database dialect and connection argument. For instance, the
-        tests and production instantiate the engine via different URLs (as they use different dbs).
+    This procedure is safe to be called multiple times, as, by default, will not attempt to recreate
+        tables that are already present in the target database. Rebooting the server during
+        development or production won't affect the database.
 
-    This procedure is safe to be called multiple times, as, by default, will not attept to recreate
-        tables already present in the target database.
-
-    :param engine: The home base for the actual database and its DBAPI.
-    :type engine: sqlalchemy.engine.base.Engine
+    :param app: A Flask application.
+    :type app: flask.app.Flask
     """
-    models.metadata.create_all(bind=engine)
-    engine_metadata = (
-        f'Engine Name: "{engine.name}", '
-        f'Engine Driver: "{engine.driver}", '
-        f'Engine URL: "{engine.url}"'
+    database_engine = sqlalchemy.create_engine(f"sqlite:///{app.config['DATABASE']}")
+    models.metadata.create_all(bind=database_engine)
+    logger.debug(
+        f'Engine name: {database_engine.name}, '
+        f'Engine driver: {database_engine.driver}, '
+        f'Database: {database_engine.url}, '
+        f'Database tables: {database_engine.table_names()}',
     )
-    logger.debug(f'{engine_metadata}')
+    app.config.from_mapping({'DATABASE_ENGINE': database_engine})
