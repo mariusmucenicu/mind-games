@@ -10,6 +10,7 @@ Modules:
     db: Handle database related functionality.
     default_settings: Store project level default settings (quick-start development settings).
     lexicon: Handle building sentences from a given lexicon.
+    models: Define entities (and their attributes) and relationships among entities.
     number_distance: Handle mathematical intervals scenarios.
     views: Handle HTTP requests.
 
@@ -47,6 +48,10 @@ def create_app(config_filename):
     :rtype: flask.app.Flask
     """
     app = flask.Flask(__name__)
+    app.config.from_pyfile(config_filename)
+
+    config.dictConfig(app.config['LOGGING_CONFIG'])
+    db.init_db(app.config['DATABASE_ENGINE'])
 
     app.add_url_rule('/', 'index', views.index)
     app.add_url_rule('/about', 'about', views.about)
@@ -60,7 +65,4 @@ def create_app(config_filename):
     app.register_error_handler(500, views.internal_server_error)
 
     app.teardown_appcontext(db.close_connection)
-    app.config.from_pyfile(config_filename)
-
-    config.dictConfig(app.config['LOGGING_CONFIG'])
     return app
