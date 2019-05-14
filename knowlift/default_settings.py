@@ -10,7 +10,6 @@ CONSTANTS
 =========
     BASE_DIR: Absolute path to the project root on the filesystem.
     DATABASE: Absolute path to the database on the filesystem.
-    DATABASE_ENGINE: A mechanism used to interact with the database.
     LOGGING_CONF: Initial configuration for the logging machinery.
     SECRET_KEY: A value used to create a signature string (used to sign Cookies).
 
@@ -34,7 +33,7 @@ Notes
 
         In order to run the application or override any values found in this module, the drill is:
             1. Make a copy of this file and rename it to settings.py
-            2. Override the values as necessary (in settings.py)
+            2. Override the values as necessary in the settings.py copy
 
 Miscellaneous objects:
 ======================
@@ -47,14 +46,11 @@ Miscellaneous objects:
 import logging
 import os
 
-# Third-party
-import sqlalchemy
-
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
+# The absolute pathname of the database file to be opened.
 DATABASE = os.path.join(BASE_DIR, 'default.db')
-DATABASE_ENGINE = sqlalchemy.create_engine(f'sqlite:///{DATABASE}')
 
 # SECURITY WARNING: Set the secret key to some random bytes. Keep this really secret in production!
 SECRET_KEY = '8bc5150c3f107d9ef1f4b7d1aec03a3721e374d1a992e3cce2d8e57f7338288f'

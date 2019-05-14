@@ -49,9 +49,9 @@ def create_app(config_filename):
     """
     app = flask.Flask(__name__)
     app.config.from_pyfile(config_filename)
-
     config.dictConfig(app.config['LOGGING_CONFIG'])
-    db.init_db(app.config['DATABASE_ENGINE'])
+
+    db.init_db(app)
 
     app.add_url_rule('/', 'index', views.index)
     app.add_url_rule('/about', 'about', views.about)
