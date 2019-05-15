@@ -4,7 +4,7 @@ Encapsulates o series of interactive games with the purpose of increasing one's 
 
 <table>
   <tr>
-    <th rowspan="3">State</th>
+    <th rowspan="2">State</th>
     <th>Branch</th>
     <th>Status</th>
   </tr>
@@ -13,13 +13,6 @@ Encapsulates o series of interactive games with the purpose of increasing one's 
     <td>
       <a href="https://travis-ci.com/mariusmucenicu/knowlift/branches">
         <img src="https://travis-ci.com/mariusmucenicu/knowlift.svg?branch=master"></a>
-    </td>
-  </tr>
-  <tr>
-    <td>Staging</td>
-    <td>
-      <a href="https://travis-ci.com/mariusmucenicu/knowlift/branches">
-        <img src="https://travis-ci.com/mariusmucenicu/knowlift.svg?branch=staging"></a>
     </td>
   </tr>
   <tr>
