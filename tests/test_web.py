@@ -4,7 +4,6 @@ Test web related functionality (views, templates, overall interaction, etc.)
 CONSTANTS:
 ==========
     HTTP_CLIENT: A Python class that acts as a dummy Web browser, allowing you to test your views.
-    TEST_APPLICATION: A Python class which implements a WSGI application and acts as a central obj.
 
 Functions:
 ==========
@@ -28,12 +27,9 @@ import json
 import unittest
 
 # Project specific
-import knowlift
+import tests
 
-from knowlift import default_settings
-
-TEST_APPLICATION = knowlift.create_app(default_settings.__file__)
-HTTP_CLIENT = TEST_APPLICATION.test_client()
+HTTP_CLIENT = tests.TEST_APPLICATION.test_client()
 
 
 def check_membership(text, *strings):

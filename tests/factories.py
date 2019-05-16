@@ -1,10 +1,15 @@
 """
 Implement model factories that will aid in respecting the DRY principle throughout tests.
 
+Global variables:
+================
+    logger: An object that exposes several methods that can be used to log messages at runtime.
+    infinite_sequence: An iterator that returns evenly spaced values starting with a number.
+
 Functions
 =========
-    country_factory: Create an instance of a country entity in the database.
-    user_factory: Create an instance of a user entity in the database.
+    create_country: Create an instance of a country entity in the database.
+    create_user: Create an instance of a user entity in the database.
 
 Miscellaneous objects:
 ======================
@@ -13,11 +18,23 @@ Miscellaneous objects:
         over time.
 """
 
+# Standard library
+import itertools
+import logging
+import os
+
+# Third party
+from sqlalchemy import exc
+
 # Project specific
 from knowlift import models
 
+logger = logging.getLogger(__name__)
 
-def user_factory(connection, **kwargs):
+infinite_sequence = itertools.count(start=1)
+
+
+def create_user(connection, **kwargs):
     """
     Create a user record in the database.
 
@@ -28,28 +45,35 @@ def user_factory(connection, **kwargs):
     :return: Proxy values for our newly created user.
     :rtype: sqlalchemy.engine.result.RowProxy
     """
-    country = country_factory(connection)
+    try:
+        country = create_country(connection, **kwargs)
+    except exc.IntegrityError as ex:
+        logger.debug(f'Duplicate entry for country "{ex.params[0]}". Fetching the existing one.')
+        select_country = models.country.select(models.country.c.name == ex.params[0])
+        country = connection.execute(select_country).fetchone()
+
+    current_user = next(infinite_sequence)
     user_values = {
-        'username': 'j&j',
-        'first_name': 'Jack',
-        'last_name': 'Jones',
-        'email': 'jack.jones@knowlift.com',
-        'password': 'storm_breaker',
-        'country_id': country['id'],
+        'username': f'JohnWick{current_user}',
+        'first_name': 'John',
+        'last_name': 'Wick',
+        'email': f'jw{current_user}@knowlift.com',
+        'password': os.urandom(16).hex(),
+        'country_id': country.id,
     }
-    user_values.update(**kwargs)
+    user_values.update(pair for pair in kwargs.items() if pair[0] in user_values)
 
     # insert
     insert_query = models.user.insert(values=user_values)
     connection.execute(insert_query)
 
     # select
-    select_query = models.user.select()
+    select_query = models.user.select(models.user.c.username == user_values['username'])
     result = connection.execute(select_query)
     return result.fetchone()
 
 
-def country_factory(connection, **kwargs):
+def create_country(connection, **kwargs):
     """
     Create a country record in the database.
 
@@ -65,13 +89,13 @@ def country_factory(connection, **kwargs):
         'alpha2_code': 'RO',
         'alpha3_code': 'ROU'
     }
-    country_values.update(**kwargs)
+    country_values.update(pair for pair in kwargs.items() if pair[0] in country_values)
 
     # insert
     insert_query = models.country.insert(values=country_values)
     connection.execute(insert_query)
 
     # select
-    select_query = models.country.select()
+    select_query = models.country.select(models.country.c.name == country_values['name'])
     result = connection.execute(select_query)
     return result.fetchone()
