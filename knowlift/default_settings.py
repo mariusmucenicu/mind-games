@@ -92,6 +92,10 @@ LOGGING_CONFIG = {
         },
     },
     'handlers': {
+        'default': {
+            'class': 'logging.StreamHandler',
+            'formatter': 'default',
+        },
         'console': {
             'class': 'logging.StreamHandler',
             'formatter': 'default',
@@ -110,6 +114,11 @@ LOGGING_CONFIG = {
         'knowlift': {
             'level': 'DEBUG',
             'handlers': ['console', 'file'],
+            'propagate': False,
         }
     },
+    'root': {
+        'level': 'DEBUG',
+        'handlers': ['default'],
+    }
 }
