@@ -49,7 +49,7 @@ def create_user(connection, **kwargs):
         country = create_country(connection, **kwargs)
     except exc.IntegrityError as ex:
         logger.debug(f'Duplicate entry for country "{ex.params[0]}". Fetching the existing one.')
-        select_country = models.country.select(models.country.c.name == ex.params[0])
+        select_country = models.country.select(models.country.c.english_short_name == ex.params[0])
         country = connection.execute(select_country).fetchone()
 
     current_user = next(infinite_sequence)
@@ -85,7 +85,7 @@ def create_country(connection, **kwargs):
     :rtype: sqlalchemy.engine.result.RowProxy
     """
     country_values = {
-        'name': 'Romania',
+        'english_short_name': 'Romania',
         'alpha2_code': 'RO',
         'alpha3_code': 'ROU'
     }
@@ -96,6 +96,7 @@ def create_country(connection, **kwargs):
     connection.execute(insert_query)
 
     # select
-    select_query = models.country.select(models.country.c.name == country_values['name'])
+    where_clause = models.country.c.english_short_name == country_values['english_short_name']
+    select_query = models.country.select(where_clause)
     result = connection.execute(select_query)
     return result.fetchone()
