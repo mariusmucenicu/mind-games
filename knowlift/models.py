@@ -48,7 +48,7 @@ country = sqlalchemy.Table(
     'country',
     metadata,
     sqlalchemy.Column('id', sqlalchemy.Integer, primary_key=True),
-    sqlalchemy.Column('name', sqlalchemy.String, unique=True),
-    sqlalchemy.Column('alpha2_code', sqlalchemy.String(length=2), unique=True),
-    sqlalchemy.Column('alpha3_code', sqlalchemy.String(length=3), unique=True),
+    sqlalchemy.Column('english_short_name', sqlalchemy.String, unique=True, nullable=False),
+    sqlalchemy.Column('alpha2_code', sqlalchemy.String(length=2), unique=True, nullable=False),
+    sqlalchemy.Column('alpha3_code', sqlalchemy.String(length=3), unique=True, nullable=False),
 )

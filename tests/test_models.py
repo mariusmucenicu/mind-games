@@ -44,11 +44,11 @@ class UserModelTests(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
         super().setUpClass()
-        engine = tests.TEST_APPLICATION.config['DATABASE_ENGINE']
-        cls.connection = engine.connect()
+        cls.engine = tests.TEST_APPLICATION.config['DATABASE_ENGINE']
 
     def setUp(self):
         super().setUp()
+        self.connection = self.engine.connect()
         self.user = factories.create_user(self.connection)
 
     def test_select_user(self):
@@ -90,14 +90,15 @@ class UserModelTests(unittest.TestCase):
             self.assertRaises(exc.IntegrityError, factories.create_user, self.connection, **payload)
 
     def test_create_user_in_different_country(self):
-        payload = {'name': 'Australia', 'alpha2_code': 'AU', 'alpha3_code': 'AUS'}
-        country_select = models.country.select(models.country.c.name == payload['name'])
+        payload = {'english_short_name': 'Australia', 'alpha2_code': 'AU', 'alpha3_code': 'AUS'}
+        where_clause = models.country.c.english_short_name == payload['english_short_name']
+        country_select = models.country.select(where_clause)
         self.assertIsNone(self.connection.execute(country_select).first())
 
         user = factories.create_user(self.connection, **payload)
         select_columns = [
             models.user.c.username,
-            models.country.c.name,
+            models.country.c.english_short_name,
             models.country.c.alpha2_code,
             models.country.c.alpha3_code,
         ]
@@ -123,11 +124,8 @@ class UserModelTests(unittest.TestCase):
         delete_query = models.user.delete()
         delete_result = self.connection.execute(delete_query)
         self.assertEqual(count_result.count_1, delete_result.rowcount)
+        self.connection.close()
         super().tearDown()
-
-    @classmethod
-    def tearDownClass(cls):
-        cls.connection.close()
 
 
 class CountryModelTests(unittest.TestCase):
@@ -138,17 +136,18 @@ class CountryModelTests(unittest.TestCase):
         test_update_country()
         test_create_duplicate_values_for_unique_fields_forbidden()
         test_update_duplicate_values_for_unique_fields_forbidden()
+        test_create_when_required_fields_are_missing()
         test_methods_in_docstring()
     """
 
     @classmethod
     def setUpClass(cls):
         super().setUpClass()
-        engine = tests.TEST_APPLICATION.config['DATABASE_ENGINE']
-        cls.connection = engine.connect()
+        cls.engine = tests.TEST_APPLICATION.config['DATABASE_ENGINE']
 
     def setUp(self):
         super().setUp()
+        self.connection = self.engine.connect()
         self.country = factories.create_country(self.connection)
 
     def test_select_country(self):
@@ -158,7 +157,9 @@ class CountryModelTests(unittest.TestCase):
 
     def test_create_duplicate_values_for_unique_fields_forbidden(self):
         test_fields = {
-            'name': 'United States of America', 'alpha2_code': 'US', 'alpha3_code': 'USA'
+            'english_short_name': 'United States of America',
+            'alpha2_code': 'US',
+            'alpha3_code': 'USA',
         }
         # When we're popping a value, we're using the default value from the factory for that value
         for key, value in test_fields.items():
@@ -170,18 +171,24 @@ class CountryModelTests(unittest.TestCase):
 
     def test_update_country(self):
         update_values = {
-            'name': 'United States of America', 'alpha2_code': 'US', 'alpha3_code': 'USA'
+            'english_short_name': 'United States of America',
+            'alpha2_code': 'US',
+            'alpha3_code': 'USA',
         }
         update_query = models.country.update(models.country.c.id == self.country.id, update_values)
         update_result = self.connection.execute(update_query)
-        select_query = models.country.select(models.country.c.name == update_values['name'])
+        select_query = models.country.select(
+            models.country.c.english_short_name == update_values['english_short_name']
+        )
         select_result = self.connection.execute(select_query).first()
         self.assertEqual(update_result.rowcount, 1)
         self.assertIsNotNone(select_result)
 
     def test_update_duplicate_values_for_unique_fields_forbidden(self):
         new_country_values = {
-            'name': 'United States of America', 'alpha2_code': 'US', 'alpha3_code': 'USA'
+            'english_short_name': 'United States of America',
+            'alpha2_code': 'US',
+            'alpha3_code': 'USA',
         }
         country = factories.create_country(self.connection, **new_country_values)
         for field in self.country.keys():
@@ -190,6 +197,14 @@ class CountryModelTests(unittest.TestCase):
                 models.country.c.id == country.id, payload
             )
             self.assertRaises(exc.IntegrityError, self.connection.execute, update_duplicate_query)
+
+    def test_create_when_required_fields_are_missing(self):
+        non_nullable_fields = ('english_short_name', 'alpha2_code', 'alpha3_code')
+        for non_nullable_field in non_nullable_fields:
+            payload = {non_nullable_field: None}
+            self.assertRaises(
+                exc.IntegrityError, factories.create_country, self.connection, **payload
+            )
 
     def test_methods_in_docstring(self):
         methods_to_check = [
@@ -205,8 +220,5 @@ class CountryModelTests(unittest.TestCase):
         delete_query = models.country.delete()
         delete_result = self.connection.execute(delete_query)
         self.assertEqual(count_result.count_1, delete_result.rowcount)
+        self.connection.close()
         super().tearDown()
-
-    @classmethod
-    def tearDownClass(cls):
-        cls.connection.close()
