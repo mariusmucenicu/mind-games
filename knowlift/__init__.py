@@ -1,5 +1,5 @@
 """
-Store logic and configuration for the entire project.
+Bundle core modules that, via their logic and/or configuration make this application possible.
 
 Functions:
 ==========
@@ -7,18 +7,15 @@ Functions:
 
 Modules:
 ========
-    db: Handle database related functionality.
-    default_settings: Store project level default settings (quick-start development settings).
-    lexicon: Handle building sentences from a given lexicon.
-    models: Define entities (and their attributes) and relationships among entities.
-    number_distance: Handle mathematical intervals scenarios.
+    db: Store logic that enables database interaction.
+    lexicon: Implement a mechanism for building sentences from a given lexicon.
+    models: Define entities (tables/relations) and relationships among them.
+    number_distance: Build mathematical intervals based on upper and lower bounds.
     views: Handle HTTP requests.
 
 Notes:
 ======
     This package is intended to bundle all of the core functionality of this application.
-    The default configuration stored in default_settings.py is intended for development only and
-        it's unsuitable for production. Check the module's docstring for more information.
 
 Miscellaneous objects:
 ======================
@@ -38,17 +35,25 @@ from knowlift import db
 from knowlift import views
 
 
-def create_app(config_filename):
+def create_app(testing=None):
     """
-    Configure, register, setup and return a Flask application.
+    Configure, register and return a Flask application.
 
-    :param config_filename: A file which holds the configuration needed when the app starts up.
-    :type config_filename: str
+    :param testing: An indication whether the application is initialised from within tests.
+    :type testing: bool
     :return: A flask object which implements a WSGI application and acts as the central object.
     :rtype: flask.app.Flask
     """
-    app = flask.Flask(__name__)
-    app.config.from_pyfile(config_filename)
+    app = flask.Flask(__name__, instance_relative_config=True)
+
+    if testing is None:
+        environment = f'{app.env.capitalize()}Config'
+    else:
+        environment = f'TestConfig'
+
+    app.config.from_object(f'default_settings.{environment}')
+    app.config.from_pyfile('settings.py', silent=True)
+
     config.dictConfig(app.config['LOGGING_CONFIG'])
 
     db.init_db(app)

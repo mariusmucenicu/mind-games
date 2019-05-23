@@ -83,7 +83,7 @@ pip-delete-this-directory.txt
 # Project specific configuration
 # ==============================
 .idea
-settings.py
+instance/
 
 
 # =====

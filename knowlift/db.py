@@ -1,5 +1,5 @@
 """
-Store functionality that deals with the underlying database.
+Store logic that facilitates interaction with the underlying database.
 
 Functions:
 ==========
@@ -32,7 +32,7 @@ def get_connection():
     """
     Get or create a single DB API connection checked out from the connection pool.
 
-    :return: A new Connection object.
+    :return: A new DB API Connection object.
     :rtype: sqlalchemy.engine.base.Connection
     """
     if 'db' not in flask.g:
@@ -78,10 +78,10 @@ def init_db(app):
     """
     database_engine = sqlalchemy.create_engine(f"sqlite:///{app.config['DATABASE']}")
     models.metadata.create_all(bind=database_engine)
+    app.config['DATABASE_ENGINE'] = database_engine
     logger.debug(
         f'Engine name: {database_engine.name}, '
         f'Engine driver: {database_engine.driver}, '
         f'Database: {database_engine.url}, '
         f'Database tables: {database_engine.table_names()}',
     )
-    app.config.from_mapping({'DATABASE_ENGINE': database_engine})
