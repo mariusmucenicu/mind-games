@@ -1,5 +1,5 @@
 """
-Handle incoming requests.
+Handle incoming HTTP requests.
 
 Functions:
 ==========
@@ -12,6 +12,10 @@ Functions:
     page_not_found: Get the custom not found page.
     play: Return a mathematical interval based on a particular difficulty level.
     result: Return a result based on the user's input.
+
+Global variables
+================
+    logger: An object that exposes several methods that can be used to log messages at runtime.
 
 Miscellaneous objects:
 ======================
