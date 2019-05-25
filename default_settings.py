@@ -144,7 +144,7 @@ class ProductionConfig(Config):
 
     DEBUG = False
     TESTING = False
-    DATABASE = os.path.join(Config.BASE_DIR, 'production.db')
+    DATABASE = os.environ.get('FLASK_DATABASE', os.path.join(Config.BASE_DIR, 'production.db'))
     SECRET_KEY = os.environ.get('FLASK_SECRET_KEY', Config.SECRET_KEY)
     LOGGING_CONFIG = {
         'version': 1,
@@ -213,7 +213,7 @@ class DevelopmentConfig(Config):
 
     DEBUG = True
     TESTING = False
-    DATABASE = os.path.join(Config.BASE_DIR, 'development.db')
+    DATABASE = os.environ.get('FLASK_DATABASE', os.path.join(Config.BASE_DIR, 'development.db'))
     SECRET_KEY = os.environ.get('FLASK_SECRET_KEY', Config.SECRET_KEY)
     LOGGING_CONFIG = {
         'version': 1,
@@ -262,7 +262,6 @@ class TestConfig(Config):
     DEBUG = False
     TESTING = True
     DATABASE = os.path.join(Config.BASE_DIR, 'test.db')
-    SECRET_KEY = os.environ.get('FLASK_SECRET_KEY', Config.SECRET_KEY)
     LOGGING_CONFIG = {
         'version': 1,
         'formatters': {
