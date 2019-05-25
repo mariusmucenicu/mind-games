@@ -58,15 +58,10 @@ In order to get the project started locally, you need to go through these simple
 ### Step 3: Install package dependencies
 ```pip install -r requirements.txt```
 
-### Step 4: Configure project settings (this is required in order to run the application)
-+ **TL;DR**
-     + Make a copy of **knowlift/default_settings.py** and rename it to **knowlift/settings.py**
-+ For the long, detailed version check **knowlift/default_settings.py**'s docstring.
-
-### Step 5: Running the tests
+### Step 4: Running the tests
 ```python -m unittest discover``` (This command should show absolutely no errors)
 
-### Step 6: Running the game
+### Step 5: Running the game
 #### On Windows:
 + Command Prompt:
     + ```set FLASK_APP=wsgi.py```
