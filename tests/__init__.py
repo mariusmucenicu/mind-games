@@ -33,4 +33,5 @@ try:
 except FileNotFoundError as ex:
     logging.error(f'Failed to delete the database. {ex}')
 finally:
-    TEST_APPLICATION = knowlift.create_app(testing=True)
+    os.environ['FLASK_ENV'] = 'test'
+    TEST_APPLICATION = knowlift.create_app()
