@@ -293,7 +293,7 @@ class TestConfig(Config):
             },
         },
         'root': {
-            'level': 'DEBUG',
+            'level': 'WARNING',
             'handlers': ['default'],
         },
     }
