@@ -17,10 +17,10 @@ Notes
     * There is a different configuration available for each main environment (prod, dev, test):
     * The environments above are used to indicate to Flask what context the app is running in.
     * To switch between environments (configurations) set the FLASK_ENV environment variable to any
-        of the configuration's prefixes: 'production', 'development' or 'test'. The last value is
-        set automatically during test mode so it shouldn't be set explicitly via the environment
-        variable, unless, for some reason, one wants to run the application on purpose with the
-        TestConfig.
+        of the configuration's prefixes: 'production', 'development' or 'test'. FLASK_ENV is set
+        automatically to 'test' from within Python during test mode, regardless of what its value is
+        at the OS level. One shouldn't set FLASK_ENV to 'test' at the OS level, unless, for some
+        reason, one wants to run the application on purpose with the TestConfig.
     * If FLASK_ENV is not set, the default configuration used will be the ProductionConfig.
     * Do not alter settings in the application at runtime. For example, don't do things like:
         flask.current_app.config['DEBUG'] = True
