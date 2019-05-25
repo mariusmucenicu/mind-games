@@ -35,23 +35,17 @@ from knowlift import db
 from knowlift import views
 
 
-def create_app(testing=None):
+def create_app():
     """
     Configure, register and return a Flask application.
 
-    :param testing: An indication whether the application is initialised from within tests.
-    :type testing: bool
     :return: A flask object which implements a WSGI application and acts as the central object.
     :rtype: flask.app.Flask
     """
     app = flask.Flask(__name__, instance_relative_config=True)
 
-    if testing is None:
-        environment = f'{app.env.capitalize()}Config'
-    else:
-        environment = f'TestConfig'
-
-    app.config.from_object(f'default_settings.{environment}')
+    flask_environment = f'{app.env.capitalize()}Config'
+    app.config.from_object(f'default_settings.{flask_environment}')
     app.config.from_pyfile('settings.py', silent=True)
 
     config.dictConfig(app.config['LOGGING_CONFIG'])
