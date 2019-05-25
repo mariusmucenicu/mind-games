@@ -83,5 +83,5 @@ def init_db(app):
         f'Engine name: {database_engine.name}, '
         f'Engine driver: {database_engine.driver}, '
         f'Database: {database_engine.url}, '
-        f'Database tables: {database_engine.table_names()}',
+        f'Current database tables: {database_engine.table_names()}',
     )
