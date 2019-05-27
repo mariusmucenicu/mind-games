@@ -137,6 +137,7 @@ class CountryModelTests(unittest.TestCase):
         test_create_duplicate_values_for_unique_fields_forbidden()
         test_update_duplicate_values_for_unique_fields_forbidden()
         test_create_when_required_fields_are_missing()
+        test_create_record_max_length_exceeded()
         test_methods_in_docstring()
     """
 
@@ -205,6 +206,12 @@ class CountryModelTests(unittest.TestCase):
             self.assertRaises(
                 exc.IntegrityError, factories.create_country, self.connection, **payload
             )
+
+    def test_create_record_max_length_exceeded(self):
+        alpha2 = {'english_short_name': 'Germany', 'alpha2_code': 'ALPHA', 'alpha3_code': 'DEU'}
+        alpha3 = {'english_short_name': 'Germany', 'alpha2_code': 'DE', 'alpha3_code': 'OMEGA'}
+        self.assertRaises(exc.IntegrityError, factories.create_country, self.connection, **alpha2)
+        self.assertRaises(exc.IntegrityError, factories.create_country, self.connection, **alpha3)
 
     def test_methods_in_docstring(self):
         methods_to_check = [
