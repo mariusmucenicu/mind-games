@@ -4,8 +4,8 @@ function generateRandomNumber(upperBound, leftGlyph='(', rightGlyph=']', lowerBo
    * for the closed interval, i.e [2, 2] will yield either 0 or 1 (which is intended)
    * and the probability for the rest of the cases is 1/(upperBound + 1)
    */
-  var openInterval = leftGlyph == '(' && rightGlyph == ')';
-  var closedInterval = leftGlyph == '[' && rightGlyph == ']';
+  let openInterval = leftGlyph === '(' && rightGlyph === ')';
+  let closedInterval = leftGlyph === '[' && rightGlyph === ']';
 
   if (openInterval) {
     upperBound = upperBound - 1;
@@ -13,26 +13,25 @@ function generateRandomNumber(upperBound, leftGlyph='(', rightGlyph=']', lowerBo
     upperBound = upperBound + 1;
   }
 
-  var minimum = Math.ceil(lowerBound);
-  var maximum = Math.floor(upperBound);
+  let minimum = Math.ceil(lowerBound);
+  let maximum = Math.floor(upperBound);
   return Math.floor(Math.random() * (maximum - minimum + 1)) + minimum;
 }
 
 
 function processFormData(btn) {
-  var playForm = document.getElementById('play-form');
-  var metaData = playForm.elements.metadata.value;
-  var sendData = playForm.elements['play-form__input'];
+  let playForm = document.getElementById('play-form');
+  let metaData = playForm.elements.metadata.value;
+  let sendData = playForm.elements['play-form__input'];
 
   playForm.style.visibility = 'hidden';
   metaData = JSON.parse(metaData.replace(/'/g, '"'));
 
   if (btn.name === 'roulette') {
-    var leftGlyph = metaData.left_glyph;
-    var rightGlyph = metaData.right_glyph;
-    var upperBound = metaData.stop_internal - metaData.start_internal;
-    var randomNumber = generateRandomNumber(upperBound, leftGlyph, rightGlyph);
-    metaData.answer = randomNumber;
+    let leftGlyph = metaData['left_glyph'];
+    let rightGlyph = metaData['right_glyph'];
+    let upperBound = metaData['stop_internal'] - metaData['start_internal'];
+    metaData.answer = generateRandomNumber(upperBound, leftGlyph, rightGlyph);
   } else {
     metaData.answer = Number(sendData.value);
   }
@@ -43,15 +42,15 @@ function processFormData(btn) {
 
 
 function toggleBulkDisabled(items, state) {
-  for (i = 0; i < items.length; i++) {
+  for (let i = 0; i < items.length; i++) {
     items[i].disabled = state;
   }
 }
 
 
 function checkEmptyInput(formInput) {
-  var playFormButtons = document.querySelectorAll('.form-play__button--toggle');
-  var timesGlyph = document.querySelector('.form-play__span--times');
+  let playFormButtons = document.querySelectorAll('.form-play__button--toggle');
+  let timesGlyph = document.querySelector('.form-play__span--times');
 
   if (formInput.value) {
     timesGlyph.style.display = 'block';
@@ -66,9 +65,9 @@ function checkEmptyInput(formInput) {
 
 
 function clearFormField(clearSearchElement) {
-  var playFormButtons = document.querySelectorAll('.form-play__button--toggle');
-  var playForm = document.getElementById('play-form');
-  var playFormInput = playForm.elements['play-form__input'];
+  let playFormButtons = document.querySelectorAll('.form-play__button--toggle');
+  let playForm = document.getElementById('play-form');
+  let playFormInput = playForm.elements['play-form__input'];
 
   if (playFormInput.value) {
     playFormInput.value = '';
@@ -80,14 +79,13 @@ function clearFormField(clearSearchElement) {
 
 
 function fetchGameLevel(btn) {
-  var gameLevel = generateRandomNumber(3);
-  btn.value = gameLevel;
+  btn.value = generateRandomNumber(3);
 }
 
 
 function fetchNavItems() {
-  var drawerBackdrop = document.querySelector('#drawer-backdrop');
-  var drawer = document.querySelector('.drawer');
+  let drawerBackdrop = document.querySelector('#drawer-backdrop');
+  let drawer = document.querySelector('.drawer');
   return [drawer, drawerBackdrop];
 }
 
