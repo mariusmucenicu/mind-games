@@ -97,6 +97,15 @@ class Config:
     # SECURITY WARNING: Set this to some random bytes. Keep this value secret in production!
     SECRET_KEY = '261c501ff27fc199718be6a7c8d2115d349c4ef7b26ab11222d95019112a7868'
 
+    # A unique identifier that is used in API calls to differentiate a Facebook app from others.
+    FACEBOOK_APP_ID = None
+
+    # A unique identifier that authenticates requests made by an application to Facebook servers.
+    # It is extremely important that the App Secret is not compromised. This should never be
+    # included in any code that could be accessed by anyone other than a developer of the app such
+    # as client-side code (such as HTML or JavaScript).
+    FACEBOOK_APP_SECRET = None
+
     # Initial configuration for the logging machinery.
     LOGGING_CONFIG = {
         'version': 1,
@@ -144,8 +153,10 @@ class ProductionConfig(Config):
 
     DEBUG = False
     TESTING = False
-    DATABASE = os.environ.get('FLASK_DATABASE')  # this can also be overridden via settings.py
-    SECRET_KEY = os.environ.get('FLASK_SECRET_KEY')  # this can also be overridden via settings.py
+    DATABASE = os.environ.get('FLASK_DATABASE')
+    SECRET_KEY = os.environ.get('FLASK_SECRET_KEY')
+    FACEBOOK_APP_ID = os.environ.get('FACEBOOK_APP_ID')
+    FACEBOOK_APP_SECRET = os.environ.get('FACEBOOK_APP_SECRET')
     LOGGING_CONFIG = {
         'version': 1,
         'formatters': {

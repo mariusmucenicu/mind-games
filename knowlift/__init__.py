@@ -59,6 +59,7 @@ def create_app():
     app.add_url_rule('/legal', 'legal', views.legal)
     app.add_url_rule('/play', 'play', views.play, methods=['POST'])
     app.add_url_rule('/result', 'result', views.result, methods=['POST'])
+    app.add_url_rule('/api/login', 'login', views.login, methods=['POST'])
 
     app.register_error_handler(404, views.page_not_found)
     app.register_error_handler(500, views.internal_server_error)

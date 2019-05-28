@@ -37,6 +37,14 @@ from knowlift import number_distance
 logger = logging.getLogger(__name__)
 
 
+def login():
+    """function docstring here"""
+    print(flask.request.json)
+    print(flask.request.form)
+    print(flask.request.data)
+    return "hello world"
+
+
 def index():
     return flask.render_template('index.html')
 
