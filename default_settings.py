@@ -95,7 +95,7 @@ class Config:
 
     # The secret key is used to provide cryptographic signing (e.g used to sign Cookies).
     # SECURITY WARNING: Set this to some random bytes. Keep this value secret in production!
-    SECRET_KEY = os.urandom(32).hex()
+    SECRET_KEY = '261c501ff27fc199718be6a7c8d2115d349c4ef7b26ab11222d95019112a7868'
 
     # Initial configuration for the logging machinery.
     LOGGING_CONFIG = {
