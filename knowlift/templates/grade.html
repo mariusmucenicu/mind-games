@@ -2,6 +2,11 @@
 
 {% block title %}Grade | Knowlift{% endblock %}
 
+{% block scripts %}
+  {{ super() }}
+  <script defer src="/static/js/grade.js"></script>
+{% endblock %}
+
 {% block content %}
   <div class="col-12 my-4 pt-2 d-flex flex-column justify-content-center">
 
@@ -87,20 +92,19 @@
               </div>
 
             </div>
+            <div class="row">
+              <div class="col-12 col-md-6 mt-4 mb-2">
+                <button type="submit" id="js-btn-choice"
+                        class="btn btn-success btn-lg btn-block" disabled>Use selected</button>
+              </div>
+              <div class="col-12 col-md-6 mt-2 mt-md-4 mb-5 mb-md-2">
+                <button type="submit" id="js-btn-random"
+                        class="btn btn-warning btn-lg btn-block">Just pick one for me</button>
+              </div>
+            </div>
           </fieldset>
         </form>
 
-      </div>
-    </div>
-
-    <div class="row">
-      <div class="col-12 col-md-6 mt-2 mb-2">
-        <button form="levels" type="submit" class="btn btn-success btn-lg btn-block">
-          Use selected</button>
-      </div>
-      <div class="col-12 col-md-6 mt-2 mb-5 mb-md-2">
-        <button form="levels" type="submit" name="level" class="btn btn-warning btn-lg btn-block"
-                onclick=fetchGameLevel(this)>Just pick one for me</button>
       </div>
     </div>
 

@@ -78,11 +78,6 @@ function clearFormField(clearSearchElement) {
 }
 
 
-function fetchGameLevel(btn) {
-  btn.value = generateRandomNumber(3);
-}
-
-
 function fetchNavItems() {
   let drawerBackdrop = document.querySelector('#drawer-backdrop');
   let drawer = document.querySelector('.drawer');
