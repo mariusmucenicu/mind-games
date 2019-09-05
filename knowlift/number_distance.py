@@ -111,18 +111,19 @@ def change_game_level(avg_correct, avg_incorrect, game_level):
 
 def fetch_game_level(user_input):
     """
-    Fetch a particular game level based on a given input.
+    Fetch a game level based on its index.
 
-    Args:
-        :param user_input (str): A cardinal number used to extract a game level from a tuple.
+    The index represents the user's choice in terms of difficulty, which is a number, which maps to
+    a position at which a certain mathematical interval is located in a collection (ranging 0-11).
 
-    Returns:
-        A tuple of length 2 of the form:
-            (lower_bound, upper_bound)
+    :param user_input: A cardinal number by which we extract a game level from a collection.
+    :type user_input: str
+    :return: The limits of interval associated to a game level.
+    :rtype: tuple
     """
     try:
-        game_level = int(user_input.strip())
-    except (AttributeError, ValueError) as ex:
+        game_level = int(user_input)
+    except ValueError as ex:
         logger.error(ex)
         return None
 
@@ -204,13 +205,12 @@ def generate_result(data):
 
 def play(user_input):
     """
-    Start the game.
+    Fetch a game level and generate a mathematical interval out of it.
 
-    Args:
-        :param user_input (str): A value corresponding to a game level.
-
-    Returns:
-        See generate_interval's function for the return value.
+    :param user_input: A value corresponding to an index by which we fetch a game level.
+    :type user_input: str
+    :return: A collection of metadata regarding a mathematical interval.
+    :rtype: dict
     """
     game_level = fetch_game_level(user_input)
     return generate_interval(game_level)
