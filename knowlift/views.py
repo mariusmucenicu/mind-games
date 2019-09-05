@@ -76,7 +76,6 @@ def play():
     :return: A template containing either the interval in the form of a question or a custom error.
     :rtype: str
     """
-
     level = flask.request.form.get('level')
     data = number_distance.play(level)
     if not data:
@@ -95,7 +94,6 @@ def result():
     :return: A template containing either the appropriate result_data page or a custom error.
     :rtype: str
     """
-
     raw_data = flask.request.form.get('data')
     if not raw_data:
         data = {}
