@@ -76,7 +76,12 @@ def init_db(app):
     :param app: A Flask application.
     :type app: flask.app.Flask
     """
-    assert app.config['DATABASE'], 'in-memory databases should only be used in interactive mode'
+    assertion_error = (
+        'The database was either not set or explicitly sent as an empty string in order to create'
+        ' an in-memory database.\nNote that in-memory databases should only be used in interactive'
+        ' mode (via CLI) and not with this application.'
+    )
+    assert app.config['DATABASE'], assertion_error
     database_engine = sqlalchemy.create_engine(f"sqlite:///{app.config['DATABASE']}")
     models.metadata.create_all(bind=database_engine)
     app.config['DATABASE_ENGINE'] = database_engine
