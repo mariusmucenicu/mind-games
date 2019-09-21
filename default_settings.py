@@ -14,7 +14,7 @@ Notes
 =====
     * These settings are required to be available when the application starts up.
     * Many of these settings are sensitive and should be treated as confidential.
-    * There is a different configuration available for each main environment (prod, dev, test):
+    * There is a different configuration available for each main environment (prod, dev, test).
     * The environments above are used to indicate to Flask what context the app is running in.
     * To switch between environments (configurations) set the FLASK_ENV environment variable to any
         of the configuration's prefixes: 'production', 'development' or 'test'. FLASK_ENV is set
@@ -60,7 +60,7 @@ class ConsoleFilter:
     """Allow only LogRecords whose severity levels are either DEBUG, INFO or WARNING."""
 
     def __call__(self, log):
-        if log.levelno in (logging.DEBUG, logging.INFO, logging.WARNING):
+        if log.levelno <= logging.WARNING:
             return 1
         else:
             return 0
@@ -70,7 +70,7 @@ class FileFilter:
     """Allow only LogRecords whose severity levels are either ERROR or CRITICAL."""
 
     def __call__(self, log):
-        if log.levelno in (logging.ERROR, logging.CRITICAL):
+        if log.levelno > logging.WARNING:
             return 1
         else:
             return 0
@@ -111,21 +111,21 @@ class Config:
                 'formatter': 'default',
             },
         },
+        # We need to set the loggers explicitly otherwise they will wind up disabled on config load.
+        # This is on purpose because this will disable all the potential 3rd party loggers that this
+        # application might indirectly use (now or in the future), and save us from a ton of spam
+        # from those. As such, the most important loggers will be added below, with their levels
+        # explicitly set as well, because some 3rd parties (e.g werkzeug) will set a level on their
+        # loggers if there isn't one, which might be different than the one we desire.
         'loggers': {
             'knowlift': {
                 'level': 'DEBUG',
-                'handlers': ['default'],
-                'propagate': False,
             },
             'sqlalchemy': {
                 'level': 'DEBUG',
-                'handlers': ['default'],
-                'propagate': False,
             },
             'werkzeug': {
                 'level': 'DEBUG',
-                'handlers': ['default'],
-                'propagate': False,
             },
         },
         'root': {
@@ -165,10 +165,6 @@ class ProductionConfig(Config):
             'default': {
                 'class': 'logging.StreamHandler',
                 'formatter': 'default',
-            },
-            'console': {
-                'class': 'logging.StreamHandler',
-                'formatter': 'default',
                 'filters': ['console_filter'],
             },
             'file': {
@@ -183,23 +179,17 @@ class ProductionConfig(Config):
         'loggers': {
             'knowlift': {
                 'level': 'WARNING',
-                'handlers': ['console', 'file'],
-                'propagate': False,
             },
             'sqlalchemy': {
                 'level': 'WARNING',
-                'handlers': ['console', 'file'],
-                'propagate': False,
             },
             'werkzeug': {
                 'level': 'WARNING',
-                'handlers': ['console', 'file'],
-                'propagate': False,
             },
         },
         'root': {
             'level': 'WARNING',
-            'handlers': ['default'],
+            'handlers': ['default', 'file'],
         },
     }
 
@@ -230,18 +220,12 @@ class DevelopmentConfig(Config):
         'loggers': {
             'knowlift': {
                 'level': 'WARNING',
-                'handlers': ['default'],
-                'propagate': False,
             },
             'sqlalchemy': {
                 'level': 'WARNING',
-                'handlers': ['default'],
-                'propagate': False,
             },
             'werkzeug': {
                 'level': 'DEBUG',
-                'handlers': ['default'],
-                'propagate': False,
             },
         },
         'root': {
@@ -277,18 +261,12 @@ class TestConfig(Config):
         'loggers': {
             'knowlift': {
                 'level': 'WARNING',
-                'handlers': ['default'],
-                'propagate': False,
             },
             'sqlalchemy': {
                 'level': 'WARNING',
-                'handlers': ['default'],
-                'propagate': False,
             },
             'werkzeug': {
                 'level': 'WARNING',
-                'handlers': ['default'],
-                'propagate': False,
             },
         },
         'root': {
